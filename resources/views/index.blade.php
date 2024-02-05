@@ -1,11 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1> hello </h1>
-</body>
-</html>
+@extends('layouts.web')
+ 
+@section('title', 'أفضل متجر عربي للعبة قنشن')
+ 
+@section('content')
+
+    <div class="mx-auto max-w-[1280px]">
+
+        <h1 class="text-3xl font-bold underline">
+            Hello world!
+        </h1>
+
+    </div>
+
+@endsection
