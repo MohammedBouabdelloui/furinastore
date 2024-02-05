@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('roles', function (Blueprint $table) {
+        Schema::create('genshin_account_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->string('name');
+            $table->string('account_id');
+            $table->enum('server', ['اوروبا', 'أمريكا', 'أسيا']);
             $table->timestamps();
         });
     }
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('roles');
+        Schema::dropIfExists('genshin_account_details');
     }
 };

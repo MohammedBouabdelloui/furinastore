@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('manages', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+
+            $table->unsignedBigInteger('managed_item_id')->nullable();
+            $table->string('managed_table_type')->nullable();
+
+            $table->string('action');
+            $table->string('description');
             $table->timestamps();
         });
     }

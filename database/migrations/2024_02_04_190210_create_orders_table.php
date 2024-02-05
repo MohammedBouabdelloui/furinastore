@@ -13,6 +13,17 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+
+            $table->unsignedBigInteger('ordered_item_id')->nullable();
+            $table->string('ordered_table_type')->nullable();
+
+            $table->string('account_id');
+            $table->enum('server', ['اوروبا', 'أمريكا', 'أسيا']);
+            $table->integer('quantity_chosen');
+            $table->enum('order_status', ['pinned', 'canceled', 'done', 'confirmed']);
+            $table->integer('value_chosen');
+
             $table->timestamps();
         });
     }

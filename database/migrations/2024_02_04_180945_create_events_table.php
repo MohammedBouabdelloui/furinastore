@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
+            $table->string('title', 255);
+            $table->decimal('price', 12, 2);
+            $table->string('description', 255);
+            $table->boolean('is_available');
+            $table->integer('duration');
+            $table->string('picture');
             $table->timestamps();
         });
     }
