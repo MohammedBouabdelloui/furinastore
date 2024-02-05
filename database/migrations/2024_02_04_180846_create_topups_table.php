@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('topups', function (Blueprint $table) {
             $table->id();
+            $table->string('title', 255);
+            $table->decimal('price', 12, 2);
+            $table->string('description', 255);
+            $table->boolean('is_available');
+            $table->string('picture');
             $table->timestamps();
         });
     }

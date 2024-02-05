@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('discounts', function (Blueprint $table) {
             $table->id();
+
+            $table->unsignedBigInteger('discounted_item_id')->nullable();
+            $table->string('discounted_table_type')->nullable();
+
+            $table->decimal('percentage', 5, 2)->min(0.1)->max(7);
+            $table->integer('duration');
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
     }
