@@ -21,6 +21,8 @@
 </head>
 <body class="bg-slate-50">
 
+    {{-- Navbar: --}}
+    
     @section('navbar')
 
     <nav class="bg-white">
@@ -64,6 +66,8 @@
                     </svg>
                     <span class="text-white px-1">حسابي</span>
                 </button>
+
+                {{-- RegisterModal --}}
 
                 <div id="registerModal" class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 hidden">
                     <div class="flex items-center justify-center min-h-screen">

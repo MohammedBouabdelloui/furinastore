@@ -1,4 +1,4 @@
-@extends('layouts.web')
+@extends('layouts.app')
  
 @section('title', 'أفضل متجر عربي للعبة قنشن')
  
@@ -6,9 +6,6 @@
 
     <div class="mx-auto max-w-[1280px]">
 
-        <h1 class="text-3xl font-bold underline">
-            Hello world!
-        </h1>
 
     </div>
 
