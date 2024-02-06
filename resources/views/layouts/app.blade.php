@@ -125,6 +125,10 @@
 
                             <button id="openLoginModal" class="font-cairo text-center text-sm text-gray-500 py-1">تمتلك حساب مسبقا؟ أدخل الان.</button>
 
+                            <br>
+                            
+                            <button id="openConfirmationModal" class="font-cairo text-center text-sm text-gray-500 py-1">التحقق.</button>
+
                         </div>
                     </div>
                 </div>
@@ -178,6 +182,48 @@
         @yield('content')
     </div>
 
+
+     {{-- confirmationModal: --}}
+
+     <div id="confirmationModal" class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-slate-50 w-[90%] max-w-md p-6 rounded-md shadow-md">
+                <button dir="rtl" id="closeConfirmationModalButton" class="text-gray-600 hover:text-gray-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+
+                <div dir="rtl" class="mb-4 text-center">
+                    <h2 class="text-2xl pb-2 font-semibold font-cairo">أدخل رمز التحقق الذي تم ارساله في ايميلك الشخصي</h2>
+                    <button id="closeConfirmationModal" class="absolute top-0 right-0 mt-4 mr-4 text-gray-600 hover:text-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+
+                <form dir="rtl" class="font-cairo">
+
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-600">الايميل الشخصي</label>
+                        <input type="email" id="email" name="email" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100" readonly>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="code" class="block text-sm font-medium text-gray-600">أدخل الرمز</label>
+                        <input type="number" id="code" name="code" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
+                    </div>
+
+                    <button type="submit" class="w-full mt-2 mb-3 p-2 bg-blue-600 text-white rounded-sm hover:bg-blue-500">تحقق الان</button>
+
+                </form>
+                
+            </div>
+        </div>
+    </div>
 
     {{-- LoginModal: --}}
 
@@ -298,14 +344,21 @@
         const openMenuModalButton = document.getElementById('openMenuModal');
         const closeMenuModalButton = document.getElementById('closeMenuModal');
         const closeMenuModalSecondButton = document.getElementById('closeMenuModalButton');
-
+        
         // Open modals from menuModal
         const openLoginModalAgain = document.getElementById('openLoginModalAgain');
         const openRegisterModalAgain = document.getElementById('openRegisterModalAgain');
-
+        
+        // confirmationModal
+        const confirmationModal = document.getElementById('confirmationModal');
+        const openConfirmationModalButton = document.getElementById('openConfirmationModal');
+        const closeConfirmationModalButton = document.getElementById('closeConfirmationModal');
+        const closeConfirmationModalSecondButton = document.getElementById('closeConfirmationModalButton');
+        
         const openModal = () => {
             menuModal.classList.add('hidden');
             loginModal.classList.add('hidden');
+            confirmationModal.classList.add('hidden');
             registerModal.classList.remove('hidden');
         };
 
@@ -316,6 +369,7 @@
         const openLoginModal = () => {
             menuModal.classList.add('hidden');
             registerModal.classList.add('hidden');
+            confirmationModal.classList.add('hidden');
             loginModal.classList.remove('hidden');
         };
         
@@ -326,11 +380,23 @@
         const openMenuModal = () => {
             registerModal.classList.add('hidden');
             loginModal.classList.add('hidden');
+            confirmationModal.classList.add('hidden');
             menuModal.classList.remove('hidden');
         };
         
         const closeMenuModal = () => {
             menuModal.classList.add('hidden');
+        };
+
+        const openConfirmationModal = () => {
+            registerModal.classList.add('hidden');
+            loginModal.classList.add('hidden');
+            menuModal.classList.add('hidden');
+            confirmationModal.classList.remove('hidden');
+        };
+        
+        const closeConfirmationModal = () => {
+            confirmationModal.classList.add('hidden');
         };
 
         openModalButton.addEventListener('click', openModal);
@@ -348,6 +414,10 @@
         
         openLoginModalAgain.addEventListener('click', openLoginModal);
         openRegisterModalAgain.addEventListener('click', openModal);
+
+        openConfirmationModalButton.addEventListener('click', openConfirmationModal);
+        closeConfirmationModalButton.addEventListener('click', closeConfirmationModal);
+        closeConfirmationModalSecondButton.addEventListener('click', closeConfirmationModal);
 
         registerModal.addEventListener('click', (event) => {
             if (event.target === registerModal) {
