@@ -7,7 +7,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
-
+use Stevebauman\Location\Facades\Location;
 class UserController extends Controller
 {
     /**
@@ -31,18 +31,32 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        
+
         $request->validate([
             'firstName' => 'required|string|max:255',
             'lastName' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
-            'password' => 'required| min:6| |confirmed',
+            'password' => 'required|string| min:6| |confirmed',
             
         ]);
- 
+
+        //get user ip adress
+        
+        $ip = $request->ip();
+        $position = Location::get('41.87.159.255');
+
+        $countryCode = $position->countryCode; 
+
+        $country = Country::where('iso_code', $countryCode)->first();
+
+        if ($country) {
+            $country_id = $country->id;
+        } else {
+            $country_id = 1;
+        }
+
         User::create([
-            'country_id' => Country::inRandomOrder()->first()->id,
+            'country_id' => $country_id,
             'first_name' => $request->firstName,
             'last_name' => $request->lastName,
             'email' => $request->email,
