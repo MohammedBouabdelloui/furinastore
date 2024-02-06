@@ -22,7 +22,7 @@
 <body class="bg-slate-50">
 
     {{-- Navbar: --}}
-    
+
     @section('navbar')
 
     <nav class="bg-white">
@@ -71,7 +71,7 @@
 
                 <div id="registerModal" class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 hidden">
                     <div class="flex items-center justify-center min-h-screen">
-                        <div class="bg-slate-50 w-full max-w-md p-6 rounded-md shadow-md">
+                        <div class="bg-slate-50 w-[90%] max-w-md p-6 rounded-md shadow-md">
                             <button dir="rtl" id="closeModalButton" class="text-gray-600 hover:text-gray-800">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -123,7 +123,7 @@
                                 
                             </form>
 
-                            <button id="openLoginModal" class="text-center text-sm text-gray-500 py-1">تمتلك حساب مسبقا؟ أدخل الان.</button>
+                            <button id="openLoginModal" class="font-cairo text-center text-sm text-gray-500 py-1">تمتلك حساب مسبقا؟ أدخل الان.</button>
 
                         </div>
                     </div>
@@ -155,7 +155,7 @@
                 </div>
             </div>
 
-            <button class="md:hidden block xl:p-3 xl:mx-2 mx-1 p-2 font-normal bg-blue-100 rounded-full">
+            <button id="openMenuModal" class="md:hidden block xl:p-3 xl:mx-2 mx-1 p-2 font-normal bg-blue-100 rounded-full">
                 <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" style="fill: rgb(0, 0, 0);transform: ;msFilter:;"><path d="M19 13.586V10c0-3.217-2.185-5.927-5.145-6.742C13.562 2.52 12.846 2 12 2s-1.562.52-1.855 1.258C7.185 4.074 5 6.783 5 10v3.586l-1.707 1.707A.996.996 0 0 0 3 16v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2a.996.996 0 0 0-.293-.707L19 13.586zM19 17H5v-.586l1.707-1.707A.996.996 0 0 0 7 14v-4c0-2.757 2.243-5 5-5s5 2.243 5 5v4c0 .266.105.52.293.707L19 16.414V17zm-7 5a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22z"></path></svg>
             </button>
 
@@ -183,7 +183,7 @@
 
     <div id="loginModal" class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 hidden">
         <div class="flex items-center justify-center min-h-screen">
-            <div class="bg-slate-50 w-full max-w-md p-6 rounded-md shadow-md">
+            <div class="bg-slate-50 w-[90%] max-w-md p-6 rounded-md shadow-md">
                 <button dir="rtl" id="closeLoginModalButton" class="text-gray-600 hover:text-gray-800">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -192,7 +192,7 @@
                 </button>
 
                 <div dir="rtl" class="mb-4 text-center">
-                    <h2 class="text-2xl pb-2 font-semibold font-cairo">مرحبا بك, قم بانشاء حسابك</h2>
+                    <h2 class="text-2xl pb-2 font-semibold font-cairo">مرحبا بك, قم بتسجيل الدخول</h2>
                     <button id="closeLoginModal" class="absolute top-0 right-0 mt-4 mr-4 text-gray-600 hover:text-gray-800">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -213,12 +213,67 @@
                         <input type="password" id="password" name="password" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
                     </div>
 
-                    <button type="submit" class="w-full mt-2 mb-3 p-2 bg-blue-600 text-white rounded-sm hover:bg-blue-500">سجل الان</button>
+                    <button type="submit" class="w-full mt-2 mb-3 p-2 bg-blue-600 text-white rounded-sm hover:bg-blue-500">أدخل الان</button>
 
-                    <button id="openLoginModal" class="text-center text-sm text-gray-500 py-1">تمتلك حساب مسبقا؟ أدخل الان.</button>
+                    
+                </form>
+                
+                <button id="backToRegisterModal" class="font-cairo text-center text-sm text-gray-500 py-1">ليس لديك حساب؟ سجل الان.</button>
+
+            </div>
+        </div>
+    </div>
+
+    {{-- MenuModal: --}}
+
+    <div id="menuModal" class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-slate-50 w-[90%] max-w-md p-6 rounded-md shadow-md">
+                <button dir="rtl" id="closeMenuModalButton" class="text-gray-600 hover:text-gray-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+
+                <div dir="rtl" class="mb-4 text-center">
+                    <button id="closeMenuModal" class="absolute top-0 right-0 mt-4 mr-4 text-gray-600 hover:text-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+
+                <form dir="rtl" class="font-cairo flex flex-col justify-center items-center">
+
+                    <a href="" class="text-blue-400 py-2 opacity-95 text-lg">
+                        الصفحة الرئيسية
+                    </a>
+                    <a href="" class="text-blue-400 py-2 opacity-95 text-lg">
+                        التخفيضات المتجر
+                    </a>
+                    <a href="" class="text-blue-400 py-2 opacity-95 text-lg">
+                        عمليات الشحن
+                    </a>
+                    <a href="" class="text-blue-400 py-2 opacity-95 text-lg">
+                        خدمات قنشن
+                    </a>
+                    <a href="" class="text-blue-400 py-2 opacity-95 text-lg">
+                        حسابات المعلنين
+                    </a>
+                    <a href="" class="text-blue-400 py-2 opacity-95 text-lg">
+                        عروضنا
+                    </a>
+
+                    
                     
                 </form>
 
+                <div class="font-cairo flex justify-between items-center">
+                    <button id="openLoginModalAgain" class="text-center text-sm text-gray-500 p-1">تسجيل الدخول</button>
+                    <button id="openRegisterModalAgain" class="text-center text-sm text-gray-500 p-1">أنشئ حسابك</button>
+                </div>
 
             </div>
         </div>
@@ -236,9 +291,21 @@
         const openLoginModalButton = document.getElementById('openLoginModal');
         const closeLoginModalButton = document.getElementById('closeLoginModal');
         const closeLoginModalSecondButton = document.getElementById('closeLoginModalButton');
+        const backToRegisterModal = document.getElementById('backToRegisterModal');
         
+        // menuModal
+        const menuModal = document.getElementById('menuModal');
+        const openMenuModalButton = document.getElementById('openMenuModal');
+        const closeMenuModalButton = document.getElementById('closeMenuModal');
+        const closeMenuModalSecondButton = document.getElementById('closeMenuModalButton');
+
+        // Open modals from menuModal
+        const openLoginModalAgain = document.getElementById('openLoginModalAgain');
+        const openRegisterModalAgain = document.getElementById('openRegisterModalAgain');
 
         const openModal = () => {
+            menuModal.classList.add('hidden');
+            loginModal.classList.add('hidden');
             registerModal.classList.remove('hidden');
         };
 
@@ -247,12 +314,23 @@
         };
 
         const openLoginModal = () => {
+            menuModal.classList.add('hidden');
             registerModal.classList.add('hidden');
             loginModal.classList.remove('hidden');
         };
         
         const closeLoginModal = () => {
             loginModal.classList.add('hidden');
+        };
+
+        const openMenuModal = () => {
+            registerModal.classList.add('hidden');
+            loginModal.classList.add('hidden');
+            menuModal.classList.remove('hidden');
+        };
+        
+        const closeMenuModal = () => {
+            menuModal.classList.add('hidden');
         };
 
         openModalButton.addEventListener('click', openModal);
@@ -262,6 +340,14 @@
         openLoginModalButton.addEventListener('click', openLoginModal);
         closeLoginModalButton.addEventListener('click', closeLoginModal);
         closeLoginModalSecondButton.addEventListener('click', closeLoginModal);
+        backToRegisterModal.addEventListener('click', openModal);
+
+        openMenuModalButton.addEventListener('click', openMenuModal);
+        closeMenuModalButton.addEventListener('click', closeMenuModal);
+        closeMenuModalSecondButton.addEventListener('click', closeMenuModal);
+        
+        openLoginModalAgain.addEventListener('click', openLoginModal);
+        openRegisterModalAgain.addEventListener('click', openModal);
 
         registerModal.addEventListener('click', (event) => {
             if (event.target === registerModal) {
@@ -279,6 +365,7 @@
             if (event.key === 'Escape') {
                 closeModal();
                 closeLoginModal();
+                closeMenuModal();
             }
         });
 
