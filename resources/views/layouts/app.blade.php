@@ -116,11 +116,10 @@
                                 </div>
 
                                 <button type="submit" class="w-full mt-2 mb-3 p-2 bg-blue-600 text-white rounded-sm hover:bg-blue-500">سجل الان</button>
-
-                                <a href="" class="text-center text-sm text-gray-500 py-1">تمتلك حساب مسبقا؟ أدخل الان.</a>
                                 
                             </form>
 
+                            <button id="openLoginModal" class="text-center text-sm text-gray-500 py-1">تمتلك حساب مسبقا؟ أدخل الان.</button>
 
                         </div>
                     </div>
@@ -175,11 +174,65 @@
         @yield('content')
     </div>
 
+
+    {{-- LoginModal: --}}
+
+    <div id="loginModal" class="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 hidden">
+        <div class="flex items-center justify-center min-h-screen">
+            <div class="bg-slate-50 w-full max-w-md p-6 rounded-md shadow-md">
+                <button dir="rtl" id="closeLoginModalButton" class="text-gray-600 hover:text-gray-800">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+
+                <div dir="rtl" class="mb-4 text-center">
+                    <h2 class="text-2xl pb-2 font-semibold font-cairo">مرحبا بك, قم بانشاء حسابك</h2>
+                    <button id="closeLoginModal" class="absolute top-0 right-0 mt-4 mr-4 text-gray-600 hover:text-gray-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+
+                <form dir="rtl" class="font-cairo">
+
+                    <div class="mb-4">
+                        <label for="email" class="block text-sm font-medium text-gray-600">الايميل الشخصي</label>
+                        <input type="email" id="email" name="email" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="password" class="block text-sm font-medium text-gray-600">أدخل كلمة سر</label>
+                        <input type="password" id="password" name="password" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
+                    </div>
+
+                    <button type="submit" class="w-full mt-2 mb-3 p-2 bg-blue-600 text-white rounded-sm hover:bg-blue-500">سجل الان</button>
+
+                    <button id="openLoginModal" class="text-center text-sm text-gray-500 py-1">تمتلك حساب مسبقا؟ أدخل الان.</button>
+                    
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+
     <script>
+        // registerModal
         const registerModal = document.getElementById('registerModal');
         const openModalButton = document.getElementById('openModal');
         const closeModalButton = document.getElementById('closeModal');
         const closeModalSecondButton = document.getElementById('closeModalButton');
+        
+        // loginModal
+        const loginModal = document.getElementById('loginModal');
+        const openLoginModalButton = document.getElementById('openLoginModal');
+        const closeLoginModalButton = document.getElementById('closeLoginModal');
+        const closeLoginModalSecondButton = document.getElementById('closeLoginModalButton');
+        
 
         const openModal = () => {
             registerModal.classList.remove('hidden');
@@ -189,9 +242,22 @@
             registerModal.classList.add('hidden');
         };
 
+        const openLoginModal = () => {
+            registerModal.classList.add('hidden');
+            loginModal.classList.remove('hidden');
+        };
+        
+        const closeLoginModal = () => {
+            loginModal.classList.add('hidden');
+        };
+
         openModalButton.addEventListener('click', openModal);
         closeModalButton.addEventListener('click', closeModal);
         closeModalSecondButton.addEventListener('click', closeModal);
+
+        openLoginModalButton.addEventListener('click', openLoginModal);
+        closeLoginModalButton.addEventListener('click', closeLoginModal);
+        closeLoginModalSecondButton.addEventListener('click', closeLoginModal);
 
         registerModal.addEventListener('click', (event) => {
             if (event.target === registerModal) {
@@ -199,11 +265,19 @@
             }
         });
 
+        loginModal.addEventListener('click', (event) => {
+            if (event.target === loginModal) {
+                closeLoginModal();
+            }
+        });
+
         document.addEventListener('keydown', (event) => {
             if (event.key === 'Escape') {
                 closeModal();
+                closeLoginModal();
             }
         });
+
     </script>
 
 
