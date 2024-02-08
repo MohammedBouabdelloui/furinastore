@@ -461,7 +461,11 @@
         });
         @if($errors->all())
             openModal();
-        @endif   
+        @endif
+        
+        @if(session('success'))
+            openConfirmationModal()
+        @endif
     </script>
     
     </body>
