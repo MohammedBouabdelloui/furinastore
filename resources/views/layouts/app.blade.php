@@ -457,9 +457,9 @@
                 closeMenuModal();
             }
         });
-        @isset($errors)
+        @if($errors->all())
             openModal();
-        @endisset   
+        @endif   
     </script>
     
 
