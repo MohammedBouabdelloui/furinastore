@@ -31,9 +31,6 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-
-        //get user ip adress
-        
         $ip = $request->ip();
         $position = Location::get('41.87.159.255');
 
