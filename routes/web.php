@@ -22,3 +22,4 @@ Route::get('/', function (Request $request) {
 });
 
 Route::resource('user', UserController::class);
+

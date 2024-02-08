@@ -32,14 +32,6 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
 
-        $request->validate([
-            'firstName' => 'required|string|max:255',
-            'lastName' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string| min:6| |confirmed',
-            
-        ]);
-
         //get user ip adress
         
         $ip = $request->ip();

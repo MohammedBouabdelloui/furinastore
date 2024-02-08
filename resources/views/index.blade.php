@@ -1,25 +1,68 @@
-@extends('layouts.web')
+@extends('layouts.app')
  
 @section('title', 'أفضل متجر عربي للعبة قنشن')
  
 @section('content')
 
-    <div class="mx-auto max-w-[1280px]">
-    @if(session('success'))
-    <div class="bg-green-200 border-l-4 border-green-500 text-green-700 p-4 mt-4 relative">
-        <p class="pr-6">{{ session('success') }}</p>
-        <button class="absolute top-0 right-0 mt-1 mr-2 text-sm text-green-700 cursor-pointer" onclick="this.parentElement.style.display='none'">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                <path fill-rule="evenodd" d="M14.293 5.293a1 1 0 0 0-1.414 0L10 8.586 6.707 5.293a1 1 0 1 0-1.414 1.414L8.586 10l-3.293 3.293a1 1 0 1 0 1.414 1.414L10 11.414l3.293 3.293a1 1 0 0 0 1.414-1.414L11.414 10l3.293-3.293a1 1 0 0 0 0-1.414z"/>
-            </svg>
-        </button>
+    <style>
+        .slider-content {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .slide {
+            flex: 0 0 100%;
+            max-width: 100%;
+        }
+
+    </style>
+
+<div class="mx-auto my-6 max-w-[95%] xl:max-w-[1280px] overflow-hidden relative">
+    <div class="slider-content" id="sliderContent">
+        <div class="slide">
+            <img class="w-full object-cover h-auto xl:h-[400px] rounded-lg" src="{{ asset('img/banners/banner1.jpg') }}" alt="Slide 1">
         </div>
-    @endif
-
-        <h1 class="text-3xl font-bold underline">
-            Hello world!
-        </h1>
-
+        <div class="slide">
+            <img class="w-full object-cover h-auto xl:h-[400px] rounded-lg" src="{{ asset('img/banners/banner2.jpg_large') }}" alt="Slide 2">
+        </div>
+        <div class="slide">
+            <img class="w-full object-cover h-auto xl:h-[400px] rounded-lg" src="{{ asset('img/banners/banner3.webp') }}" alt="Slide 3">
+        </div>
     </div>
+    <div class="slider-buttons absolute bottom-[45%] left-0 w-full flex justify-between px-1 xl:px-3">
+        <button onclick="goToSlide(currentIndex - 1)" class="px-1 py-1 bg-blue-800 text-white rounded-full text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" style="fill: rgb(255, 255, 255);transform: ;msFilter:;"><path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"></path></svg>
+        </button>
+        <button onclick="goToSlide(currentIndex + 1)" class="px-1 py-1 bg-blue-800 text-white rounded-full text-center">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" style="fill: rgb(255, 255, 255);transform: ;msFilter:;"><path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z"></path></svg>
+        </button>
+    </div>
+</div>
+
+<script>
+    let sliderContent = document.querySelector('.slider-content');
+    let slides = document.querySelectorAll('.slide');
+
+    let currentIndex = 0;
+    let totalSlides = slides.length;
+
+    function goToSlide(index) {
+        if (index < 0) {
+            index = totalSlides - 1;
+        } else if (index >= totalSlides) {
+            index = 0;
+        }
+
+        currentIndex = index;
+
+        let offset = -currentIndex * 100;
+        sliderContent.style.transform = `translateX(${offset}%)`;
+    }
+
+    setInterval(() => {
+        goToSlide(currentIndex + 1);
+    }, 4000); 
+</script>
+
 
 @endsection
