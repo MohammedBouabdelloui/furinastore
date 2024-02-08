@@ -92,29 +92,44 @@
                                 </button>
                             </div>
 
-                            <form dir="rtl" class="font-cairo">
-
+                            <form action="{{route('user.store')}}" method="POST"  dir="rtl" class="font-cairo">
+                                @csrf
                                 <div class="mb-4 flex flex-wrap">
 
                                     <div class="w-full sm:w-1/2 pl-1">
                                         <label for="firstName" class="block text-sm font-medium text-gray-600">الاسم الشخصي</label>
-                                        <input type="text" id="firstName" name="firstName" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
+                                        <input value="{{old('firstName')}}" type="text" id="firstName" name="firstName" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
+                                        @error('firstName')
+                                            <span class="text-red-500">{{ $message }}</span>
+                                        @enderror
                                     </div>
-                                    
+                          
                                     <div class="w-full sm:w-1/2 pr-1">
                                         <label for="lastName" class="block text-sm font-medium text-gray-600">الاسم العائلي</label>
-                                        <input type="text" id="lastName" name="lastName" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
+                                        <input value="{{old('lastName')}} "type="text" id="lastName" name="lastName" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
+
+                                        @error('lastName')
+                                            <span class="text-red-500">{{ $message }}</span>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="email" class="block text-sm font-medium text-gray-600">الايميل الشخصي</label>
-                                    <input type="email" id="email" name="email" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
+                                    <input value="{{old('email')}}" type="email" id="email" name="email" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
+
+                                    @error('email')
+                                            <span class="text-red-500">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="mb-4">
                                     <label for="password" class="block text-sm font-medium text-gray-600">أدخل كلمة سر</label>
                                     <input type="password" id="password" name="password" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
+
+                                    @error('password')
+                                            <span class="text-red-500">{{ $message }}</span>
+                                    @enderror
                                 </div>
 
                                 <div class="mb-4">
@@ -209,7 +224,6 @@
                 </div>
 
                 <form dir="rtl" class="font-cairo">
-
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-600">الايميل الشخصي</label>
                         <input type="email" id="email" name="email" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100" readonly>
@@ -441,9 +455,11 @@
                 closeMenuModal();
             }
         });
-
+        @isset($errors)
+            openModal();
+        @endisset   
     </script>
-
+    
 
     </body>
 </html>
