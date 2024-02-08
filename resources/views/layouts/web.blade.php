@@ -211,7 +211,7 @@
         @isset($errors)
            
             @push('scripts')
-            closeModal();
+            openModal();
             @endpush
         @endisset
      
