@@ -135,8 +135,8 @@
                                 </div>
 
                                 <div class="mb-4">
-                                    <label for="password" class="block text-sm font-medium text-gray-600">أدخل كلمة سر مجددا</label>
-                                    <input type="password" id="password" name="password" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
+                                    <label for="password_confirmation" class="block text-sm font-medium text-gray-600">أدخل كلمة سر مجددا</label>
+                                    <input type="password" id="password" name="password_confirmation" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
                                 </div>
 
                                 <button type="submit" class="w-full mt-2 mb-3 p-2 bg-blue-600 text-white rounded-sm hover:bg-blue-500">سجل الان</button>
