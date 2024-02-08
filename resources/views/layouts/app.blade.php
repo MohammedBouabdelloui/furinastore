@@ -13,16 +13,18 @@
     
     <link rel="icon" type="image/png" href="{{ asset('larger_favicon.png') }}" sizes="64x64">
 
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-    
 
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.js"></script>
+    
     @vite('resources/css/app.css')
 
 </head>
-<body class="bg-slate-50">
+<body class="bg-white">
 
     {{-- Navbar: --}}
 
@@ -181,7 +183,7 @@
       
     @show
 
-    <div class="container">
+    <div class="container mx-auto">
         @yield('content')
     </div>
 
