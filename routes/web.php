@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\UserController;
+use Illuminate\Http\Request;
+use Stevebauman\Location\Facades\Location;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,9 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
+Route::get('/', function (Request $request) {
+    $ip = $request->ip();
+    $position = Location::get('41.87.159.255');
+    return view('index' ,compact('position'));
 });
-Route::get('/test', function () {
-    return view('test');
-});
+
+Route::resource('user', UserController::class);
+
