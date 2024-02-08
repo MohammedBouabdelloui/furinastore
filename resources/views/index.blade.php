@@ -5,7 +5,6 @@
 @section('content')
 
     <style>
-
         .slider-content {
             display: flex;
             transition: transform 0.5s ease;
