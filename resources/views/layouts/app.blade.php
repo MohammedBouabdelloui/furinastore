@@ -145,6 +145,10 @@
 
                             <button id="openLoginModal" class="font-cairo text-center text-sm text-gray-500 py-1">تمتلك حساب مسبقا؟ أدخل الان.</button>
 
+                            <br>
+                            
+                            <button id="openConfirmationModal" class="hidden font-cairo text-center text-sm text-gray-500 py-1">التحقق.</button>
+
                         </div>
                     </div>
                 </div>
@@ -230,6 +234,9 @@
                         <input type="email" id="email" value="{{ session('userEmail') }}" name="email" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100" readonly>
                     </div>
                     
+                    @if(session('errorConfirmation'))
+                        <span class="text-red-500 bg-red-100 p-2 block">{{ session('errorConfirmation') }}</span>
+                    @endif
 
                     <div class="mb-4">
                         <label for="code" class="block text-sm font-medium text-gray-600">أدخل الرمز</label>
@@ -464,6 +471,10 @@
         @endif
         
         @if(session('success'))
+            openConfirmationModal()
+        @endif
+        
+        @if(session('errorConfirmation'))
             openConfirmationModal()
         @endif
 

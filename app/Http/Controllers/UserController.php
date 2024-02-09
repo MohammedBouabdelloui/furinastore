@@ -77,7 +77,9 @@ class UserController extends Controller
             'confirmation_code' => 'required|string'
         ]);
 
-        $user = User::where('email', $request->email)
+        $userEmail = $request->email;
+
+        $user = User::where('email', $userEmail)
                     ->where('confirmation_code', $request->confirmation_code)
                     ->first();
 
@@ -86,9 +88,9 @@ class UserController extends Controller
             
             Auth::login($user);
 
-            return back()->with("loginSuccess", "تم تسجيل الدخول بنجاح! 🎉");
+            return redirect()->back()->with("confirmationSuccess", "تم تسجيل الدخول بنجاح! 🎉");
         } else {
-            return back()->with('errorLogin', 'فشل في التحقق، الرمز الذي أدخلته غير صحيح.');
+            return redirect()->back()->with(['userEmail' => $userEmail, 'errorConfirmation' => 'فشل في التحقق، الرمز الذي أدخلته غير صحيح.']);
         }
     }
 
