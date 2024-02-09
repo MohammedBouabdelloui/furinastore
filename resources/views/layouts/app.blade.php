@@ -160,7 +160,7 @@
 
                             <br>
                             
-                            <button id="openConfirmationModal" class="font-cairo text-center text-sm text-gray-500 py-1">التحقق.</button>
+                            <button id="openConfirmationModal" class="hidden font-cairo text-center text-sm text-gray-500 py-1">التحقق.</button>
 
                         </div>
                     </div>
@@ -239,21 +239,35 @@
                     </button>
                 </div>
 
-                <form dir="rtl" class="font-cairo">
-                    @if(session('errorLogin'))
-                        <span class="text-red-500 bg-red-100 p-2 block">{{ session('errorLogin') }}</span>
-                    @endif
+                <form action="{{ route('user.confirmation') }}" method="POST" dir="rtl" class="font-cairo">
+                    @csrf
+                    
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-600">الايميل الشخصي</label>
-                        <input type="email" id="email" name="email" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100" readonly>
+                        <input type="email" id="email" value="{{ session('userEmail') }}" name="email" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100" readonly>
                     </div>
+                    
+                    @if(session('errorConfirmation'))
+                        <span class="text-red-500 bg-red-100 p-2 block">{{ session('errorConfirmation') }}</span>
+                    @endif
 
                     <div class="mb-4">
                         <label for="code" class="block text-sm font-medium text-gray-600">أدخل الرمز</label>
-                        <input type="number" id="code" name="code" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
+                        <input type="text" id="code" name="confirmation_code" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
                     </div>
 
                     <button type="submit" class="w-full mt-2 mb-3 p-2 bg-blue-600 text-white rounded-sm hover:bg-blue-500">تحقق الان</button>
+
+                </form>
+
+                <form action="{{ route('user.confirmation.resend') }}" method="POST" dir="rtl" class="font-cairo">
+
+                    @csrf
+                    <div class="mb-4">
+                        <input type="email" id="email" value="{{ session('userEmail') }}" name="email" class="hidden mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100" readonly>
+                    </div>
+
+                    <button type="submit" class="w-full mt-2 mb-3 p-2 bg-black text-white rounded-sm hover:bg-gray-950 transition ease-in-out duration-500">طلب رمز جديد</button>
 
                 </form>
                 
@@ -480,6 +494,7 @@
                 closeMenuModal();
             }
         });
+        
         @if($errors->has('email') || $errors->has('password') || $errors->has('lastName') || $errors->has('firstName'))
             openModal();
         @endif  
@@ -487,22 +502,24 @@
         @if(session('success') || session('errorLoginConfirmation') )
             openConfirmationModal()
         @endif
+        
+        @if(session('errorConfirmation'))
+            openConfirmationModal()
+        @endif
+        
+        @if(session('confirmationCodeSentError'))
+            openConfirmationModal()
+        @endif
+        
+        @if(session('confirmationCodeSent'))
+            openConfirmationModal()
+        @endif
 
         @if(session('errorLogin'))
             openLoginModal();
         @endif
-
-
-
+        
     </script>
-        @if(session('loginSuccess'))
-            <div class="bg-green-500 text-white px-4 py-2 rounded-md shadow-md">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 inline-block mr-2" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm-3.707-7.707a1 1 0 011.414-1.414L10 12.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-                </svg>
-                {{ session('loginSuccess') }}
-            </div>
-        @endif
     
     </body>
 </html>

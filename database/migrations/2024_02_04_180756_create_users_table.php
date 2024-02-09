@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('user_facebook')->nullable();
             $table->string('user_twitter')->nullable();
             $table->enum('account_status', ['banned', 'active', 'inactive', 'unconfirmed'])->default('unconfirmed');
+            $table->string('confirmation_code')->nullable();
             $table->string('profile_picture')->nullable();
             $table->string('password');
             $table->timestamps();

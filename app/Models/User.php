@@ -10,8 +10,9 @@ use Illuminate\Notifications\Notifiable;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends AuthenticatableUser implements Authenticatable
+class User extends Authenticatable
 {
     use HasFactory;
     protected $fillable = [
@@ -28,6 +29,7 @@ class User extends AuthenticatableUser implements Authenticatable
         'account_status',
         'profile_picture',
         'password',
+        'confirmation_code',
     ];
 
     protected $hidden = [
