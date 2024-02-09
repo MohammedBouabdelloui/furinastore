@@ -160,4 +160,45 @@ class UserController extends Controller
     {
         //
     }
-}
+
+
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|string',
+        ]);
+    
+        $credentials = $request->only('email', 'password');
+        $user = User::where('email', $request->email)->first();
+
+        if($user and Hash::check($request->password, $user->password)){
+
+            if($user->account_status === 'active'){
+
+                if(auth()->attempt($credentials) ){
+                    $request->session()->regenerate();
+                    $user = auth::user();
+                    return back()->with("loginSuccess", "تم تسجيل الدخول بنجاح! 🎉");
+                    
+                }
+    
+            }else{
+                if ($user->account_status === 'unconfirmed') {
+                    return back()->with('errorLoginConfirmation', 'حسابك لم يتم تأكيده بعد. الرجاء تحقق من بريدك الإلكتروني لتأكيد الحساب.');
+                }
+        
+                if ($user->account_status === 'banned' or $user->account_status === 'inactive' ) {
+                    return back()->with('errorLogin', 'حسابك غير نشط. الرجاء التواصل مع الدعم الفني.');
+                }
+            }
+
+        }else{
+            return back()->with('errorLogin', 'فشل تسجيل الدخول. الرجاء التحقق من البريد الإلكتروني وكلمة المرور.');
+
+        }
+    
+    }
+    
+
+}   

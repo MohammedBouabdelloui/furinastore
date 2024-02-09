@@ -58,19 +58,32 @@
                     </div>
 
                 </div>
-                
+
+                @if(auth()->check())
                 <button class="p-2 mx-1 font-semibold">
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" style="fill: rgb(0, 0, 0);transform: ;msFilter:;"><path d="M19 13.586V10c0-3.217-2.185-5.927-5.145-6.742C13.562 2.52 12.846 2 12 2s-1.562.52-1.855 1.258C7.185 4.074 5 6.783 5 10v3.586l-1.707 1.707A.996.996 0 0 0 3 16v2a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-2a.996.996 0 0 0-.293-.707L19 13.586zM19 17H5v-.586l1.707-1.707A.996.996 0 0 0 7 14v-4c0-2.757 2.243-5 5-5s5 2.243 5 5v4c0 .266.105.52.293.707L19 16.414V17zm-7 5a2.98 2.98 0 0 0 2.818-2H9.182A2.98 2.98 0 0 0 12 22z"></path></svg>
 
                 </button>
 
-                <button dir="rtl" class="flex justify-end items-center mx-2 px-6 py-2 rounded-full bg-blue-700 font-cairo hover:bg-blue-500 transition ease-in-out duration-500" id="openModal">
+                <button dir="rtl" class="flex justify-end items-center mx-2 px-6 py-2 rounded-full bg-blue-700 font-cairo hover:bg-blue-500 transition ease-in-out duration-500" ">
                     
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(255, 255, 255);">
                         <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
                     </svg>
-                    <span class="text-white px-1">حسابي</span>
+                    <span class="text-white px-1">{{ auth()->user()->first_name }}</span>
                 </button>
+
+                @else
+                    <button dir="rtl" class="flex justify-end items-center mx-2 px-6 py-2 rounded-full border-2 border-blue-700 font-cairo hover:bg-blue-700 hover:text-white transition ease-in-out duration-500" id="openModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(44, 16, 228)">
+                            <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
+                        </svg>
+                        
+                        <span class="text-blue-700 hover:text-white px-1">دخول</span>
+                    </button>
+                @endif
+
+
 
                 {{-- RegisterModal --}}
 
@@ -228,7 +241,7 @@
 
                 <form action="{{ route('user.confirmation') }}" method="POST" dir="rtl" class="font-cairo">
                     @csrf
-
+                    
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-600">الايميل الشخصي</label>
                         <input type="email" id="email" value="{{ session('userEmail') }}" name="email" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100" readonly>
@@ -284,12 +297,17 @@
                     </button>
                 </div>
 
-                <form dir="rtl" class="font-cairo">
+                <form  action="{{route('user.login')}}" method="POST" dir="rtl" class="font-cairo">
+                    @csrf
 
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-600">الايميل الشخصي</label>
                         <input type="email" id="email" name="email" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
                     </div>
+            
+                    @if(session('errorLogin'))
+                        <span class="text-red-500 bg-red-100 p-2 block">{{ session('errorLogin') }}</span>
+                    @endif
 
                     <div class="mb-4">
                         <label for="password" class="block text-sm font-medium text-gray-600">أدخل كلمة سر</label>
@@ -476,12 +494,12 @@
                 closeMenuModal();
             }
         });
-
-        @if($errors->all())
-            openModal();
-        @endif
         
-        @if(session('success'))
+        @if($errors->has('email') || $errors->has('password') || $errors->has('lastName') || $errors->has('firstName'))
+            openModal();
+        @endif  
+        
+        @if(session('success') || session('errorLoginConfirmation') )
             openConfirmationModal()
         @endif
         
@@ -497,6 +515,10 @@
             openConfirmationModal()
         @endif
 
+        @if(session('errorLogin'))
+            openLoginModal();
+        @endif
+        
     </script>
     
     </body>

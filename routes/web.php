@@ -24,5 +24,6 @@ Route::get('/', function (Request $request) {
 Route::resource('user', UserController::class);
 
 Route::post('user/confirm', [UserController::class, 'confirmation'])->name('user.confirmation');
-
 Route::post('user/confirm/resend', [UserController::class, 'resendConfirmationCode'])->name('user.confirmation.resend');
+
+Route::post('user/login', [UserController::class, 'login'])->name('user.login');
