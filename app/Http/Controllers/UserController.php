@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Mail\ConfirmationMail;
@@ -71,8 +72,49 @@ class UserController extends Controller
 
     public function confirmation(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email',
+            'confirmation_code' => 'required|string'
+        ]);
 
+        $user = User::where('email', $request->email)
+                    ->where('confirmation_code', $request->confirmation_code)
+                    ->first();
+
+        if ($user) {
+            $user->update(['account_status' => 'active']);
+            
+            Auth::login($user);
+
+            return back()->with("loginSuccess", "تم تسجيل الدخول بنجاح! 🎉");
+        } else {
+            return back()->with('errorLogin', 'فشل في التحقق، الرمز الذي أدخلته غير صحيح.');
+        }
     }
+
+
+    public function resendConfirmationCode(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'confirmation_code' => 'required|string'
+        ]);
+
+        $userEmail = $request->email;
+        $confirmationCode = Str::random(6);
+
+        $user = User::where('email', $userEmail)->first();
+
+        if ($user) {
+            $user->update(['confirmation_code' => $confirmationCode]);
+
+            
+            return response()->json(['message' => 'Confirmation code resent successfully'], 200);
+        }
+
+        return response()->json(['error' => 'Invalid email or confirmation code'], 422);
+    }
+
 
     /**
      * Display the specified resource.

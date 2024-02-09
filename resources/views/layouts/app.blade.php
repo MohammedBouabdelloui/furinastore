@@ -145,10 +145,6 @@
 
                             <button id="openLoginModal" class="font-cairo text-center text-sm text-gray-500 py-1">تمتلك حساب مسبقا؟ أدخل الان.</button>
 
-                            <br>
-                            
-                            <button id="openConfirmationModal" class="font-cairo text-center text-sm text-gray-500 py-1">التحقق.</button>
-
                         </div>
                     </div>
                 </div>
@@ -237,7 +233,7 @@
 
                     <div class="mb-4">
                         <label for="code" class="block text-sm font-medium text-gray-600">أدخل الرمز</label>
-                        <input type="number" id="code" name="code" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
+                        <input type="text" id="code" name="confirmation_code" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
                     </div>
 
                     <button type="submit" class="w-full mt-2 mb-3 p-2 bg-blue-600 text-white rounded-sm hover:bg-blue-500">تحقق الان</button>
