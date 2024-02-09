@@ -1,13 +1,18 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Country;
 use App\Models\User;
-use App\Http\Requests\StoreUserRequest;
-use App\Http\Requests\UpdateUserRequest;
+use App\Models\Country;
+use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
+use App\Mail\ConfirmationMail;
 use Stevebauman\Location\Facades\Location;
+use Illuminate\Support\Str;
+
 class UserController extends Controller
 {
     /**
@@ -44,16 +49,29 @@ class UserController extends Controller
             $country_id = 1;
         }
 
+        $confirmationCode = Str::random(6);
+
         User::create([
             'country_id' => $country_id,
             'first_name' => $request->firstName,
             'last_name' => $request->lastName,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'confirmation_code' => $confirmationCode,
         ]);
 
+        $userName = $request->firstName;
+        $userEmail = $request->email;
+
+        Mail::to($userEmail)->send(new ConfirmationMail($userName, $userEmail, $confirmationCode));
         
-        return redirect()->back()->with('success', 'Utilisateur ajouté avec succès!');
+        return redirect()->back()->with(['userEmail' => $userEmail, 'success' => 'Utilisateur ajouté avec succès!']);
+
+    }
+
+    public function confirmation(Request $request)
+    {
+
     }
 
     /**

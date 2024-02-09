@@ -226,11 +226,14 @@
                     </button>
                 </div>
 
-                <form dir="rtl" class="font-cairo">
+                <form action="{{ route('user.confirmation') }}" method="POST" dir="rtl" class="font-cairo">
+                    @csrf
+
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-600">الايميل الشخصي</label>
-                        <input type="email" id="email" name="email" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100" readonly>
+                        <input type="email" id="email" value="{{ session('userEmail') }}" name="email" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100" readonly>
                     </div>
+                    
 
                     <div class="mb-4">
                         <label for="code" class="block text-sm font-medium text-gray-600">أدخل الرمز</label>
@@ -459,6 +462,7 @@
                 closeMenuModal();
             }
         });
+
         @if($errors->all())
             openModal();
         @endif
@@ -466,6 +470,7 @@
         @if(session('success'))
             openConfirmationModal()
         @endif
+
     </script>
     
     </body>

@@ -22,6 +22,7 @@ class User extends Model
         'account_status',
         'profile_picture',
         'password',
+        'confirmation_code',
     ];
 
     protected $hidden = [
