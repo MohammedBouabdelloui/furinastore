@@ -89,8 +89,10 @@ class UserController extends Controller
             Auth::login($user);
 
             return redirect()->back()->with("confirmationSuccess", "تم تسجيل الدخول بنجاح! 🎉");
+
         } else {
             return redirect()->back()->with(['userEmail' => $userEmail, 'errorConfirmation' => 'فشل في التحقق، الرمز الذي أدخلته غير صحيح.']);
+
         }
     }
 
@@ -99,7 +101,6 @@ class UserController extends Controller
     {
         $request->validate([
             'email' => 'required|email',
-            'confirmation_code' => 'required|string'
         ]);
 
         $userEmail = $request->email;
@@ -110,12 +111,22 @@ class UserController extends Controller
         if ($user) {
             $user->update(['confirmation_code' => $confirmationCode]);
 
+            $userName = $user->first_name;
             
-            return response()->json(['message' => 'Confirmation code resent successfully'], 200);
+            try {
+                Mail::to($userEmail)->send(new ConfirmationMail($userName, $userEmail, $confirmationCode));
+                
+                return redirect()->back()->with(['userEmail' => $userEmail,"confirmationCodeSent" => "تم ارسال رمز تحقق جديد الى ايميلك الشخصي."]);
+
+            } catch (\Exception $e) {
+                return redirect()->back()->with(['userEmail' => $userEmail,"confirmationCodeSentError" => "حدثت مشكلة أثناء إرسال البريد الإلكتروني. الرجاء المحاولة مرة أخرى."]);
+
+            }
         }
 
-        return response()->json(['error' => 'Invalid email or confirmation code'], 422);
+        return redirect()->back()->with(['userEmail' => $userEmail,"confirmationCodeSentError" => "الايميل غير موجود أو الرمز غير صحيح."]);
     }
+
 
 
     /**

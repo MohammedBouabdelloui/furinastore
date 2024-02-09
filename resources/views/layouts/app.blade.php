@@ -246,6 +246,17 @@
                     <button type="submit" class="w-full mt-2 mb-3 p-2 bg-blue-600 text-white rounded-sm hover:bg-blue-500">تحقق الان</button>
 
                 </form>
+
+                <form action="{{ route('user.confirmation.resend') }}" method="POST" dir="rtl" class="font-cairo">
+
+                    @csrf
+                    <div class="mb-4">
+                        <input type="email" id="email" value="{{ session('userEmail') }}" name="email" class="hidden mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100" readonly>
+                    </div>
+
+                    <button type="submit" class="w-full mt-2 mb-3 p-2 bg-black text-white rounded-sm hover:bg-gray-950 transition ease-in-out duration-500">طلب رمز جديد</button>
+
+                </form>
                 
             </div>
         </div>
@@ -475,6 +486,14 @@
         @endif
         
         @if(session('errorConfirmation'))
+            openConfirmationModal()
+        @endif
+        
+        @if(session('confirmationCodeSentError'))
+            openConfirmationModal()
+        @endif
+        
+        @if(session('confirmationCodeSent'))
             openConfirmationModal()
         @endif
 
