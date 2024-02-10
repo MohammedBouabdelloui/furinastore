@@ -24,7 +24,7 @@
     @vite('resources/css/app.css')
 
 </head>
-<body class="bg-white">
+<body class="bg-slate-50">
 
     {{-- Navbar: --}}
 
