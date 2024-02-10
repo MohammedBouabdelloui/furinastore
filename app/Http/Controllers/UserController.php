@@ -1,18 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\User;
 use App\Models\Country;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Mail\ConfirmationMail;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 use Stevebauman\Location\Facades\Location;
-use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; 
+
 
 class UserController extends Controller
 {
@@ -37,6 +35,9 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+
+        //get user ip adress
+        
         $ip = $request->ip();
         $position = Location::get('41.87.159.255');
 
@@ -50,84 +51,17 @@ class UserController extends Controller
             $country_id = 1;
         }
 
-        $confirmationCode = Str::random(6);
-
         User::create([
             'country_id' => $country_id,
             'first_name' => $request->firstName,
             'last_name' => $request->lastName,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'confirmation_code' => $confirmationCode,
         ]);
 
-        $userName = $request->firstName;
-        $userEmail = $request->email;
-
-        Mail::to($userEmail)->send(new ConfirmationMail($userName, $userEmail, $confirmationCode));
         
-        return redirect()->back()->with(['userEmail' => $userEmail, 'success' => 'Utilisateur ajouté avec succès!']);
-
+        return redirect()->back()->with('success', 'Utilisateur ajouté avec succès!');
     }
-
-    public function confirmation(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-            'confirmation_code' => 'required|string'
-        ]);
-
-        $userEmail = $request->email;
-
-        $user = User::where('email', $userEmail)
-                    ->where('confirmation_code', $request->confirmation_code)
-                    ->first();
-
-        if ($user) {
-            $user->update(['account_status' => 'active']);
-            
-            Auth::login($user);
-
-            return redirect()->back()->with("confirmationSuccess", "تم تسجيل الدخول بنجاح! 🎉");
-
-        } else {
-            return redirect()->back()->with(['userEmail' => $userEmail, 'errorConfirmation' => 'فشل في التحقق، الرمز الذي أدخلته غير صحيح.']);
-
-        }
-    }
-
-
-    public function resendConfirmationCode(Request $request)
-    {
-        $request->validate([
-            'email' => 'required|email',
-        ]);
-
-        $userEmail = $request->email;
-        $confirmationCode = Str::random(6);
-
-        $user = User::where('email', $userEmail)->first();
-
-        if ($user) {
-            $user->update(['confirmation_code' => $confirmationCode]);
-
-            $userName = $user->first_name;
-            
-            try {
-                Mail::to($userEmail)->send(new ConfirmationMail($userName, $userEmail, $confirmationCode));
-                
-                return redirect()->back()->with(['userEmail' => $userEmail,"confirmationCodeSent" => "تم ارسال رمز تحقق جديد الى ايميلك الشخصي."]);
-
-            } catch (\Exception $e) {
-                return redirect()->back()->with(['userEmail' => $userEmail,"confirmationCodeSentError" => "حدثت مشكلة أثناء إرسال البريد الإلكتروني. الرجاء المحاولة مرة أخرى."]);
-
-            }
-        }
-
-        return redirect()->back()->with(['userEmail' => $userEmail,"confirmationCodeSentError" => "الايميل غير موجود أو الرمز غير صحيح."]);
-    }
-
-
 
     /**
      * Display the specified resource.
@@ -165,24 +99,18 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'emailLogin' => 'required|email',
-            'passwordLogin' => 'required|string',
-        ], [
-            'emailLogin.required' => 'حقل البريد الإلكتروني مطلوب.',
-            'emailLogin.email' => 'البريد الإلكتروني يجب أن يكون صحيحاً.',
-            'passwordLogin.required' => 'حقل كلمة المرور مطلوب.',
-            'passwordLogin.string' => 'يجب أن تكون كلمة المرور نصًا.',
+            'email' => 'required|email',
+            'password' => 'required|string',
         ]);
-        
     
-        $credentials = $request->only('emailLogin', 'passwordLogin');
-        $user = User::where('email', $request->emailLogin)->first();
-        
-        if($user and Hash::check($request->passwordLogin, $user->password)){
+        $credentials = $request->only('email', 'password');
+        $user = User::where('email', $request->email)->first();
+
+        if($user and Hash::check($request->password, $user->password)){
 
             if($user->account_status === 'active'){
 
-                if(Auth::attempt($credentials) ){
+                if(auth()->attempt($credentials) ){
                     $request->session()->regenerate();
                     $user = auth::user();
                     return back()->with("loginSuccess", "تم تسجيل الدخول بنجاح! 🎉");
@@ -191,7 +119,7 @@ class UserController extends Controller
     
             }else{
                 if ($user->account_status === 'unconfirmed') {
-                    return back()->with(['userEmail' => $request->emailLogin , 'errorLoginConfirmation'=> 'حسابك لم يتم تأكيده بعد. الرجاء تحقق من بريدك الإلكتروني لتأكيد الحساب.']);
+                    return back()->with('errorLoginConfirmation', 'حسابك لم يتم تأكيده بعد. الرجاء تحقق من بريدك الإلكتروني لتأكيد الحساب.');
                 }
         
                 if ($user->account_status === 'banned' or $user->account_status === 'inactive' ) {
@@ -200,7 +128,7 @@ class UserController extends Controller
             }
 
         }else{
-            return back()->with(['emailLogin' => $request->emailLogin , 'errorLogin'=>'فشل تسجيل الدخول. الرجاء التحقق من البريد الإلكتروني وكلمة المرور.']);
+            return back()->with('errorLogin', 'فشل تسجيل الدخول. الرجاء التحقق من البريد الإلكتروني وكلمة المرور.');
 
         }
     
