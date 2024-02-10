@@ -23,4 +23,3 @@ Route::get('/', function (Request $request) {
 
 Route::resource('user', UserController::class);
 
-Route::post('user/login', [UserController::class, 'login'])->name('user.login');
