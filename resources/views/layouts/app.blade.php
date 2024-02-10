@@ -322,6 +322,7 @@
                     <button type="submit" class="w-full mt-2 mb-3 p-2 bg-blue-600 text-white rounded-sm hover:bg-blue-500">أدخل الان</button>
 
                     
+                    
                 </form>
                 
                 <button id="backToRegisterModal" class="font-cairo text-center text-sm text-gray-500 py-1">ليس لديك حساب؟ سجل الان.</button>

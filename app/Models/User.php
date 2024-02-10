@@ -30,9 +30,11 @@ class User extends Authenticatable
         'profile_picture',
         'password',
         'confirmation_code',
+        'socail_id',
+        'socail_type',
     ];
 
     protected $hidden = [
-        'password',
+        'password','socail_id'
     ];
 }
