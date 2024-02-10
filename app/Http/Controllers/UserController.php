@@ -165,18 +165,24 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $request->validate([
-            'email' => 'required|email',
-            'password' => 'required|string',
+            'emailLogin' => 'required|email',
+            'passwordLogin' => 'required|string',
+        ], [
+            'emailLogin.required' => 'حقل البريد الإلكتروني مطلوب.',
+            'emailLogin.email' => 'البريد الإلكتروني يجب أن يكون صحيحاً.',
+            'passwordLogin.required' => 'حقل كلمة المرور مطلوب.',
+            'passwordLogin.string' => 'يجب أن تكون كلمة المرور نصًا.',
         ]);
+        
     
-        $credentials = $request->only('email', 'password');
-        $user = User::where('email', $request->email)->first();
-
-        if($user and Hash::check($request->password, $user->password)){
+        $credentials = $request->only('emailLogin', 'passwordLogin');
+        $user = User::where('email', $request->emailLogin)->first();
+        
+        if($user and Hash::check($request->passwordLogin, $user->password)){
 
             if($user->account_status === 'active'){
 
-                if(auth()->attempt($credentials) ){
+                if(Auth::attempt($credentials) ){
                     $request->session()->regenerate();
                     $user = auth::user();
                     return back()->with("loginSuccess", "تم تسجيل الدخول بنجاح! 🎉");
@@ -185,7 +191,7 @@ class UserController extends Controller
     
             }else{
                 if ($user->account_status === 'unconfirmed') {
-                    return back()->with('errorLoginConfirmation', 'حسابك لم يتم تأكيده بعد. الرجاء تحقق من بريدك الإلكتروني لتأكيد الحساب.');
+                    return back()->with(['userEmail' => $request->emailLogin , 'errorLoginConfirmation'=> 'حسابك لم يتم تأكيده بعد. الرجاء تحقق من بريدك الإلكتروني لتأكيد الحساب.']);
                 }
         
                 if ($user->account_status === 'banned' or $user->account_status === 'inactive' ) {
@@ -194,7 +200,7 @@ class UserController extends Controller
             }
 
         }else{
-            return back()->with('errorLogin', 'فشل تسجيل الدخول. الرجاء التحقق من البريد الإلكتروني وكلمة المرور.');
+            return back()->with(['emailLogin' => $request->emailLogin , 'errorLogin'=>'فشل تسجيل الدخول. الرجاء التحقق من البريد الإلكتروني وكلمة المرور.']);
 
         }
     

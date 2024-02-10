@@ -302,18 +302,23 @@
 
                     <div class="mb-4">
                         <label for="email" class="block text-sm font-medium text-gray-600">الايميل الشخصي</label>
-                        <input type="email" id="email" name="email" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
+                        <input type="email" value="{{ session('emailLogin') ?? old('emailLogin') }}" id="email" name="emailLogin" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
                     </div>
-            
+                    @error('emailLogin')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
+
                     @if(session('errorLogin'))
                         <span class="text-red-500 bg-red-100 p-2 block">{{ session('errorLogin') }}</span>
                     @endif
 
                     <div class="mb-4">
                         <label for="password" class="block text-sm font-medium text-gray-600">أدخل كلمة سر</label>
-                        <input type="password" id="password" name="password" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
+                        <input type="password" id="password" name="passwordLogin" class="mt-1 p-2 w-full border border-gray-300 focus:border-gray-300 focus:ring-0 rounded-md outline-none focus:outline-none bg-slate-100">
                     </div>
-
+                    @error('passwordLogin')
+                        <span class="text-red-500 text-sm">{{ $message }}</span>
+                    @enderror
                     <button type="submit" class="w-full mt-2 mb-3 p-2 bg-blue-600 text-white rounded-sm hover:bg-blue-500">أدخل الان</button>
 
                     
@@ -515,7 +520,7 @@
             openConfirmationModal()
         @endif
 
-        @if(session('errorLogin'))
+        @if(session('errorLogin') || $errors->has('passwordLogin') || $errors->has('emailLogin'))
             openLoginModal();
         @endif
         
