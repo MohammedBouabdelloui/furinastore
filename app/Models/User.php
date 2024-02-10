@@ -3,16 +3,15 @@
 namespace App\Models;
 
 
-
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Foundation\Auth\User as AuthenticatableUser;
 use Illuminate\Notifications\Notifiable;
 
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+class User extends AuthenticatableUser implements Authenticatable
 {
     use HasFactory;
     protected $fillable = [
@@ -29,7 +28,6 @@ class User extends Authenticatable
         'account_status',
         'profile_picture',
         'password',
-        'confirmation_code',
     ];
 
     protected $hidden = [
