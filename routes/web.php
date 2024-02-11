@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
+
 use Illuminate\Http\Request;
 use Stevebauman\Location\Facades\Location;
 /*
@@ -27,3 +29,8 @@ Route::post('user/confirm', [UserController::class, 'confirmation'])->name('user
 Route::post('user/confirm/resend', [UserController::class, 'resendConfirmationCode'])->name('user.confirmation.resend');
 
 Route::post('user/login', [UserController::class, 'login'])->name('user.login');
+
+Route::middleware([])->group(function(){
+    Route::get('/dashboard' , [DashboardController::class, 'index'])->name('dashboard');
+    
+});
