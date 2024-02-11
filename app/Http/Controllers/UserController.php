@@ -256,7 +256,7 @@ class UserController extends Controller
                 return redirect('/')->with('success', 'تم تسجيل الدخول بنجاح');
             }
         } catch (\Exception $e) {
-            return redirect('/')->with('error', $e->getMessage());
+            return redirect('/')->with('errorLogin', 'عدرا عناك مشكلة. الرجاء التواصل مع الدعم الفني.');
         }
     }
 
