@@ -219,7 +219,7 @@ class UserController extends Controller
     
             $userEmail = User::where('email', $user->email)->first();
     
-            if ($userEmail) {
+            if ($userEmail and $userEmail->account_status !== 'banned') {
                 $userEmail->update([
                     'account_status' => 'active',
                     'socail_id' => $user->id,
@@ -230,7 +230,7 @@ class UserController extends Controller
             } else {
                 $findUser = User::where('socail_id', $user->id)->first();
     
-                if ($findUser) {
+                if ($findUser and $userEmail->account_status !== 'banned') {
                     Auth::login($findUser);
                 } else {
                     $countryCode = $user->user['locale'];
