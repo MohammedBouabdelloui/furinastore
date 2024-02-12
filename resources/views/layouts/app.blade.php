@@ -541,7 +541,7 @@
             openLoginModal();
         @endif
         
-    </script>
+    </script>   
     
     </body>
 </html>
