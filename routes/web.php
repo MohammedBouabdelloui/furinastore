@@ -32,5 +32,5 @@ Route::post('user/login', [UserController::class, 'login'])->name('user.login');
 
 Route::middleware([])->group(function(){
     Route::get('/dashboard' , [DashboardController::class, 'index'])->name('dashboard');
-    
+    Route::get('/dashboard/produit' , [DashboardController::class , 'produit'])->name('dashboard/produit');
 });

@@ -2,7 +2,7 @@
 
 @section('content')
 
-<div class="mx-auto max-w-screen-lg px-4 py-8 sm:px-8">
+<div class="mx-auto max-w-full-lg max-h-screen px-4 py-8 sm:px-8">
     <div class="flex items-center justify-between pb-6">
       <div>
         <h2 class="font-semibold text-gray-700">User Accounts</h2>
