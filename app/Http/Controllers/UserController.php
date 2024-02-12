@@ -13,6 +13,7 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Mail\ConfirmationMail;
 use Stevebauman\Location\Facades\Location;
 use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
 
 class UserController extends Controller
 {
@@ -206,5 +207,57 @@ class UserController extends Controller
     
     }
     
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->redirect();
+    }
+    
+    public function handleGoogleCallback()
+    {
+        try {
+            $user = Socialite::driver('google')->user();
+    
+            $userEmail = User::where('email', $user->email)->first();
+    
+            if ($userEmail and $userEmail->account_status !== 'banned') {
+                $userEmail->update([
+                    'account_status' => 'active',
+                    'socail_id' => $user->id,
+                    'socail_type' => 'google',
+                ]);
+                Auth::login($userEmail);
+                return redirect('/')->with('success', 'تم تسجيل الدخول بنجاح');
+            } else {
+                $findUser = User::where('socail_id', $user->id)->first();
+    
+                if ($findUser and $userEmail->account_status !== 'banned') {
+                    Auth::login($findUser);
+                } else {
+                    $countryCode = $user->user['locale'];
+                    $country = Country::where('iso_code', $countryCode)->first();
+    
+                    $country_id = $country ? $country->id : 1;
+    
+                    $newUser = User::create([
+                        'country_id' => $country_id,
+                        'first_name' => $user->user['given_name'],
+                        'last_name' => $user->user['family_name'],
+                        'email' => $user->email,
+                        'account_status' => 'active',
+                        'socail_id' => $user->id,
+                        'socail_type' => 'google',
+                        'password' => Hash::make($user->id),
+                        'profile_picture' => $user->user['picture'],
+                    ]);
+    
+                    Auth::login($newUser);
+                }
+    
+                return redirect('/')->with('success', 'تم تسجيل الدخول بنجاح');
+            }
+        } catch (\Exception $e) {
+            return redirect('/')->with('errorLogin', 'عدرا عناك مشكلة. الرجاء التواصل مع الدعم الفني.');
+        }
+    }
 
 }   

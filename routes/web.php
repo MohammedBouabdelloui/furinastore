@@ -27,3 +27,6 @@ Route::post('user/confirm', [UserController::class, 'confirmation'])->name('user
 Route::post('user/confirm/resend', [UserController::class, 'resendConfirmationCode'])->name('user.confirmation.resend');
 
 Route::post('user/login', [UserController::class, 'login'])->name('user.login');
+
+Route::get('auth/google/callback' , [UserController::class , 'handleGoogleCallback' ] );
+Route::get('auth/google' , [UserController::class , 'redirectToGoogle']);
