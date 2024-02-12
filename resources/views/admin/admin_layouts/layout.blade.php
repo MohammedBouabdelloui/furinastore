@@ -87,19 +87,20 @@
                         <span class="ml-2 text-sm tracking-wide truncate">Messages</span>
                         </a>
                     </li>
+
+                    <li class="px-5">
+                        <div class="flex flex-row items-center h-8">
+                            <div class="text-sm font-light tracking-wide text-gray-500">Produit</div>
+                        </div>
+                    </li>
                     <li>
                         <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                         <span class="inline-flex justify-center items-center ml-4">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(75, 85, 90,1);transform: ;msFilter:;"><path d="M22 8a.76.76 0 0 0 0-.21v-.08a.77.77 0 0 0-.07-.16.35.35 0 0 0-.05-.08l-.1-.13-.08-.06-.12-.09-9-5a1 1 0 0 0-1 0l-9 5-.09.07-.11.08a.41.41 0 0 0-.07.11.39.39 0 0 0-.08.1.59.59 0 0 0-.06.14.3.3 0 0 0 0 .1A.76.76 0 0 0 2 8v8a1 1 0 0 0 .52.87l9 5a.75.75 0 0 0 .13.06h.1a1.06 1.06 0 0 0 .5 0h.1l.14-.06 9-5A1 1 0 0 0 22 16V8zm-10 3.87L5.06 8l2.76-1.52 6.83 3.9zm0-7.72L18.94 8 16.7 9.25 9.87 5.34zM4 9.7l7 3.92v5.68l-7-3.89zm9 9.6v-5.68l3-1.68V15l2-1v-3.18l2-1.11v5.7z"></path></svg>
                         </span>
-                        <span class="ml-2 text-sm tracking-wide truncate">Notifications</span>
-                  
+                        <span class="ml-2 text-sm tracking-wide truncate">Produit</span>
+                        <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-500 bg-green-50 rounded-full">15</span>
                         </a>
-                    </li>
-                    <li class="px-5">
-                        <div class="flex flex-row items-center h-8">
-                        <div class="text-sm font-light tracking-wide text-gray-500">Tasks</div>
-                        </div>
                     </li>
                     <li>
                         <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
@@ -109,6 +110,21 @@
                         <span class="ml-2 text-sm tracking-wide truncate">Events</span>
                         </a>
                     </li>
+
+                    <li>
+                        <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                        <span class="inline-flex justify-center items-center ml-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(142, 129, 129, 1);transform: ;msFilter:;"><path d="M21 5H3a1 1 0 0 0-1 1v4h.893c.996 0 1.92.681 2.08 1.664A2.001 2.001 0 0 1 3 14H2v4a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-4h-1a2.001 2.001 0 0 1-1.973-2.336c.16-.983 1.084-1.664 2.08-1.664H22V6a1 1 0 0 0-1-1zM9 9a1 1 0 1 1 0 2 1 1 0 1 1 0-2zm-.8 6.4 6-8 1.6 1.2-6 8-1.6-1.2zM15 15a1 1 0 1 1 0-2 1 1 0 1 1 0 2z"></path></svg>
+                        </span>
+                        <span class="ml-2 text-sm tracking-wide truncate">Discount</span>
+                        <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-500 bg-green-50 rounded-full">15</span>
+                        </a>
+                    </li>
+                    <li class="px-5">
+                        <div class="flex flex-row items-center h-8">
+                        <div class="text-sm font-light tracking-wide text-gray-500">Settings</div>
+                        </div>
+                    </li>
                     <li>
                         <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                         <span class="inline-flex justify-center items-center ml-4">
@@ -117,11 +133,6 @@
                         <span class="ml-2 text-sm tracking-wide truncate">Users</span>
                         <span class="px-2 py-0.5 ml-auto text-xs font-medium tracking-wide text-green-500 bg-green-50 rounded-full">15</span>
                         </a>
-                    </li>
-                    <li class="px-5">
-                        <div class="flex flex-row items-center h-8">
-                        <div class="text-sm font-light tracking-wide text-gray-500">Settings</div>
-                        </div>
                     </li>
                     <li>
                         <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
@@ -157,7 +168,7 @@
         </div>
 
         <div class="w-full relative">
-            <nav class="sticky top-0 z-50 h-20 bg-white flex items-center justify-between px-4 ml-7">
+            <nav class="sticky top-0 z-50 h-20 bg-white flex items-center justify-between px-4 ml-5">
   
                 <span class="text-gray-500 ">
                     Dashboard
