@@ -32,9 +32,9 @@
 
     <nav class="bg-white">
 
-        <div class="flex justify-around items-center py-3">
+        <div class="mx-auto max-w-[1280px] flex justify-between items-center py-3 px-4">
 
-            <div class="flex justify-around items-center w-[50%]">
+            <div class="lg:flex justify-between items-center w-[50%]">
                 <img src="{{ asset("img/website_logo.png") }}" alt="logo" class="w-20 h-20 rounded-lg" >
 
                 <input
@@ -45,7 +45,7 @@
                 >
             </div>
 
-            <div class="flex justify-around items-center">
+            <div class="flex justify-between items-center">
 
                 <div class="relative inline-block">
                     <select class="mr-4 appearance-none text-gray-900 bg-transparent border-none border-transparent px-4 py-2 pr-8 leading-tight focus:outline-none focus:ring-0 focus:border-transparent cursor-pointer">
@@ -172,7 +172,7 @@
 
         <hr>
 
-        <div class="max-w-[1280px] mx-auto flex justify-between items-center font-cairo px-6 py-3  text-gray-900">
+        <div class="mx-auto max-w-[1280px] flex justify-between items-center font-cairo px-6 py-3  text-gray-900">
 
             <div class="flex justify-center items-center md:w-auto w-[90%]">
                 <button class="xl:p-3 xl:mx-2 mx-1 p-2 font-normal bg-lime-100 rounded-full">
@@ -380,6 +380,18 @@
             </div>
         </div>
     </div>
+
+
+     {{-- Footer: --}}
+
+    <footer class="font-cairo mt-12 my-4 bg-blue-600">
+
+        <div class="mx-auto xl:max-w-[1280px] text-white">
+            <p>furina@store.com</p>
+            <p>@furina.store</p>
+        </div>
+
+    </footer>
 
     <script>
         // registerModal
