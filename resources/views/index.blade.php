@@ -52,7 +52,7 @@
 
     {{-- Cards: --}}
 
-    <div class="mx-auto mb-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-1 lg:gap-4 xl:max-w-[1280px] font-cairo px-2">
+    <div class="mx-auto mb-4 grid grid-cols-2 md:grid-cols-4 gap-1 lg:gap-4 xl:max-w-[1280px] font-cairo px-2">
         
         <div class="flex justify-between items-center bg-white shadow-sm rounded-md p-2 lg:p-4">
             <div dir="rtl">
