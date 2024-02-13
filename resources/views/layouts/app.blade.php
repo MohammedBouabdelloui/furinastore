@@ -212,7 +212,7 @@
       
     @show
 
-    <div class="container mx-auto">
+    <div class="container mx-auto max-w-[1280px]">
         @yield('content')
     </div>
 
