@@ -24,33 +24,16 @@
         @vite('resources/css/app.css')
     
     </head>
-<body>
-    {{-- <div class="w-full min-h-screen font-sans text-gray-900">
-        <aside class="py-6 px-10 w-64 border-r border-gray-200">
-            <img src="{{ asset("img/website_logo.png") }}" alt="logo" class="w-20 h-20 rounded-lg" >
-            <ul class="flex flex-col gap-y-6 pt-28  "> 
-                <li><a href="#">Overview</a></li>
-                <li><a href="#">Products</a></li>
-                <li><a href="#">Analytics</a></li>
-                <li><a href="#">users</a></li>  
-            </ul>
-            <ul class="flex flex-col gap-y-6 pt-28 >
-                <li><a href="#">Community</a></li>
-                <li><a href="#">Logout</a></li>
-            </ul>
-                {{-- <li>ملخص</li>
-                <li>منتجات</li>
-                <li>التحليلات</li>
-                <li>الرساءل</li>
-                <li>المستخدمين</li>
-                <li>تسجيل خروج</li> 
-            
-        </aside>
-    </div> --}}
-    <div class="min-h-screen flex flex-row bg-gray-100 space-x-2">    
+<body class="bg-gray-200">
 
+    <div class="min-h-screen flex flex-row lg:space-x-2">    
 
-        <div class="flex flex-col lg:w-64 flex-auto antialiased bg-gray-50 text-gray-800">
+        <div id="asideBar" class="hidden z-10 lg:flex flex-col lg:w-64 flex-auto antialiased bg-gray-50 text-gray-800 relative transition ease-out duration-300">
+
+            <button id="closeAsideBarButton" class="absolute block lg:hidden z-50 top-[92%] left-72 bg-red-400 p-3 rounded-full text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(255, 255, 255);transform: ;msFilter:;"><path d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"></path></svg>
+            </button>
+
             <div class="fixed flex flex-col top-0 left-0 w-64 bg-white h-full border-r">
                 <div class="flex items-center justify-center h-20 border-b">
                     <img src="{{ asset("img/website_logo.png") }}" alt="logo" class="w-20 h-20 rounded-lg" >
@@ -168,19 +151,24 @@
         </div>
 
         <div class="w-full relative">
-            <nav class="sticky top-0 z-50 h-20 bg-white flex items-center justify-between px-4 ml-5">
+            <nav class="sticky top-0 h-20 bg-white flex items-center justify-between px-4 lg:ml-5">
   
+                <button id="openAsideBarButton" class="block lg:hidden bg-blue-200 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M4 11h12v2H4zm0-5h16v2H4zm0 12h7.235v-2H4z"></path></svg>
+                </button>
+
                 <span class="text-gray-500 ">
                     Dashboard
                 </span>
                 
-                <a href="{{ url('/') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Go to Index
+                <a href="{{ url('/') }}" class="bg-blue-200 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="m21.743 12.331-9-10c-.379-.422-1.107-.422-1.486 0l-9 10A1 1 0 0 0 3 14h2v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7h2a.998.998 0 0 0 .743-1.669zM12 16a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"></path></svg>
                 </a>
+
                     
             </nav>
             <div class="">
-               <div class="ml-20 mt-8 ">
+               <div class="lg:ml-20 mt-8 ">
                   <h2 class=" text-3xl font-semibold text-gray-700">@yield('name')</h2>
                   <span class="text-sm font-bold text-gray-500">@yield('description')</span>
                </div>
@@ -191,6 +179,19 @@
 
       </div>
 
+      <script>
+        const asideBar = document.getElementById('asideBar');
+        const openAsideBarButton = document.getElementById('openAsideBarButton');
+        const closeAsideBarButton = document.getElementById('closeAsideBarButton');
+    
+        const toggleAsideBar = () => {
+            asideBar.classList.toggle("hidden");
+        };
+
+        openAsideBarButton.addEventListener('click', toggleAsideBar);
+        closeAsideBarButton.addEventListener('click', toggleAsideBar);
+    
+    </script>
 
 </body>
 </html>

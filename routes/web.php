@@ -20,7 +20,7 @@ use Stevebauman\Location\Facades\Location;
 Route::get('/', function (Request $request) {
     $ip = $request->ip();
     $position = Location::get('41.87.159.255');
-    notify()->success('Laravel Notify is awesome!');
+    notify()->success('فورينا ترحب بك في متجرها ⚡️', 'أهلا بك معنا');
     return view('index' ,compact('position'));
 });
 

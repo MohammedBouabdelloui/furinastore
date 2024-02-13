@@ -45,5 +45,11 @@ return [
             'title' => 'User Updated',
         ],
     ],
+    'welcome-user' => [
+        'message' => 'فورينا ترحب بك في متجرها',
+        'type'    => 'success',
+        'model'   => 'toast',
+        'title'   => 'أهلا بك معنا',
+    ],
 
 ];
