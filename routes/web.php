@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
+
 use Illuminate\Http\Request;
 use Stevebauman\Location\Facades\Location;
 /*
@@ -31,3 +33,8 @@ Route::post('user/login', [UserController::class, 'login'])->name('user.login');
 
 Route::get('auth/google/callback' , [UserController::class , 'handleGoogleCallback' ] );
 Route::get('auth/google' , [UserController::class , 'redirectToGoogle']);
+
+Route::middleware([])->group(function(){
+    Route::get('/dashboard' , [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/produit' , [DashboardController::class , 'produit'])->name('dashboard/produit');
+});
