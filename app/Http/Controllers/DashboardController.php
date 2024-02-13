@@ -11,7 +11,7 @@ class DashboardController extends Controller
         return view('admin/pages/index');
     }
 
-    public function produit(){
-        return view('admin/pages/produit');
+    public function users(){
+        return view('admin/pages/users');
     }
 }
