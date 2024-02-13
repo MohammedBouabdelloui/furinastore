@@ -36,5 +36,5 @@ Route::get('auth/google' , [UserController::class , 'redirectToGoogle']);
 
 Route::middleware([])->group(function(){
     Route::get('/dashboard' , [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard/produit' , [DashboardController::class , 'produit'])->name('dashboard/produit');
+    Route::get('/dashboard/users' , [DashboardController::class , 'users'])->name('dashboard/produit');
 });

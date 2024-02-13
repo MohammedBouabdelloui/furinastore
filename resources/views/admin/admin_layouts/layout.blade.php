@@ -126,7 +126,7 @@
                         </div>
                     </li>
                     <li>
-                        <a href="#" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
+                        <a href="{{ url('/dashboard/users') }}" class="relative flex flex-row items-center h-11 focus:outline-none hover:bg-gray-50 text-gray-600 hover:text-gray-800 border-l-4 border-transparent hover:border-indigo-500 pr-6">
                         <span class="inline-flex justify-center items-center ml-4">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                         </span>
@@ -180,9 +180,14 @@
                     
             </nav>
             <div class="">
-                @yield('content')
+               <div class="ml-20 mt-8 ">
+                  <h2 class=" text-3xl font-semibold text-gray-700">@yield('name')</h2>
+                  <span class="text-sm font-bold text-gray-500">@yield('description')</span>
+               </div>
+               
+               @yield('content')
             </div>
-        </div>
+         </div>
 
       </div>
 

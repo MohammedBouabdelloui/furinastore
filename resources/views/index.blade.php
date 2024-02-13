@@ -2,6 +2,7 @@
  
 @section('title', 'أفضل متجر عربي للعبة قنشن')
  
+
 @section('content')
 
     {{-- Slider: --}}
