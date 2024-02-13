@@ -20,6 +20,7 @@ use Stevebauman\Location\Facades\Location;
 Route::get('/', function (Request $request) {
     $ip = $request->ip();
     $position = Location::get('41.87.159.255');
+    notify()->success('Laravel Notify is awesome!');
     return view('index' ,compact('position'));
 });
 
@@ -29,6 +30,9 @@ Route::post('user/confirm', [UserController::class, 'confirmation'])->name('user
 Route::post('user/confirm/resend', [UserController::class, 'resendConfirmationCode'])->name('user.confirmation.resend');
 
 Route::post('user/login', [UserController::class, 'login'])->name('user.login');
+
+Route::get('auth/google/callback' , [UserController::class , 'handleGoogleCallback' ] );
+Route::get('auth/google' , [UserController::class , 'redirectToGoogle']);
 
 Route::middleware([])->group(function(){
     Route::get('/dashboard' , [DashboardController::class, 'index'])->name('dashboard');
