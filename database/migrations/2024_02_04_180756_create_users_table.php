@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('country_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
-            $table->foreignId('role_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->nullable();
+            $table->foreignId('role_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->default(1);
             
             $table->string('first_name');
             $table->string('last_name');
