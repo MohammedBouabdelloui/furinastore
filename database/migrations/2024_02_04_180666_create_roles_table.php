@@ -11,14 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('topups', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 255);
-            $table->decimal('price', 12, 2);
-            $table->unsignedInteger('topup_value');
-            $table->text('description');
-            $table->boolean('is_available');
-            $table->string('picture');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -28,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('topups');
+        Schema::dropIfExists('roles');
     }
 };
