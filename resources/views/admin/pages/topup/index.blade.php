@@ -51,7 +51,7 @@
             <div class="relative h-10 w-10">
               <img
                 class="h-full w-full rounded-sm object-cover object-center"
-                src="{{ asset('uploads/topup/' . $topup->image) }}"
+                src="{{ asset('storage/' . $topup->picture) }}"
                 alt=""
               />
             </div>
