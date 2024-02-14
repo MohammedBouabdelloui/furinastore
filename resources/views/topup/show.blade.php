@@ -13,7 +13,7 @@
 
             <div class="flex flex-col justify-center items-center">
             
-                <img src="{{ asset('img/posters/Furina-build.webp') }}" alt="" class="w-full lg:w-[470px] h-[240px] lg:h-[470px] object-cover rounded-2xl">
+                <img src="{{ asset('img/posters/Furina-build.webp') }}" alt="" class="w-[400px] lg:w-[470px] h-[400px] lg:h-[470px] object-cover rounded-2xl">
 
             </div>
             
@@ -107,7 +107,7 @@
                     
                 </ul>
 
-                <button type="checkbox" dir="rtl" class="my-6 font-bold text-md w-[55%] bg-slate-50 py-3 border border-black rounded-3xl hover:text-white hover:bg-black transition ease-in-out duration-500">أضف الى السلة</button>
+                <button type="checkbox" dir="rtl" class="my-6 font-bold text-md w-[90%] mx-auto lg:w-[55%] bg-slate-50 py-3 border border-black rounded-3xl hover:text-white hover:bg-black transition ease-in-out duration-500">أضف الى السلة</button>
 
                 
                 <div dir="rtl" class="flex justify-end items-center opacity-85 mb-3 mt-2">
