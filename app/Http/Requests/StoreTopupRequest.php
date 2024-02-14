@@ -11,7 +11,7 @@ class StoreTopupRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class StoreTopupRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'title' => 'required|string|max:255',
+            'price' => 'required|numeric|min:0',
+            'topup_value' => 'required|numeric|min:0',
+            'description' => 'required|string',
+            'picture' => 'required|file|mimes:jpg,png,jpeg,webp', 
         ];
+        
     }
 }
