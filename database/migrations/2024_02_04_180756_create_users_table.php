@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('profile_picture')->nullable();
             $table->string('password');
             $table->timestamps();
-            $table->foreignId('role_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('role_id')->constrained()->onUpdate('cascade')->onDelete('cascade')->default(1);
         });
     }
 
