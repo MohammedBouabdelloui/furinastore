@@ -74,12 +74,12 @@
                 </button>
 
                 @else
-                    <button dir="rtl" class="flex justify-end items-center mx-2 px-6 py-2 rounded-full border-2 border-blue-700 font-cairo hover:bg-blue-700 hover:text-white transition ease-in-out duration-500" id="openModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(44, 16, 228)">
+                    <button dir="rtl" class="flex justify-end items-center mx-2 px-6 py-2 rounded-full font-cairo bg-blue-600 hover:bg-blue-500 text-white transition ease-in-out duration-500" id="openModal">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(255, 255, 255)">
                             <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
                         </svg>
                         
-                        <span class="text-blue-700 hover:text-white px-1">دخول</span>
+                        <span class=" px-1">دخول</span>
                     </button>
                 @endif
 
@@ -212,7 +212,7 @@
       
     @show
 
-    <div class="container mx-auto">
+    <div class="container mx-auto max-w-[1280px]">
         @yield('content')
     </div>
 
