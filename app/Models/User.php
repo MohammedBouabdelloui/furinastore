@@ -6,7 +6,9 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as AuthenticatableUser;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Role;
 
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -38,4 +40,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password','socail_id'
     ];
+
+    public function role(){
+        return $this->belongsTo(Role::class, 'role_id');
+    }
+    
+    
 }

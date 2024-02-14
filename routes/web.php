@@ -34,7 +34,8 @@ Route::post('user/login', [UserController::class, 'login'])->name('user.login');
 Route::get('auth/google/callback' , [UserController::class , 'handleGoogleCallback' ] );
 Route::get('auth/google' , [UserController::class , 'redirectToGoogle']);
 
-Route::middleware([])->group(function(){
+
+Route::middleware(['admin'])->group(function(){
     Route::get('/dashboard' , [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/users' , [DashboardController::class , 'users'])->name('dashboard/product');
 
