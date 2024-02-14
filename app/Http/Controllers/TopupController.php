@@ -17,7 +17,8 @@ class TopupController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.topup.index');
+        $topups = Topup::paginate(10);
+        return view('admin.pages.topup.index' , compact('topups'));
     }
 
     /**
