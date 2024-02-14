@@ -54,19 +54,60 @@
 
                 <span class="text-xs my-2">السيرفر</span>
 
-                <div class="flex justify-start items-center my-2">
-                    <button type="checkbox" class="py-1 px-6 mx-1 border border-blue-500 rounded-sm text-blue-500 hover:text-white hover:bg-blue-600 transition ease-in-out duration-300 hover:border-blue-600">Europe</button>
-                    <button type="checkbox" class="py-1 px-6 mx-1 border border-blue-500 rounded-sm text-blue-500 hover:text-white hover:bg-blue-600 transition ease-in-out duration-300 hover:border-blue-600">America</button>
-                    <button type="checkbox" class="py-1 px-6 mx-1 border border-blue-500 rounded-sm text-blue-500 hover:text-white hover:bg-blue-600 transition ease-in-out duration-300 hover:border-blue-600">Asia</button>
-                </div>
+                <ul class="grid w-full gap-4 md:grid-cols-3">
+                    
+                    <li>
+                        <input type="radio" name="server" id="europe-server" value="" class="hidden peer" required="">
+                        <label for="europe-server" class="inline-flex items-center justify-between w-full p-2 text-blue-500 bg-slate-50 border-2 border-blue-200 rounded-sm cursor-pointer peer-checked:border-blue-600 peer-checked:bg-blue-600 hover:text-blue-600 peer-checked:text-white hover:bg-blue-50">                           
+                            <div class="block">
+                                <div class="w-full text-lg font-semibold">أوروبا</div>
+                            </div>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" name="server" id="america-server" value="" class="hidden peer" required="">
+                        <label for="america-server" class="inline-flex items-center justify-between w-full p-2 text-blue-500 bg-slate-50 border-2 border-blue-200 rounded-sm cursor-pointer peer-checked:border-blue-600 peer-checked:bg-blue-600 hover:text-blue-600 peer-checked:text-white hover:bg-blue-50">                           
+                            <div class="block">
+                                <div class="w-full text-lg font-semibold">أمريكا</div>
+                            </div>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" name="server" id="asia-server" value="" class="hidden peer" required="">
+                        <label for="asia-server" class="inline-flex items-center justify-between w-full p-2 text-blue-500 bg-slate-50 border-2 border-blue-200 rounded-sm cursor-pointer peer-checked:border-blue-600 peer-checked:bg-blue-600 hover:text-blue-600 peer-checked:text-white hover:bg-blue-50">                           
+                            <div class="block">
+                                <div class="w-full text-lg font-semibold">أسيا</div>
+                            </div>
+                        </label>
+                    </li>
+                    
+                </ul>
 
-                <span class="text-xs my-2">ترقيات</span>
+                <span class="text-xs mt-6 mb-3">ترقيات</span>
 
-                <button type="checkbox" class="w-80 py-2 px-6 mx-1 my-1 border border-blue-500 rounded-sm text-blue-500 hover:text-white hover:bg-blue-600 transition ease-in-out duration-300 hover:border-blue-600">نافيا + شخصية عشوائية من البنر الدائم</button>
 
-                <button type="checkbox" class="w-80 py-2 px-6 mx-1 my-1 border border-blue-500 rounded-sm text-blue-500 hover:text-white hover:bg-blue-600 transition ease-in-out duration-300 hover:border-blue-600">نافيا + سلاحها الخاص</button>
+                <ul class="w-full">
+                    
+                    <li class="mb-4">
+                        <input type="radio" name="combos" id="combos1" value="" class="hidden peer" required="">
+                        <label for="combos1" class="inline-flex items-center justify-between w-full p-2 text-blue-500 bg-slate-50 border-2 border-blue-200 rounded-sm cursor-pointer peer-checked:border-blue-600 peer-checked:bg-blue-600 hover:text-blue-600 peer-checked:text-white hover:bg-blue-50">                           
+                            <div class="block">
+                                <div class="w-full text-lg font-semibold">نافيا + سلاحها الخاص</div>
+                            </div>
+                        </label>
+                    </li>
+                    <li>
+                        <input type="radio" name="combos" id="combos2" value="" class="hidden peer" required="">
+                        <label for="combos2" class="inline-flex items-center justify-between w-full p-2 text-blue-500 bg-slate-50 border-2 border-blue-200 rounded-sm cursor-pointer peer-checked:border-blue-600 peer-checked:bg-blue-600 hover:text-blue-600 peer-checked:text-white hover:bg-blue-50">                           
+                            <div class="block">
+                                <div class="w-full text-lg font-semibold">نافيا + شخصية عشوائية من البنر الدائم</div>
+                            </div>
+                        </label>
+                    </li>
+                    
+                </ul>
 
-                <button type="checkbox" dir="rtl" class="my-6 font-bold text-md w-[55%] bg-slate-100 py-3 border border-black rounded-3xl hover:text-white hover:bg-black transition ease-in-out duration-500">أضف الى السلة</button>
+                <button type="checkbox" dir="rtl" class="my-6 font-bold text-md w-[55%] bg-slate-50 py-3 border border-black rounded-3xl hover:text-white hover:bg-black transition ease-in-out duration-500">أضف الى السلة</button>
 
                 
                 <div dir="rtl" class="flex justify-end items-center opacity-85 mb-3 mt-2">
