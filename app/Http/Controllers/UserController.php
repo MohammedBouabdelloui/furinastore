@@ -184,13 +184,10 @@ class UserController extends Controller
 
             if($user->account_status === 'active'){
 
-                if(Auth::attempt($credentials) ){
-                    $request->session()->regenerate();
-                    $user = auth::user();
-                    return back()->with("loginSuccess", "تم تسجيل الدخول بنجاح! 🎉");
+                $request->session()->regenerate();
+                auth()->login($user);
+                return back()->with("loginSuccess", "تم تسجيل الدخول بنجاح! 🎉");
                     
-                }
-    
             }else{
                 if ($user->account_status === 'unconfirmed') {
                     return back()->with(['userEmail' => $request->emailLogin , 'errorLoginConfirmation'=> 'حسابك لم يتم تأكيده بعد. الرجاء تحقق من بريدك الإلكتروني لتأكيد الحساب.']);
