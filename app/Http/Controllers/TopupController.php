@@ -88,8 +88,49 @@ class TopupController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Topup $topup)
+    public function destroy($id)
     {
-        //
+        $topup = Topup::withTrashed()->find($id);
+
+        if (!$topup) {
+            return abort(404);
+        }
+
+        $topup->forceDelete();
+        notify()->success(' تم ازالة منتوج بنجاح');
+        return back()->with('success', 'Record permanently deleted successfully');
+    
+    }
+
+    
+    public function showSoftDeleted()
+    {
+        $topups = Topup::onlyTrashed()->get();
+        return view('admin.pages.topup.topup_deleted', compact('topups'));
+    }
+
+    public function restore($id){
+        $topup = Topup::find($id);
+
+        if (!$topup) {
+            return abort(404);
+        }
+
+        $topup->restore();
+        notify()->success(' تم ازالة منتوج بنجاح');
+        return redirect()->route('dashboard/topup');
+    }
+
+    public function softDelete($id)
+    {
+        $topup = Topup::find($id);
+
+        if (!$topup) {
+            return abort(404);
+        }
+
+        $topup->delete();
+        notify()->success( ' تم اعادة منتوج بنجاح');
+        return back();
     }
 }
