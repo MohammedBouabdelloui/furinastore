@@ -90,15 +90,15 @@ class TopupController extends Controller
      */
     public function destroy($id)
     {
-        $topup = Topup::withTrashed()->find($id);
+        $topup  = Topup::onlyTrashed()->where('id', $id)->first();
 
         if (!$topup) {
             return abort(404);
         }
 
         $topup->forceDelete();
-        notify()->success(' تم ازالة منتوج بنجاح');
-        return back()->with('success', 'Record permanently deleted successfully');
+        notify()->success('تم حذف السجل بشكل دائم بنجاح');
+        return back();
     
     }
 
@@ -110,15 +110,16 @@ class TopupController extends Controller
     }
 
     public function restore($id){
-        $topup = Topup::find($id);
+        $topup = Topup::onlyTrashed()->where('id', $id)->first();
 
         if (!$topup) {
             return abort(404);
         }
 
         $topup->restore();
-        notify()->success(' تم ازالة منتوج بنجاح');
-        return redirect()->route('dashboard/topup');
+        notify()->success( ' تم اعادة منتوج بنجاح');
+
+        return redirect()->route('dashboard.topup.index');
     }
 
     public function softDelete($id)
@@ -126,11 +127,11 @@ class TopupController extends Controller
         $topup = Topup::find($id);
 
         if (!$topup) {
-            return abort(404);
+            return abort(403);
         }
 
         $topup->delete();
-        notify()->success( ' تم اعادة منتوج بنجاح');
+        notify()->success(' تم حذف السجل بشكل  بنجاح');
         return back();
     }
 }

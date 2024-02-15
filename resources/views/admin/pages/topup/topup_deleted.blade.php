@@ -19,18 +19,20 @@
           <a href="{{ route('dashboard.topup.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-blue-700">Topup</a>
         </div>
       </li>
+      <li>
+        <div class="flex items-center">
+          <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+          </svg>
+          <a href="{{ route('topup.soft_delete') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-blue-700">Topup-soft-delete</a>
+        </div>
+      </li>
     </ol>
 </nav>
 
 <div class="max-w-[95%] flex justify-between items-enter mx-auto mt-6 mb-4 font-cairo">
   <input type="search" name="search-topup" id="" class="rounded-md w-72 px-4 outline-none border-transparent focus:border-transparent focus:ring-0 " placeholder="ابحث">
-  <div>
 
-    <a href="{{ route('dashboard.topup.create') }}" class="px-10 py-2 text-white bg-blue-500 rounded-md">أضف عرضا أخر</a>
-    <a href="{{ route('dashboard.topup.soft_delete') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-      عرض البيانات المحذوفة
-    </a>
-  </div>
 </div>
 
   
@@ -110,7 +112,7 @@
 
             <td class="px-6 py-4">
                 <div class="flex justify-end gap-4">
-                  <form action="{{ route('dashboard.topup.destroy', $topup->id) }}" >
+                  <form action="{{ route('dashboard.topup.destroy', $topup->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button x-data="{ tooltip: 'delete' }" type="submit">
@@ -131,7 +133,7 @@
                         </svg>
                     </button>
                   </form>
-                  <form action="{{ route('topup.restore', $record->id) }}" method="POST">
+                  <form action="{{ route('topup.restore', $topup->id) }}" method="POST">
                     @csrf
                     @method('PATCH')
                     <button type="submit">Restore</button>
