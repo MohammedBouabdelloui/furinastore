@@ -28,7 +28,7 @@
   <div>
 
     <a href="{{ route('dashboard.topup.create') }}" class="px-10 py-2 text-white bg-blue-500 rounded-md">أضف عرضا أخر</a>
-    <a href="{{ route('topup.soft_delete') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    <a href="{{ route('topup.soft_delete') }}" class="bg-blue-500  text-white font-bold py-2 px-4 rounded">
       عرض البيانات المحذوفة
     </a>
   </div>

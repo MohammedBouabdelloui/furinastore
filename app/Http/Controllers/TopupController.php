@@ -64,9 +64,10 @@ class TopupController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Topup $topup)
+    public function show()
     {
-        //
+        $topups = Topup::onlyTrashed()->get();
+        return view('admin.pages.topup.topup_deleted', compact('topups'));
     }
 
     /**

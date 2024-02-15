@@ -41,7 +41,7 @@ Route::middleware(['admin'])->group(function(){
 
     // topup dashboard:
     Route::resource('dashboard/topup', TopupController::class)->names('dashboard.topup');
-    Route::get('dashboard/topup/soft-delete' , [TopupController::class , 'showSoftDeleted'] )->name('topup.soft_delete');
+    Route::get('dashboard/topup/soft-delete', [TopupController::class, 'showSoftDeleted'])->name('topup.soft_delete');
     Route::delete('dashboard/topup/soft-delete/{id}', [TopupController::class, 'softDelete'])->name('topup.soft-delete');
     Route::patch('dashboard/topup/restore/{id}', [TopupController::class, 'restore'])->name('topup.restore');
 
