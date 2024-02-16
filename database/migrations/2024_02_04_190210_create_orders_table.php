@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('ordered_item_id')->nullable();
             $table->string('ordered_table_type')->nullable();
-            $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->enum('server', ['اوروبا', 'أمريكا', 'أسيا']);
             $table->integer('quantity_chosen');
             $table->enum('order_status', ['pinned', 'canceled', 'done', 'confirmed']);
