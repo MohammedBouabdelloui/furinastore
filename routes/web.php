@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
@@ -22,7 +23,7 @@ Route::get('/', function (Request $request) {
     $position = Location::get('41.87.159.255');
     notify()->success('فورينا ترحب بك في متجرها ⚡️', 'أهلا بك معنا');
     return view('index' ,compact('position'));
-});
+})->name('home');
 
 Route::resource('user', UserController::class);
 
@@ -56,3 +57,6 @@ Route::get('/topup', function (Request $request) {
     return view('topup.show' ,compact('position'));
 });
 
+// Cart:
+
+Route::resource('cart', CartController::class)->names('cart');
