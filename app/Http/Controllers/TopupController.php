@@ -59,6 +59,10 @@ class TopupController extends Controller
         
     }
 
+    public function topup_details($id){
+        $topup = Topup::findOrFail($id);
+        return view('topup.show' ,compact('topup'));
+    }
 
 
     /**

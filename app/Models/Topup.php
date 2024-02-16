@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use App\Models\Order;
 class Topup extends Model
 {
     use HasFactory;
@@ -19,4 +19,9 @@ class Topup extends Model
         'picture'
     ];
     protected $dates = ['deleted_at'];
+
+        public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }
