@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TopupController;
 use Illuminate\Http\Request;
 use Stevebauman\Location\Facades\Location;
+use App\Http\Controllers\NavigationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,13 +18,12 @@ use Stevebauman\Location\Facades\Location;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+// Navigation user
 
-Route::get('/', function (Request $request) {
-    $ip = $request->ip();
-    $position = Location::get('41.87.159.255');
-    notify()->success('فورينا ترحب بك في متجرها ⚡️', 'أهلا بك معنا');
-    return view('index' ,compact('position'));
-})->name('home');
+Route::get('/' , [NavigationController::class , 'index']);
+Route::get('/topup', [NavigationController::class, 'topup'])->name('topup');
+
+
 
 Route::resource('user', UserController::class);
 
@@ -51,11 +51,7 @@ Route::middleware([])->group(function(){
 
 // TOPUP:
 
-Route::get('/topup', function (Request $request) {
-    $ip = $request->ip();
-    $position = Location::get('41.87.159.255');
-    return view('topup.show' ,compact('position'));
-});
+Route::get('/topup/{id}', [TopupController::class, 'topup_details'])->name('topup.details');
 
 // Cart:
 

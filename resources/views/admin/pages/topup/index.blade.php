@@ -66,7 +66,7 @@
           </th>
           
             <td class="w-96 px-6 py-4">
-               {{ $topup->description }}
+              {!! $topup->description !!}
             </td>
 
             <td class="px-6 py-4">
