@@ -75,7 +75,7 @@ class TopupController extends Controller
      */
     public function edit(Topup $topup)
     {
-        //
+        return view('admin.pages.topup.edit', compact('topup'));
     }
 
     /**
@@ -83,7 +83,25 @@ class TopupController extends Controller
      */
     public function update(UpdateTopupRequest $request, Topup $topup)
     {
-        //
+        $picture = $request->file('picture');
+        $pictureName = time() . '_' . $picture->getClientOriginalName();
+        $picturePath = $picture->storeAs('uploads/topup', $pictureName, 'public');
+
+        $topup->update([
+            'title' => $request->title,
+            'price' => $request->price,
+            'topup_value' => $request->topup_value,
+            'description' => $request->description,
+            'picture' => $picturePath, 
+        ]);
+
+        if ($topup) {
+            notify()->info($request->title, 'تم التعديل على المنتوج بنجاح');
+            return redirect()->route('dashboard.topup.index');
+        } else {
+            notify()->error('Failed to add product', 'خطأ');
+            return back()->withInput();
+        }
     }
 
     /**
