@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->boolean('is_available');
             $table->string('picture');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

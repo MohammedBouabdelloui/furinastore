@@ -64,9 +64,10 @@ class TopupController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Topup $topup)
+    public function show()
     {
-        //
+        $topups = Topup::onlyTrashed()->get();
+        return view('admin.pages.topup.topup_deleted', compact('topups'));
     }
 
     /**
@@ -88,8 +89,50 @@ class TopupController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Topup $topup)
+    public function destroy($id)
     {
-        //
+        $topup  = Topup::onlyTrashed()->where('id', $id)->first();
+
+        if (!$topup) {
+            return abort(404);
+        }
+
+        $topup->forceDelete();
+        notify()->success('تم حذف السجل بشكل دائم بنجاح');
+        return back();
+    
+    }
+
+    
+    public function showSoftDeleted()
+    {
+        $topups = Topup::onlyTrashed()->get();
+        return view('admin.pages.topup.topup_deleted', compact('topups'));
+    }
+
+    public function restore($id){
+        $topup = Topup::onlyTrashed()->where('id', $id)->first();
+
+        if (!$topup) {
+            return abort(404);
+        }
+
+        $topup->restore();
+        notify()->success( ' تم اعادة منتوج بنجاح');
+
+        return redirect()->route('dashboard.topup.index');
+    }
+
+    public function softDelete($id)
+    {
+        $topup = Topup::find($id);
+
+        if (!$topup) {
+            return abort(403);
+        }
+
+        $topup->delete();
+        notify()->success(' تم حذف السجل بشكل  بنجاح');
+        return back();
     }
 }
