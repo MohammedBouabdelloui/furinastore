@@ -24,7 +24,7 @@
 
 
 <div class="max-w-[95%] flex justify-between items-enter mx-auto mt-6 mb-4 font-cairo">
-  <input type="search" name="search-topup" id="" class="rounded-md w-72 px-4 outline-none border-transparent focus:border-transparent focus:ring-0 " placeholder="ابحث">
+  <input type="search" name="search-topup" id="" class="rounded-md w-80 py-3 px-10 outline-none border-transparent focus:border-transparent focus:ring-0 " placeholder="ابحث">
   <div>
 
     <a href="{{ route('dashboard.topup.create') }}" class="px-10 py-2 text-white bg-blue-500 rounded-md">أضف عرضا أخر</a>
