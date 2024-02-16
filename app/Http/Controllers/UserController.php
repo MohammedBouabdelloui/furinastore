@@ -238,6 +238,7 @@ class UserController extends Controller
     
                     $newUser = User::create([
                         'country_id' => $country_id,
+                        'role_id' => 1,
                         'first_name' => $user->user['given_name'],
                         'last_name' => $user->user['family_name'],
                         'email' => $user->email,
