@@ -135,7 +135,7 @@
 
         <div class="flex justify-center items-center">
 
-            <a href="{{ route('topup.details') }}" class="mx-auto text-center text-lg py-1 px-10 border border-blue-600 text-blue-600 hover:text-white hover:bg-blue-600 rounded-sm transition ease-in-out duration-500">أظهر المزيد</a>
+            <a href="{{ route('topup') }}" class="mx-auto text-center text-lg py-1 px-10 border border-blue-600 text-blue-600 hover:text-white hover:bg-blue-600 rounded-sm transition ease-in-out duration-500">أظهر المزيد</a>
 
         </div>
 

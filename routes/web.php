@@ -20,7 +20,7 @@ use App\Http\Controllers\NavigationController;
 // Navigation user
 
 Route::get('/' , [NavigationController::class , 'index']);
-Route::get('/topup', [NavigationController::class, 'topup'])->name('topup.details');
+Route::get('/topup', [NavigationController::class, 'topup'])->name('topup');
 
 
 
