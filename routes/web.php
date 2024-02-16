@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
@@ -52,3 +53,6 @@ Route::middleware([])->group(function(){
 
 Route::get('/topup/{id}', [TopupController::class, 'topup_details'])->name('topup.details');
 
+// Cart:
+
+Route::resource('cart', CartController::class)->names('cart');
