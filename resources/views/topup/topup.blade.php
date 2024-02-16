@@ -11,12 +11,12 @@
         </div>
         
         <!-- Text content on the right side -->
-        <div class="w-1/2">
-            <h2 class="text-4xl font-bold text-gray-800 mb-4">عرض  خاص</h2>
+        <div class="w-1/2 pr-20" dir="rtl" >
+            <h2 class="text-4xl font-bold text-gray-800 mb-4 dir='rtl' ">عرض  خاص</h2>
             <p class="text-lg text-gray-600 mb-6">احتفل بافتتاحنا الخاص واستمتع بعرض حصري! اقضِ وقتاً مميزاً مع خدمات الشحن الخاصة بنا. اقتنص الفرصة الآن واحصل على مكافآت رائعة عند شحن رصيدك. تفضل بزيارتنا اليوم واستفد من هذا العرض الاستثنائي. شكراً لدعمكم!</p>
             
             <!-- Call to action button -->
-            <a href="#" class="bg-blue-500 text-white py-2 px-4 rounded-full inline-block hover:bg-blue-600">Shop Now</a>
+            <a href="#" class="bg-blue-500 text-white py-2 px-4 rounded-full inline-block hover:bg-blue-600">تسوق الآن</a>
         </div>
     </div>
 </div>
