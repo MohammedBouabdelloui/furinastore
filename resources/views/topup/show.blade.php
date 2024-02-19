@@ -72,7 +72,9 @@
                     
                 </ul>
 
+                <span dir="rtl" class="text-xs my-3">ال ID الخاص بك</span>
 
+                <input type="number" min="0" name="genshinAccountId" id="" class="border border-blue-400 rounded-md py-2 px-8 w-full md:w-96 bg-transparent outline-none focus:border-blue-600 focus:ring-0 placeholder:font-bold">
 
 
                 <button dir="rtl" class="my-6 font-bold text-md w-[90%] mx-auto lg:w-[55%] bg-slate-50 py-3 border border-black rounded-3xl hover:text-white hover:bg-black transition ease-in-out duration-500">أضف الى السلة</button>

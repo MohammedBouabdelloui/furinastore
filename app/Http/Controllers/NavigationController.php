@@ -26,6 +26,6 @@ class NavigationController extends Controller
     public function topup()
     {
         $topups = Topup::orderBy('topup_value')->get();
-        return view('topup.topup' , compact('topups'));
+        return view('topup.index' , compact('topups'));
     }
 }
