@@ -29,8 +29,26 @@ class ProductOrderController extends Controller
      */
     public function store(StoreProductOrderRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+
+        $productOrder = new ProductOrder();
+
+        $productOrder->user_id = $validatedData['user_id'];
+        $productOrder->ordered_item_id = $validatedData['ordered_item_id'];
+        $productOrder->ordered_table_type = $validatedData['ordered_table_type'];
+        $productOrder->value_chosen = $validatedData['value_chosen'];
+        $productOrder->server = $validatedData['server'];
+        $productOrder->genshin_account_id = $validatedData['genshinAccountId'];
+        $productOrder->quantity_chosen = $validatedData['quantity_chosen'];
+        $productOrder->price = $validatedData['price'];
+
+        $productOrder->save();
+
+        notify()->success('رائع لقد تم إضافة طلبك للحقيبة بنجاح ⚡️', 'تم إضافة طلب جديد');
+
+        return redirect()->back()->with('success', 'Order placed successfully!');
     }
+
 
     /**
      * Display the specified resource.

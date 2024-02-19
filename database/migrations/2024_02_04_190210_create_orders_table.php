@@ -14,11 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->enum('server', ['اوروبا', 'أمريكا', 'أسيا']);
-            $table->integer('quantity_chosen');
             $table->enum('order_status', ['pinned', 'canceled', 'done', 'confirmed']);
-            $table->integer('value_chosen');
-
             $table->timestamps();
         });
     }

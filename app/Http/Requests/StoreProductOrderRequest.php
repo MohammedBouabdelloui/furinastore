@@ -11,7 +11,7 @@ class StoreProductOrderRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,15 @@ class StoreProductOrderRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id' => 'required|numeric',
+            'ordered_item_id' => 'required|numeric',
+            'ordered_table_type' => 'required|string',
+            'value_chosen' => 'required',
+            'price' => 'required|numeric|min:1',
+            'server' => 'required|in:europe,america,asia',
+            'genshinAccountId' => 'required|numeric',
+            'quantity_chosen' => 'required|numeric|min:1',
         ];
+        
     }
 }

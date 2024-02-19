@@ -8,6 +8,10 @@ use App\Http\Controllers\TopupController;
 use Illuminate\Http\Request;
 use Stevebauman\Location\Facades\Location;
 use App\Http\Controllers\NavigationController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ProductOrderController;
+use App\Models\ProductOrder;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -36,7 +40,7 @@ Route::get('auth/google/callback' , [UserController::class , 'handleGoogleCallba
 Route::get('auth/google' , [UserController::class , 'redirectToGoogle']);
 
 
-Route::middleware([])->group(function(){
+Route::middleware(['admin'])->group(function(){
     Route::get('/dashboard' , [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/users' , [DashboardController::class , 'users'])->name('dashboard/product');
 
@@ -56,3 +60,7 @@ Route::get('/topup/{id}', [TopupController::class, 'topup_details'])->name('topu
 // Cart:
 
 Route::resource('cart', CartController::class)->names('cart');
+
+// Product-Order:
+
+Route::resource('product-order', ProductOrderController::class)->names('product.order');

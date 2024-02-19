@@ -4,15 +4,16 @@ namespace App\Models;
 
 
 
-use Illuminate\Foundation\Auth\User as AuthenticatableUser;
-use Illuminate\Notifications\Notifiable;
 use App\Models\Role;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as AuthenticatableUser;
 
 class User extends Authenticatable
 {
@@ -45,5 +46,9 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id');
     }
     
+    public function productOrders(): HasMany
+    {
+        return $this->hasMany(ProductOrder::class);
+    }
     
 }
