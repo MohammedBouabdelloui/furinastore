@@ -87,146 +87,54 @@
             </thead>
             <tbody class="bg-transparent divide-none divide-y divide-gray-200">
 
-                <tr class="mb-6">
-                    <td class="px-6 py-6 whitespace-no-wrap">
-                        <div class="flex justify-start items-center">
-                            <img src="{{ asset('img/posters/Furina-build.webp') }}" alt="" class="w-24 h-24 md:w-32 md:h-32 rounded-xl object-cover">
-                            <div class="pr-2 md:pr-8">
-                                <h1 class="text-lg md:text-xl font-bold md:font-extrabold mb-2">عنوان النتوج</h1>
-                                <p class="text-md md:text-lg text-bold my-1">120 د.م</p>
-                                <div class="text-gray-600 text-sm md:text-md my-1">
-                                    شرح بسيط عن المنتوج الذي تم شراؤه
+                @forelse ($orders as $order)
+                    <tr class="mb-6">
+                        <td class="px-6 py-6 whitespace-no-wrap">
+                            <div class="flex justify-start items-center">
+                                <img src="{{ asset('img/posters/Furina-build.webp') }}" alt="" class="w-24 h-24 md:w-32 md:h-32 rounded-xl object-cover">
+                                <div class="pr-2 md:pr-8">
+                                    <h1 class="text-lg md:text-xl font-bold md:font-extrabold mb-2">{{ $order->orderedItem->title }}</h1>
+                                    <p class="text-md md:text-lg text-bold my-1">{{ $order->value_chosen }}</p>
+                                    <div class="text-gray-600 text-sm md:text-md my-1">
+                                        {!! $order->orderedItem->description !!}
+                                    </div>
                                 </div>
-                                <ul class="text-gray-600 text-sm md:text-md my-1">
-                                    <li>الخيار رقم واحد (السيرفر مثلا)</li>
-                                    <li>الخيار الثاني مثلا اشياء اضافية في العرض</li>
-                                    <li>الخيار الثالث</li>
-                                </ul>
                             </div>
-                        </div>
+                    
+                            <div class="flex justify-center items-center py-1">
+                                <button class="py-2 px-4 bg-gray-200 rounded-lg" onclick="decreaseQuantity('chosenQuantity{{ $order->id }}', '{{ $order->orderedItem->price }}')">-</button>
 
-                        <div class="flex justify-center items-center py-1">
-                            <button class="py-2 px-4 bg-gray-200 rounded-lg" onclick="decreaseQuantity('chosenQuantity1')">-</button>
-                            <input id="chosenQuantity1" type="number" min="1" class="w-24 text-center py-2 bg-gray-100 outline-none border-transparent focus:border-transparent focus:ring-0" value="1">
-                            <button class="py-2 px-4 bg-gray-200 rounded-lg" onclick="increaseQuantity('chosenQuantity1')">+</button>
+                                <input id="chosenQuantity{{ $order->id }}" type="number" min="1" class="w-24 text-center py-2 bg-gray-100 outline-none border-transparent focus:border-transparent focus:ring-0" value="{{ $order->quantity_chosen }}" onchange="updateTotalPrice('chosenQuantity{{ $order->id }}', '{{ $order->orderedItem->price }}')">
 
-                            <button class="mx-8">
-                                <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="currentColor"
-                                class="h-6 w-6"
-                                x-tooltip="tooltip"
-                                >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                                />
-                                </svg>
-                            </button>
-                        </div>
-
-                    </td>
-
-                    <td class="px-6 py-6 whitespace-no-wrap text-lg md:text-2xl text-left font-bold">120.45 د.م</td>
-                </tr>
-
-                <tr class="mb-6">
-                    <td class="px-6 py-6 whitespace-no-wrap">
-                        <div class="flex justify-start items-center">
-                            <img src="{{ asset('img/posters/Furina-build.webp') }}" alt="" class="w-24 h-24 md:w-32 md:h-32 rounded-xl object-cover">
-                            <div class="pr-2 md:pr-8">
-                                <h1 class="text-lg md:text-xl font-bold md:font-extrabold mb-2">عنوان النتوج</h1>
-                                <p class="text-md md:text-lg text-bold my-1">120 د.م</p>
-                                <div class="text-gray-600 text-sm md:text-md my-1">
-                                    شرح بسيط عن المنتوج الذي تم شراؤه
-                                </div>
-                                <ul class="text-gray-600 text-sm md:text-md my-1">
-                                    <li>الخيار رقم واحد (السيرفر مثلا)</li>
-                                    <li>الخيار الثاني مثلا اشياء اضافية في العرض</li>
-                                    <li>الخيار الثالث</li>
-                                </ul>
+                                <button class="py-2 px-4 bg-gray-200 rounded-lg" onclick="increaseQuantity('chosenQuantity{{ $order->id }}', '{{ $order->orderedItem->price }}')">+</button>
+                    
+                                <button class="mx-8">
+                                    <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke-width="1.5"
+                                    stroke="currentColor"
+                                    class="h-6 w-6"
+                                    x-tooltip="tooltip"
+                                    >
+                                    <path
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                                    />
+                                    </svg>
+                                </button>
                             </div>
-                        </div>
-
-                        <div class="flex justify-center items-center py-1">
-                            <button class="py-2 px-4 bg-gray-200 rounded-lg" onclick="decreaseQuantity('chosenQuantity2')">-</button>
-                            <input id="chosenQuantity2" type="number" min="1" class="w-24 text-center py-2 bg-gray-100 outline-none border-transparent focus:border-transparent focus:ring-0" value="1">
-                            <button class="py-2 px-4 bg-gray-200 rounded-lg" onclick="increaseQuantity('chosenQuantity2')">+</button>
-
-                            <button class="mx-8">
-                                <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="currentColor"
-                                class="h-6 w-6"
-                                x-tooltip="tooltip"
-                                >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                                />
-                                </svg>
-                            </button>
-                        </div>
-
-                    </td>
-
-                    <td class="px-6 py-6 whitespace-no-wrap text-lg md:text-2xl text-left font-bold">120.45 د.م</td>
-                </tr>
-
-                <tr class="mb-6">
-                    <td class="px-6 py-6 whitespace-no-wrap">
-                        <div class="flex justify-start items-center">
-                            <img src="{{ asset('img/posters/Furina-build.webp') }}" alt="" class="w-24 h-24 md:w-32 md:h-32 rounded-xl object-cover">
-                            <div class="pr-2 md:pr-8">
-                                <h1 class="text-lg md:text-xl font-bold md:font-extrabold mb-2">عنوان النتوج</h1>
-                                <p class="text-md md:text-lg text-bold my-1">120 د.م</p>
-                                <div class="text-gray-600 text-sm md:text-md my-1">
-                                    شرح بسيط عن المنتوج الذي تم شراؤه
-                                </div>
-                                <ul class="text-gray-600 text-sm md:text-md my-1">
-                                    <li>الخيار رقم واحد (السيرفر مثلا)</li>
-                                    <li>الخيار الثاني مثلا اشياء اضافية في العرض</li>
-                                    <li>الخيار الثالث</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="flex justify-center items-center py-1">
-                            <button class="py-2 px-4 bg-gray-200 rounded-lg" onclick="decreaseQuantity('chosenQuantity3')">-</button>
-                            <input id="chosenQuantity3" type="number" min="1" class="w-24 text-center py-2 bg-gray-100 outline-none border-transparent focus:border-transparent focus:ring-0" value="1">
-                            <button class="py-2 px-4 bg-gray-200 rounded-lg" onclick="increaseQuantity('chosenQuantity3')">+</button>
-
-                            <button class="mx-8">
-                                <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="currentColor"
-                                class="h-6 w-6"
-                                x-tooltip="tooltip"
-                                >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                                />
-                                </svg>
-                            </button>
-                        </div>
-
-                    </td>
-
-                    <td class="px-6 py-6 whitespace-no-wrap text-lg md:text-2xl text-left font-bold">120.45 د.م</td>
-                </tr>
+                    
+                        </td>
+                    
+                        <td id="totalPrice{{ $order->id }}" class="px-6 py-6 whitespace-no-wrap text-lg md:text-2xl text-left font-bold">{{ ($order->price) }} د.م</td>
+                    </tr>
+                @empty
+                    
+                @endforelse
+                
                 
             </tbody>
         </table>
@@ -437,7 +345,7 @@
 
 </div>
 
-<script>
+{{-- <script>
     function decreaseQuantity(id) {
         var quantityInput = document.getElementById(id);
         var currentValue = parseInt(quantityInput.value);
@@ -450,6 +358,32 @@
         var quantityInput = document.getElementById(id);
         var currentValue = parseInt(quantityInput.value);
         quantityInput.value = currentValue + 1;
+    }
+</script> --}}
+
+<script>
+    function updateTotalPrice(inputId, price) {
+        const quantity = parseInt(document.getElementById(inputId).value);
+        const totalPriceElement = document.getElementById('totalPrice' + inputId.slice(-1));
+        totalPriceElement.textContent = ((quantity * price)) + " د.م";
+    }
+
+    function decreaseQuantity(inputId, price) {
+        const inputElement = document.getElementById(inputId);
+        let quantity = parseInt(inputElement.value);
+        if (quantity > 1) {
+            quantity--;
+            inputElement.value = quantity;
+            updateTotalPrice(inputId, price);
+        }
+    }
+
+    function increaseQuantity(inputId, price) {
+        const inputElement = document.getElementById(inputId);
+        let quantity = parseInt(inputElement.value);
+        quantity++;
+        inputElement.value = quantity;
+        updateTotalPrice(inputId, price);
     }
 </script>
 @endsection

@@ -49,7 +49,7 @@
                     <input type="hidden" id="total_price" name="price" value="{{ $topup->price }}">
                     <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
                     <input type="hidden" value="{{ $topup->id }}" name="ordered_item_id">
-                    <input type="hidden" value="topup" name="ordered_table_type">
+                    <input type="hidden" value="App\Models\Topup" name="ordered_table_type">
                     <input type="hidden" value="{{ $topup->topup_value }}" name="value_chosen">
 
                     <span class="text-xs my-2">السيرفر</span>
