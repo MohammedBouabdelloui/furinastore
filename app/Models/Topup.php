@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Order;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Order;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+
 class Topup extends Model
 {
     use HasFactory;
@@ -23,5 +25,10 @@ class Topup extends Model
         public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function productOrder(): MorphMany
+    {
+        return $this->morphMany(ProductOrder::class, 'orderedItem');
     }
 }

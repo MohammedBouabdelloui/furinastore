@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
+use App\Models\ProductOrder;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreCartRequest;
 use App\Http\Requests\UpdateCartRequest;
 
@@ -13,7 +15,11 @@ class CartController extends Controller
      */
     public function index()
     {
-        return view('cart.index');
+        $user = Auth::user();
+
+        $orders = $user->productOrders()->with('orderedItem')->get();
+
+        return view('cart.index', compact('orders'));
     }
 
     /**

@@ -11,10 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('product_orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->enum('order_status', ['pinned', 'canceled', 'done', 'confirmed']);
+            $table->unsignedBigInteger('ordered_item_id')->nullable();
+            $table->string('ordered_table_type')->nullable();
+
+            $table->enum('server', ['europe', 'america', 'asia']);
+            $table->unsignedBigInteger('genshin_account_id');
+            $table->integer('quantity_chosen');
+            $table->double('price');
+            $table->integer('value_chosen');
+
             $table->timestamps();
         });
     }
@@ -24,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('product_orders');
     }
 };

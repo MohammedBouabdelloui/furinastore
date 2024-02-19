@@ -39,44 +39,71 @@
                     {!! $topup->description !!}
                 </div>
 
-                <h1 class="text-bold text-xl mt-3 mb-1">{{ $topup->price }} درهم</h1>
+                
+                <h1 id="price" class="text-bold text-xl mt-3 mb-1"> {{ $topup->price }} درهم</h1>
 
-                <span class="text-xs my-2">السيرفر</span>
-
-                <ul class="grid w-full gap-4 md:grid-cols-3">
+                <form action="{{ route('product.order.store') }}" method="post">
                     
-                    <li>
-                        <input type="radio" name="server" id="europe-server" value="" class="hidden peer" required="">
-                        <label for="europe-server" class="inline-flex items-center justify-between w-full p-2 text-blue-500 bg-slate-50 border-2 border-blue-200 rounded-sm cursor-pointer peer-checked:border-blue-600 peer-checked:bg-blue-600 hover:text-blue-600 peer-checked:text-white hover:bg-blue-50">                           
-                            <div class="block">
-                                <div class="w-full text-lg font-semibold">أوروبا</div>
-                            </div>
-                        </label>
-                    </li>
-                    <li>
-                        <input type="radio" name="server" id="america-server" value="" class="hidden peer" required="">
-                        <label for="america-server" class="inline-flex items-center justify-between w-full p-2 text-blue-500 bg-slate-50 border-2 border-blue-200 rounded-sm cursor-pointer peer-checked:border-blue-600 peer-checked:bg-blue-600 hover:text-blue-600 peer-checked:text-white hover:bg-blue-50">                           
-                            <div class="block">
-                                <div class="w-full text-lg font-semibold">أمريكا</div>
-                            </div>
-                        </label>
-                    </li>
-                    <li>
-                        <input type="radio" name="server" id="asia-server" value="" class="hidden peer" required="">
-                        <label for="asia-server" class="inline-flex items-center justify-between w-full p-2 text-blue-500 bg-slate-50 border-2 border-blue-200 rounded-sm cursor-pointer peer-checked:border-blue-600 peer-checked:bg-blue-600 hover:text-blue-600 peer-checked:text-white hover:bg-blue-50">                           
-                            <div class="block">
-                                <div class="w-full text-lg font-semibold">أسيا</div>
-                            </div>
-                        </label>
-                    </li>
+                    @csrf
+
+                    <input type="hidden" id="total_price" name="price" value="{{ $topup->price }}">
+                    <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
+                    <input type="hidden" value="{{ $topup->id }}" name="ordered_item_id">
+                    <input type="hidden" value="App\Models\Topup" name="ordered_table_type">
+                    <input type="hidden" value="{{ $topup->topup_value }}" name="value_chosen">
+
+                    <span class="text-xs my-2">السيرفر</span>
                     
-                </ul>
+                    <ul class="grid w-full gap-4 md:grid-cols-3 mb-4">
+                        
+                        <li>
+                            <input type="radio" name="server" id="europe-server" value="europe" class="hidden peer" required="">
+                            <label for="europe-server" class="inline-flex items-center justify-between w-full p-2 text-blue-500 bg-slate-50 border-2 border-blue-200 rounded-sm cursor-pointer peer-checked:border-blue-600 peer-checked:bg-blue-600 hover:text-blue-600 peer-checked:text-white hover:bg-blue-50">                           
+                                <div class="block">
+                                    <div class="w-full text-lg font-semibold">أوروبا</div>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" name="server" id="america-server" value="america" class="hidden peer" required="">
+                            <label for="america-server" class="inline-flex items-center justify-between w-full p-2 text-blue-500 bg-slate-50 border-2 border-blue-200 rounded-sm cursor-pointer peer-checked:border-blue-600 peer-checked:bg-blue-600 hover:text-blue-600 peer-checked:text-white hover:bg-blue-50">                           
+                                <div class="block">
+                                    <div class="w-full text-lg font-semibold">أمريكا</div>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="radio" name="server" id="asia-server" value="asia" class="hidden peer" required="">
+                            <label for="asia-server" class="inline-flex items-center justify-between w-full p-2 text-blue-500 bg-slate-50 border-2 border-blue-200 rounded-sm cursor-pointer peer-checked:border-blue-600 peer-checked:bg-blue-600 hover:text-blue-600 peer-checked:text-white hover:bg-blue-50">                           
+                                <div class="block">
+                                    <div class="w-full text-lg font-semibold">أسيا</div>
+                                </div>
+                            </label>
+                        </li>
+                        
+                    </ul>
+                
+                    <span dir="rtl" class="text-xs mt-6 mb-4">ال ID الخاص بك</span>
+                    <br>
+                    
+                    <input type="number" min="0" name="genshinAccountId" id="" class="border border-blue-400 rounded-md py-2 px-8 w-full md:w-96 bg-transparent outline-none focus:border-blue-600 focus:ring-0 placeholder:font-bold">
 
+                    <br>
 
+                    <span dir="rtl" class="text-xs mt-6 mb-4">عدد المرات</span>
+                    <br>
+                    
+                    <div class="flex justify-center items-center py-1">
+                        <button type="button" class="py-2 px-4 bg-gray-200 rounded-lg" onclick="decreaseQuantity('chosenQuantity3')">-</button>
 
+                        <input id="chosenQuantity3" type="number" min="1" name="quantity_chosen" class="w-48 text-center py-2 bg-gray-100 outline-none border-transparent focus:border-transparent focus:ring-0" value="1">
 
-                <button dir="rtl" class="my-6 font-bold text-md w-[90%] mx-auto lg:w-[55%] bg-slate-50 py-3 border border-black rounded-3xl hover:text-white hover:bg-black transition ease-in-out duration-500">أضف الى السلة</button>
+                        <button type="button" class="py-2 px-4 bg-gray-200 rounded-lg" onclick="increaseQuantity('chosenQuantity3')">+</button>
+                    </div>
 
+                    <button type="submit" dir="rtl" class="my-6 font-bold text-md w-[90%] mx-auto lg:w-[55%] bg-slate-50 py-3 border border-black rounded-3xl hover:text-white hover:bg-black transition ease-in-out duration-500">أضف الى السلة</button>
+                    
+                </form>
                 
                 <div dir="rtl" class="flex justify-end items-center opacity-85 mb-3 mt-2">
                     <img src="{{ asset('img/icons/wish_icon_2.png') }}" alt="" class="w-10 lg:w-8">
@@ -112,4 +139,32 @@
 
 </div>
 
+
+<script>
+    function decreaseQuantity(id) {
+        var quantityInput = document.getElementById(id);
+        var currentValue = parseInt(quantityInput.value);
+        if (currentValue > 1) {
+            quantityInput.value = currentValue - 1;
+            updatePrice();
+        }
+    }
+
+    function increaseQuantity(id) {
+        var quantityInput = document.getElementById(id);
+        var currentValue = parseInt(quantityInput.value);
+        quantityInput.value = currentValue + 1;
+        updatePrice();
+    }
+
+    function updatePrice() {
+        var quantityInput = document.getElementById('chosenQuantity3');
+        var quantity = parseInt(quantityInput.value);
+        var pricePerUnit = {{ $topup->price }};
+        var totalPrice = (quantity * pricePerUnit).toFixed(2);
+        document.getElementById('price').textContent = totalPrice + ' درهم';
+        document.getElementById('total_price').value = totalPrice;
+    }
+
+</script>
 @endsection

@@ -102,7 +102,7 @@
 
 
             <td class="px-6 py-4">
-                <a href=""
+                <a href="{{ route('topup.details', $topup->id) }}" target="_blank"
                 class="text-blue-600 cursor-pointer"
                 >
                 اضغط هنا
