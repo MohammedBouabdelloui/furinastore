@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProductOrder extends Model
 {
@@ -22,6 +23,10 @@ class ProductOrder extends Model
         'quantity_chosen',
         'price',
     ];
+
+    use SoftDeletes;
+
+    protected $dates = ['deleted_at'];
 
     public function user(): BelongsTo
     {

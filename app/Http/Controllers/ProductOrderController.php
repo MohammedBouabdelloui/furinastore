@@ -80,7 +80,7 @@ class ProductOrderController extends Controller
     public function destroy($id)
     {
         $order = ProductOrder::findOrFail($id);
-        $order->delete();
+        $order->forceDelete();
         return back();
     }
 }
