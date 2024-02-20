@@ -14,7 +14,7 @@ use App\Mail\ConfirmationMail;
 use Stevebauman\Location\Facades\Location;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
-
+use Illuminate\Http\RedirectResponse;
 class UserController extends Controller
 {
     /**
@@ -209,7 +209,8 @@ class UserController extends Controller
     {
         return Socialite::driver('google')->redirect();
     }
-    
+
+
     public function handleGoogleCallback()
     {
         try {
@@ -259,4 +260,15 @@ class UserController extends Controller
         }
     }
 
+    public function logout(Request $request): RedirectResponse
+    {
+        Auth::logout();
+     
+        $request->session()->invalidate();
+     
+        $request->session()->regenerateToken();
+     
+        return redirect('/');
+    }
+    
 }   
