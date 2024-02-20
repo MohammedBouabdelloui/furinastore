@@ -30,39 +30,66 @@ class ProductOrderController extends Controller
      */
     public function store(StoreProductOrderRequest $request)
     {
+        
         $validatedData = $request->validated();
+
         $userID = $validatedData['user_id'];
 
-        $lastOpenOrder = Order::where('user_id', $userID)
-                                ->latest()
-                                ->first();
+        $lastOpenOrder = Order::where('user_id', $userID)->latest()
+            ->first();
 
-        if (!$lastOpenOrder || $lastOpenOrder->order_status != 'open') {
+        if($lastOpenOrder->order_status != 'open'){
+
             $newOrder = new Order();
+
             $newOrder->user_id = $userID;
             $newOrder->order_status = 'open';
+
             $newOrder->save();
+
+            // create product order:
+
+            $productOrder = new ProductOrder();
+
+            $productOrder->user_id = $validatedData['user_id'];
+            $productOrder->order_id = $newOrder->id;
+            $productOrder->ordered_item_id = $validatedData['ordered_item_id'];
+            $productOrder->ordered_table_type = $validatedData['ordered_table_type'];
+            $productOrder->value_chosen = $validatedData['value_chosen'];
+            $productOrder->server = $validatedData['server'];
+            $productOrder->genshin_account_id = $validatedData['genshinAccountId'];
+            $productOrder->quantity_chosen = $validatedData['quantity_chosen'];
+            $productOrder->price = $validatedData['price'];
+
+            $productOrder->save();
+
+            notify()->success('رائع لقد تم إضافة طلبك للحقيبة بنجاح ⚡️', 'تم إضافة طلب جديد');
+
+            return redirect()->back()->with('success', 'Order placed successfully!');
+    
+        }else{
+
+            $productOrder = new ProductOrder();
+
+            $productOrder->user_id = $validatedData['user_id'];
+            $productOrder->order_id = $lastOpenOrder->id;
+            $productOrder->ordered_item_id = $validatedData['ordered_item_id'];
+            $productOrder->ordered_table_type = $validatedData['ordered_table_type'];
+            $productOrder->value_chosen = $validatedData['value_chosen'];
+            $productOrder->server = $validatedData['server'];
+            $productOrder->genshin_account_id = $validatedData['genshinAccountId'];
+            $productOrder->quantity_chosen = $validatedData['quantity_chosen'];
+            $productOrder->price = $validatedData['price'];
+
+            $productOrder->save();
+
+            notify()->success('رائع لقد تم إضافة طلبك للحقيبة بنجاح ⚡️', 'تم إضافة طلب جديد');
+
+            return redirect()->back()->with('success', 'Order placed successfully!');
+
         }
 
-        $orderID = $lastOpenOrder ? $lastOpenOrder->id : $newOrder->id;
-
-        $productOrder = new ProductOrder();
-        $productOrder->user_id = $validatedData['user_id'];
-        $productOrder->order_id = $orderID;
-        $productOrder->ordered_item_id = $validatedData['ordered_item_id'];
-        $productOrder->ordered_table_type = $validatedData['ordered_table_type'];
-        $productOrder->value_chosen = $validatedData['value_chosen'];
-        $productOrder->server = $validatedData['server'];
-        $productOrder->genshin_account_id = $validatedData['genshinAccountId'];
-        $productOrder->quantity_chosen = $validatedData['quantity_chosen'];
-        $productOrder->price = $validatedData['price'];
-
-        $productOrder->save();
-
-        notify()->success('Order placed successfully!', 'Success');
-        return redirect()->back()->with('success', 'Order placed successfully!');
     }
-
 
     /**
      * Display the specified resource.
