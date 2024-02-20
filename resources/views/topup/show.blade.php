@@ -41,12 +41,27 @@
                 
                 <h1 id="price" class="text-bold text-xl mt-3 mb-1"> {{ $topup->price }} درهم</h1>
 
-                <form action="{{ route('product.order.store') }}" method="post">
+                <form action="{{ route('product.order.store') }}" method="post" class="font-cairo">
                     
                     @csrf
 
+                    @php
+                        $user = auth()->user();
+                    @endphp
+
+                    @if($user != null)
+                        <input type="hidden" value="{{ $user->id }}" name="user_id">
+                    @else
+                        @php
+                            notify()->info('يجب عليك تسجيل الدخول أو انشاء حساب من فضلك', 'ملاحظة مهمة');
+                        @endphp
+                        <input type="hidden" value="" name="user_id">
+                    @endif
+
+                
+
                     <input type="hidden" id="total_price" name="price" value="{{ $topup->price }}">
-                    <input type="hidden" value="{{ auth()->user()->id }}" name="user_id">
+                    
                     <input type="hidden" value="{{ $topup->id }}" name="ordered_item_id">
                     <input type="hidden" value="App\Models\Topup" name="ordered_table_type">
                     <input type="hidden" value="{{ $topup->topup_value }}" name="value_chosen">
