@@ -77,8 +77,10 @@ class ProductOrderController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(ProductOrder $productOrder)
+    public function destroy($id)
     {
-        //
+        $order = ProductOrder::findOrFail($id);
+        $order->delete();
+        return back();
     }
 }

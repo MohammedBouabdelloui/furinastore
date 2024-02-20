@@ -88,13 +88,14 @@
             <tbody class="bg-transparent divide-none divide-y divide-gray-200">
 
                 @forelse ($orders as $order)
+                {{-- @dump($order->toArray()) --}}
                     <tr class="mb-6">
                         <td class="px-6 py-6 whitespace-no-wrap">
                             <div class="flex justify-start items-center">
-                                <img src="{{ asset('img/posters/Furina-build.webp') }}" alt="" class="w-24 h-24 md:w-32 md:h-32 rounded-xl object-cover">
+                                <img src="{{ asset('storage/'. $order->orderedItem->picture) }}" alt="" class="w-24 h-24 md:w-32 md:h-32 rounded-xl object-cover">
                                 <div class="pr-2 md:pr-8">
                                     <h1 class="text-lg md:text-xl font-bold md:font-extrabold mb-2">{{ $order->orderedItem->title }}</h1>
-                                    <p class="text-md md:text-lg text-bold my-1">{{ $order->value_chosen }}</p>
+                                    <p class="text-md md:text-lg text-bold my-1">{{ $order->orderedItem->topup_value }}</p>
                                     <div class="text-gray-600 text-sm md:text-md my-1">
                                         {!! $order->orderedItem->description !!}
                                     </div>
@@ -107,24 +108,27 @@
                                 <input id="chosenQuantity{{ $order->id }}" type="number" min="1" class="w-24 text-center py-2 bg-gray-100 outline-none border-transparent focus:border-transparent focus:ring-0" value="{{ $order->quantity_chosen }}" onchange="updateTotalPrice('chosenQuantity{{ $order->id }}', '{{ $order->orderedItem->price }}')">
 
                                 <button class="py-2 px-4 bg-gray-200 rounded-lg" onclick="increaseQuantity('chosenQuantity{{ $order->id }}', '{{ $order->orderedItem->price }}')">+</button>
-                    
-                                <button class="mx-8">
-                                    <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke-width="1.5"
-                                    stroke="currentColor"
-                                    class="h-6 w-6"
-                                    x-tooltip="tooltip"
-                                    >
-                                    <path
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
-                                    />
-                                    </svg>
-                                </button>
+                                <form action="{{ route('product.order.destroy' , $order->id) }}"  method="POST" /> 
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="mx-8">
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 24 24"
+                                        stroke-width="1.5"
+                                        stroke="currentColor"
+                                        class="h-6 w-6"
+                                        x-tooltip="tooltip"
+                                        >
+                                        <path
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                                        />
+                                        </svg>
+                                    </button>
+                                </form> 
                             </div>
                     
                         </td>
@@ -145,7 +149,7 @@
     <h1 dir="rtl" class="text-3xl font-extrabold text-right font-cairo px-12">
         
         المجموع 
-        <span class="text-lg font-normal text-gray-700 px-8">240 د.م</span>
+        <span class="text-lg font-normal text-gray-700 px-8">{{ $orders->sum('price')}}  د.م </span>
 
     </h1>
 
