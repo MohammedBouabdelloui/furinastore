@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use App\Models\ProductOrder;
 use App\Http\Requests\StoreProductOrderRequest;
 use App\Http\Requests\UpdateProductOrderRequest;
@@ -30,10 +31,24 @@ class ProductOrderController extends Controller
     public function store(StoreProductOrderRequest $request)
     {
         $validatedData = $request->validated();
+        $userID = $validatedData['user_id'];
+
+        $lastOpenOrder = Order::where('user_id', $userID)
+                                ->latest()
+                                ->first();
+
+        if (!$lastOpenOrder || $lastOpenOrder->order_status != 'open') {
+            $newOrder = new Order();
+            $newOrder->user_id = $userID;
+            $newOrder->order_status = 'open';
+            $newOrder->save();
+        }
+
+        $orderID = $lastOpenOrder ? $lastOpenOrder->id : $newOrder->id;
 
         $productOrder = new ProductOrder();
-
         $productOrder->user_id = $validatedData['user_id'];
+        $productOrder->order_id = $orderID;
         $productOrder->ordered_item_id = $validatedData['ordered_item_id'];
         $productOrder->ordered_table_type = $validatedData['ordered_table_type'];
         $productOrder->value_chosen = $validatedData['value_chosen'];
@@ -44,8 +59,7 @@ class ProductOrderController extends Controller
 
         $productOrder->save();
 
-        notify()->success('رائع لقد تم إضافة طلبك للحقيبة بنجاح ⚡️', 'تم إضافة طلب جديد');
-
+        notify()->success('Order placed successfully!', 'Success');
         return redirect()->back()->with('success', 'Order placed successfully!');
     }
 
