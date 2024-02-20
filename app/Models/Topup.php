@@ -29,6 +29,6 @@ class Topup extends Model
 
     public function productOrder(): MorphMany
     {
-        return $this->morphMany(ProductOrder::class, 'orderedItem');
+        return $this->morphMany(ProductOrder::class, 'orderedItem', 'ordered_table_type', 'ordered_item_id');
     }
 }

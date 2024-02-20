@@ -64,3 +64,5 @@ Route::resource('cart', CartController::class)->names('cart');
 // Product-Order:
 
 Route::resource('product-order', ProductOrderController::class)->names('product.order');
+
+Route::resource('order' , 'OrderController::class');
