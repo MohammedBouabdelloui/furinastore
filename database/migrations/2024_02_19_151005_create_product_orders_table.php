@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('product_orders', function (Blueprint $table) {
             $table->id();
+
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
+            $table->foreignId('order_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('ordered_item_id')->nullable();
             $table->string('ordered_table_type')->nullable();
+
             $table->enum('server', ['europe', 'america', 'asia']);
             $table->unsignedBigInteger('genshin_account_id');
             $table->integer('quantity_chosen');
