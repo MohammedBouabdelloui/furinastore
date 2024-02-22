@@ -39,7 +39,7 @@ class ProductOrderController extends Controller
         $lastOpenOrder = Order::where('user_id', $userID)->latest()
             ->first();
 
-        if($lastOpenOrder->order_status != 'open'){
+        if(!$lastOpenOrder or $lastOpenOrder->order_status != 'open'){
 
             $newOrder = new Order();
 

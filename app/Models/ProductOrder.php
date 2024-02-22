@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Models\Order;
 
 class ProductOrder extends Model
 {
@@ -37,4 +38,10 @@ class ProductOrder extends Model
     {
         return $this->morphTo(__FUNCTION__, 'ordered_table_type', 'ordered_item_id');
     }
+
+    public function order() : BelongsTo
+    {
+        return $this->belongsTo(Order::class);
+    }    
+    
 }

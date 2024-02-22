@@ -26,6 +26,7 @@ use App\Models\ProductOrder;
 
 Route::get('/' , [NavigationController::class , 'index'])->name('home');
 Route::get('/topup', [NavigationController::class, 'topup'])->name('topup');
+Route::get('/advertisement' , [NavigationController::class , 'advertisement'])->name('advertisement');
 
 
 
@@ -35,6 +36,7 @@ Route::post('user/confirm', [UserController::class, 'confirmation'])->name('user
 Route::post('user/confirm/resend', [UserController::class, 'resendConfirmationCode'])->name('user.confirmation.resend');
 
 Route::post('user/login', [UserController::class, 'login'])->name('user.login');
+Route::post('user/logout', [UserController::class, 'logout'])->name('user.logout');
 
 Route::get('auth/google/callback' , [UserController::class , 'handleGoogleCallback' ] );
 Route::get('auth/google' , [UserController::class , 'redirectToGoogle']);
@@ -65,4 +67,6 @@ Route::resource('cart', CartController::class)->names('cart');
 
 Route::resource('product-order', ProductOrderController::class)->names('product.order');
 
+
 Route::resource('order' , 'OrderController::class');
+

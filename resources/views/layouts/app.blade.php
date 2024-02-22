@@ -64,7 +64,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;">
                         <path d="M5 22h14c1.103 0 2-.897 2-2V9a1 1 0 0 0-1-1h-3V7c0-2.757-2.243-5-5-5S7 4.243 7 7v1H4a1 1 0 0 0-1 1v11c0 1.103.897 2 2 2zM9 7c0-1.654 1.346-3 3-3s3 1.346 3 3v1H9V7zm-4 3h2v2h2v-2h6v2h2v-2h2l.002 10H5V10z"></path>
                     </svg>
-                    <span class="text-xs rounded-full py-0.5 px-2 bg-red-500 text-white absolute right-2 top-8 transform translate-x-1/2 -translate-y-1/2">3</span>
+                    <span class="text-xs rounded-full py-0.5 px-2 bg-red-500 text-white absolute right-2 top-8 transform translate-x-1/2 -translate-y-1/2">{{ auth()->user()->productOrders->count() }}</span>
                 </a>
                 
 
@@ -80,6 +80,13 @@
                     </svg>
                     <span class="text-white px-1">{{ auth()->user()->first_name }}</span>
                 </button>
+
+                <div>
+                    <form method="POST" action="{{ route('user.logout') }}">
+                        @csrf
+                        <button type="submit">Logout</button>
+                    </form>
+                </div>
 
                 @else
                     <button dir="rtl" class="flex justify-end items-center mx-2 px-6 py-2 rounded-full font-cairo bg-blue-600 hover:bg-blue-500 text-white transition ease-in-out duration-500" id="openModal">
@@ -207,11 +214,11 @@
             <div class="hidden md:flex justify-between items-center w-[80%] xl:w-[55%]">
                 <a href="" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85">عروضنا</a>
                 <a href="" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85">خدمات قنشن</a>
-                <a href="" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85">حسابات المعلنين</a>
+                <a href="{{ route('advertisement') }}" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85">حسابات المعلنين</a>
                 <a href="" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85">حسابات ريرول</a>
-                <a href="" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85">شحن قنشن</a>
+                <a href="{{ route('topup') }}" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85">شحن قنشن</a>
                 <a href="" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85">التخفيضات</a>
-                <a href="" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85 font-bold">الرئيسية</a>
+                <a href="{{ route('home') }}" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85 font-bold">الرئيسية</a>
             </div>
 
         </div>
