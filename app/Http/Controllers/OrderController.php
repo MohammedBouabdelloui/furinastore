@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 
@@ -29,7 +30,7 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        
+        //
     }
 
     /**
@@ -63,4 +64,5 @@ class OrderController extends Controller
     {
         //
     }
+
 }
