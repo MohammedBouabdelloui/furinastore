@@ -88,7 +88,6 @@
             <tbody class="bg-transparent divide-none divide-y divide-gray-200">
 
                 @forelse ($orders as $order)
-                {{-- @dump($order->toArray()) --}}
                     <tr class="mb-6">
                         <td class="px-6 py-6 whitespace-no-wrap">
                             <div class="flex justify-start items-center">
@@ -103,11 +102,15 @@
                             </div>
                     
                             <div class="flex justify-center items-center py-1">
-                                <button class="py-2 px-4 bg-gray-200 rounded-lg" onclick="decreaseQuantity('chosenQuantity{{ $order->id }}', '{{ $order->orderedItem->price }}')">-</button>
+
+                                <livewire:order-quantity-component :orderId="$order->id" :order="$order" :quantity="$order->quantity_chosen" :key="$order->id" :price="$order->orderedItem->price"/>
+
+                                {{-- <button class="py-2 px-4 bg-gray-200 rounded-lg" onclick="decreaseQuantity('chosenQuantity{{ $order->id }}', '{{ $order->orderedItem->price }}')">-</button>
 
                                 <input id="chosenQuantity{{ $order->id }}" type="number" min="1" class="w-24 text-center py-2 bg-gray-100 outline-none border-transparent focus:border-transparent focus:ring-0" value="{{ $order->quantity_chosen }}" onchange="updateTotalPrice('chosenQuantity{{ $order->id }}', '{{ $order->orderedItem->price }}')">
 
-                                <button class="py-2 px-4 bg-gray-200 rounded-lg" onclick="increaseQuantity('chosenQuantity{{ $order->id }}', '{{ $order->orderedItem->price }}')">+</button>
+                                <button class="py-2 px-4 bg-gray-200 rounded-lg" onclick="increaseQuantity('chosenQuantity{{ $order->id }}', '{{ $order->orderedItem->price }}')">+</button> --}}
+
                                 <form action="{{ route('product.order.destroy' , $order->id) }}"  method="POST" /> 
                                     @csrf
                                     @method('DELETE')
@@ -133,7 +136,9 @@
                     
                         </td>
                     
-                        <td id="totalPrice{{ $order->id }}" class="px-6 py-6 whitespace-no-wrap text-lg md:text-2xl text-left font-bold">{{ ($order->price) }} د.م</td>
+                        <td id="totalPrice{{ $order->id }}" class="order-price px-6 py-6 whitespace-no-wrap text-lg md:text-2xl text-left font-bold">
+                            {{ number_format($order->price, 2) }} د.م
+                        </td>
                     </tr>
                 @empty
                     
@@ -147,11 +152,10 @@
     <hr class="text-gray-600 mb-4">
 
     <h1 dir="rtl" class="text-3xl font-extrabold text-right font-cairo px-12">
-        
         المجموع 
-        <span class="text-lg font-normal text-gray-700 px-8">{{ $orders->sum('price')}}  د.م </span>
-
+        <span id="totalSumPrice" class="text-lg font-normal text-gray-700 px-8">0 د.م</span>
     </h1>
+    
 
     <div dir="rtl" class="mx-auto text-center">
         <button class="my-6 font-bold text-md w-[90%] mx-auto text-center lg:w-[30%] bg-slate-50 py-3 border border-black rounded-3xl hover:text-white hover:bg-black transition ease-in-out duration-500 font-cairo">أتمم الطلب</button>
@@ -365,11 +369,33 @@
     }
 </script> --}}
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+
+
 <script>
+
+    function totalSumPrice() {
+        let totalPrice = 0;
+        const orderPrices = document.querySelectorAll('.order-price');
+
+        orderPrices.forEach(function(priceElement) {
+            const price = parseFloat(priceElement.textContent.replace(/د.م/g, ""));
+            totalPrice += price;
+        });
+
+        const totalPriceSpan = document.getElementById('totalSumPrice');
+        totalPriceSpan.textContent = totalPrice.toFixed(2) + ' د.م';
+    };
+
+    window.onload = totalSumPrice()
+
     function updateTotalPrice(inputId, price) {
         const quantity = parseInt(document.getElementById(inputId).value);
         const totalPriceElement = document.getElementById('totalPrice' + inputId.slice(-1));
         totalPriceElement.textContent = ((quantity * price)) + " د.م";
+
+        totalSumPrice()
     }
 
     function decreaseQuantity(inputId, price) {
@@ -390,4 +416,6 @@
         updateTotalPrice(inputId, price);
     }
 </script>
+
+
 @endsection

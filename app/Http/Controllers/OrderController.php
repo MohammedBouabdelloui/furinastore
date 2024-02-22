@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use Illuminate\Http\Request;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 
@@ -29,11 +30,7 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        Order::create([
-            'user_id' => $request->$user_id,
-            'product_order_id' => $request->$product_order_id,
-            'order_status' => 'confirmed',
-        ]);
+        //
     }
 
     /**
@@ -67,4 +64,5 @@ class OrderController extends Controller
     {
         //
     }
+
 }
