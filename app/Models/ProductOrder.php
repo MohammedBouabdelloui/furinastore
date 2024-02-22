@@ -39,7 +39,7 @@ class ProductOrder extends Model
         return $this->morphTo(__FUNCTION__, 'ordered_table_type', 'ordered_item_id');
     }
 
-    public function order()
+    public function order() : BelongsTo
     {
         return $this->belongsTo(Order::class);
     }    
