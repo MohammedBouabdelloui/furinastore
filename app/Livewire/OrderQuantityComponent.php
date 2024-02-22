@@ -48,6 +48,8 @@ class OrderQuantityComponent extends Component
 
     public function render()
     {
+        // $totalPrice = ProductOrder::sum('price');
+        // return view('livewire.order-quantity', ['totalPrice' => $totalPrice]);
         return view('livewire.order-quantity');
     }
 }

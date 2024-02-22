@@ -136,7 +136,7 @@
                     
                         </td>
                     
-                        <td id="totalPrice{{ $order->id }}" class="px-6 py-6 whitespace-no-wrap text-lg md:text-2xl text-left font-bold">
+                        <td id="totalPrice{{ $order->id }}" class="order-price px-6 py-6 whitespace-no-wrap text-lg md:text-2xl text-left font-bold">
                             {{ number_format($order->price, 2) }} د.م
                         </td>
                     </tr>
@@ -151,11 +151,10 @@
 
     <hr class="text-gray-600 mb-4">
 
-    <div>
-        @livewire('total-price')
-    </div>
-    
-    @livewireScripts
+    <h1 dir="rtl" class="text-3xl font-extrabold text-right font-cairo px-12">
+        المجموع 
+        <span id="totalSumPrice" class="text-lg font-normal text-gray-700 px-8">0 د.م</span>
+    </h1>
     
 
     <div dir="rtl" class="mx-auto text-center">
@@ -376,10 +375,27 @@
 
 <script>
 
+    function totalSumPrice() {
+        let totalPrice = 0;
+        const orderPrices = document.querySelectorAll('.order-price');
+
+        orderPrices.forEach(function(priceElement) {
+            const price = parseFloat(priceElement.textContent.replace(/د.م/g, ""));
+            totalPrice += price;
+        });
+
+        const totalPriceSpan = document.getElementById('totalSumPrice');
+        totalPriceSpan.textContent = totalPrice.toFixed(2) + ' د.م';
+    };
+
+    window.onload = totalSumPrice()
+
     function updateTotalPrice(inputId, price) {
         const quantity = parseInt(document.getElementById(inputId).value);
         const totalPriceElement = document.getElementById('totalPrice' + inputId.slice(-1));
         totalPriceElement.textContent = ((quantity * price)) + " د.م";
+
+        totalSumPrice()
     }
 
     function decreaseQuantity(inputId, price) {
