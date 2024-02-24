@@ -10,6 +10,7 @@ use Stevebauman\Location\Facades\Location;
 use App\Http\Controllers\NavigationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductOrderController;
+use App\Http\Controllers\AdvertisementController;
 use App\Models\ProductOrder;
 
 /*
@@ -68,5 +69,6 @@ Route::resource('cart', CartController::class)->names('cart');
 Route::resource('product-order', ProductOrderController::class)->names('product.order');
 
 
-Route::resource('order' , 'OrderController::class');
+Route::resource('order' , OrderController::class);
 
+Route::resource('dashboard/advertisement' , AdvertisementController::class)->names('dashboard.advertisement');

@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class Advertisement extends Model
 {
     use HasFactory;
+   
+    protected $fillable = [
+        'title',
+        'user_id',
+        'price',
+        'account_level',
+        'server',
+        'platform',
+        'player',
+        'picture',
+        'description',
+        'is_available',
+    ];
 }

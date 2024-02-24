@@ -11,7 +11,7 @@ class StoreAdvertisementRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,16 @@ class StoreAdvertisementRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+    return [
+            'title' => 'required|string|max:255',
+            'price' => 'required|numeric|gt:0',
+            'account_level' => 'required|numeric|gt:0',
+            'platform' => 'required|string|max:255',
+            'server' => 'required|string|in:أسيا,أمريكا,اوروبا',
+            'player'=> 'required|string|in:f2p,p2p',
+            'description' => 'required|string',
+            'picture' => 'required|file|mimes:jpg,png,jpeg,webp', 
+            
         ];
     }
 }

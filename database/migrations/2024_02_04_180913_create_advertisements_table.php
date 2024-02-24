@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('server', ['اوروبا', 'أمريكا', 'أسيا']);
             $table->enum('player', ['p2p', 'f2p']);
             $table->string('picture');
+            $table->integer('number_sales')->default(0);
             $table->timestamps();
         });
     }
