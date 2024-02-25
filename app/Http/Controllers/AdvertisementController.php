@@ -87,7 +87,7 @@ class AdvertisementController extends Controller
      */
     public function show(Advertisement $advertisement)
     {
-        //
+
     }
 
     /**
@@ -109,8 +109,43 @@ class AdvertisementController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Advertisement $advertisement)
+    public function destroy($id)
     {
-        //
+        $advertisement = Advertisement::withTrashed()->where('id', $id)->first();
+        if(!$advertisement){
+            return abort(404);
+        }
+        $advertisement->forceDelete() ;
+        notify()->success('تم حذف السجل بشكل دائم بنجاح');
+        return redirect()->route('dashboard.advertisement.soft_delete');
+    }
+
+    public function delete($id){
+        $advertisement = $advertisment = Advertisement::findOrFail($id);
+        if(!$advertisement){
+            return abort(404);
+        }
+        $advertisement->delete();
+        notify()->success(' تم حذف السجل بشكل  بنجاح');
+        return back();
+    }
+
+    public function restore($id){
+        $advertisement = Advertisement::onlyTrashed()->where('id', $id)->first();
+
+        if (!$advertisement) {
+            return abort(404);
+        }
+
+        $advertisement->restore();
+        notify()->success( ' تم اعادة منتوج بنجاح');
+
+        return redirect()->route('dashboard.advertisement.index');
+    }
+
+    public function soft_delete(){
+        
+        $advertisements = Advertisement::onlyTrashed()->get();
+        return view('admin.pages.advertisement.soft_delete' , compact('advertisements'));
     }
 }

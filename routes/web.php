@@ -53,6 +53,13 @@ Route::middleware(['admin'])->group(function(){
     Route::delete('dashboard/topup/soft-delete/{id}', [TopupController::class, 'softDelete'])->name('topup.soft-delete');
     Route::patch('dashboard/topup/restore/{id}', [TopupController::class, 'restore'])->name('topup.restore');
 
+    // advertisemnt dashboard 
+    Route::get('dashboard/advertisement/soft_delete', [AdvertisementController::class , 'soft_delete'])->name('dashboard.advertisement.soft_delete');
+    
+    Route::resource('dashboard/advertisement' , AdvertisementController::class)->names('dashboard.advertisement');
+
+    Route::delete('dashboard/advertisement/delete/{id}' , [AdvertisementController::class , 'delete'])->name('advertisement.delete');
+    Route::patch('dashboard/advertisement/restore/{id}' , [AdvertisementController::class , 'restore'])->name('advertisement.restore');
 });
 
 
@@ -71,4 +78,3 @@ Route::resource('product-order', ProductOrderController::class)->names('product.
 
 Route::resource('order' , OrderController::class);
 
-Route::resource('dashboard/advertisement' , AdvertisementController::class)->names('dashboard.advertisement');

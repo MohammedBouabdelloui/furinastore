@@ -19,21 +19,20 @@
           <a href="{{ route('dashboard.advertisement.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-blue-700">Advertisement</a>
         </div>
       </li>
+      <li>
+        <div class="flex items-center">
+          <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+          </svg>
+          <a href="{{ route('dashboard.advertisement.soft_delete') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-blue-700">Deleted advertisements</a>
+        </div>
+      </li>
     </ol>
 </nav>
 
 
 <div class="max-w-[95%] flex justify-between items-enter mx-auto mt-6 mb-4 font-cairo">
   <input type="search" name="search-advertisement" id="" class="rounded-md w-80 py-3 px-10 outline-none border-transparent focus:border-transparent focus:ring-0 " placeholder="ابحث">
-  <div>
-
-    <a href="{{ route('dashboard.advertisement.create') }}" class="px-10 py-2 text-white bg-blue-500 rounded-md">أضف عرضا أخر</a>
-    
-      <a href="{{ route('dashboard.advertisement.soft_delete') }}" class="bg-blue-500  text-white font-bold py-2 px-4 rounded">
-        عرض البيانات المحذوفة
-      </a> 
-      
-  </div>
 </div>
 
   
@@ -132,7 +131,7 @@
 
             <td class="px-6 py-4">
                 <div class="flex justify-end gap-4">
-                  <form action="{{ route('advertisement.delete', $advertisement->id) }}" method="POST">
+                  <form action="{{ route('dashboard.advertisement.destroy', $advertisement->id) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button x-data="{ tooltip: 'delete' }" type="submit">
@@ -153,23 +152,11 @@
                         </svg>
                     </button>
                   </form>  
-                <a x-data="{ tooltip: 'Edite' }" href="{{ route('dashboard.advertisement.edit', $advertisement) }}">
-                    <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="h-6 w-6"
-                    x-tooltip="tooltip"
-                    >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-                    />
-                    </svg>
-                </a>
+                  <form action="{{ route('advertisement.restore', $advertisement->id) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit">Restore</button>
+                  </form> 
                 </div>
             </td>
         </tr>
