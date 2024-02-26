@@ -148,4 +148,9 @@ class AdvertisementController extends Controller
         $advertisements = Advertisement::onlyTrashed()->get();
         return view('admin.pages.advertisement.soft_delete' , compact('advertisements'));
     }
+
+    public function advertisement_details($id){
+        $advertisement = Advertisement::findOrFail($id);
+        return view('advertisement.show' ,compact('advertisement'));
+    }
 }

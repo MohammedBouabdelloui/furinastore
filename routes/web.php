@@ -66,6 +66,7 @@ Route::middleware(['admin'])->group(function(){
 // TOPUP:
 
 Route::get('/topup/{id}', [TopupController::class, 'topup_details'])->name('topup.details');
+Route::get('/advertisement/{id}', [AdvertisementController::class, 'advertisement_details'])->name('advertisement.details');
 
 // Cart:
 

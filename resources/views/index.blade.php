@@ -289,7 +289,7 @@
                                 <span class="mx-1 text-xs lg:text-sm text-white">(تم الشراء {{ $advertisement->number_sales }})</span>
                             </div>
                 
-                            <button dir="rtl" class="my-2 font-bold text-md w-[75%] lg:w-[85%] bg-slate-100 py-2 rounded-sm">{{ $advertisement->price }} د.م</button>
+                            <a href="{{ route('advertisement.details' , $advertisement->id) }}" class="my-2 font-bold text-md w-[75%] lg:w-[85%] bg-slate-100 py-2 rounded-sm text-center block text-white" style="text-decoration: none;">{{ $advertisement->price }} د.م</a>
                         </div>
                 
                     </div>
