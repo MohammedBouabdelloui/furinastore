@@ -37,4 +37,8 @@ class NavigationController extends Controller
         $advertisements = Advertisement::limit(6)->get();
         return  view('advertisement.index' , compact('advertisements'));
     }
+    public function advertisement_details($id){
+        $advertisement = Advertisement::findOrFail($id);
+        return view('advertisement.show' ,compact('advertisement'));
+    }
 }

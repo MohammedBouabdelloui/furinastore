@@ -93,9 +93,10 @@ class AdvertisementController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Advertisement $advertisement)
+    public function edit($id)
     {
-        //
+          $advertisement = Advertisement::find($id)->first();
+          return view('admin.pages.advertisement.create' , compact('advertisement'));
     }
 
     /**
@@ -103,7 +104,48 @@ class AdvertisementController extends Controller
      */
     public function update(UpdateAdvertisementRequest $request, Advertisement $advertisement)
     {
-        //
+
+        $picture = $request->file('picture');
+        if ($picture) {
+            $pictureName = time() . '_' . $picture->getClientOriginalName();
+            $picturePath = $picture->storeAs('uploads/advertisements', $pictureName, 'public');
+            if (!$picturePath) {
+                notify()->error('Failed to upload picture', 'Error');
+                return back()->withInput();
+            }
+        } else {
+            $picturePath =  $advertisement->picture;
+        }
+
+        
+        $user = User::where('email', $request->user_email)->first();
+        if(!$user){
+            notify()->error('لا يوجد مستخدم بهدا لاميل', ' اطلب من المعلن التسجيل');
+            return back()->withInput();
+        }
+        //return dd($request->input('server'));
+
+        $success =  $advertisement->update([
+            'title' => $request->title,
+            'user_id' => $user->id,
+            'price' => $request->price,
+            'description' => $request->description,
+            'account_level' => $request->account_level,
+            'platform' => $request->platform,
+            'server' => $request->input('server'),
+            'player' => $request->player,
+            'is_available' => 1,
+            'picture' => $picturePath,
+        ]);
+
+        if($success){
+            notify()->success($request->title, 'تم اضافة منتوج جديد');
+            return redirect()->route('dashboard.advertisement.index');
+        }else{
+            notify()->error('Failed to add product', 'خطأ');
+            return back()->withInput();
+        }
+
     }
 
     /**
@@ -149,8 +191,4 @@ class AdvertisementController extends Controller
         return view('admin.pages.advertisement.soft_delete' , compact('advertisements'));
     }
 
-    public function advertisement_details($id){
-        $advertisement = Advertisement::findOrFail($id);
-        return view('advertisement.show' ,compact('advertisement'));
-    }
 }

@@ -79,7 +79,7 @@
                     
                     <input type="hidden" value="{{ $advertisement->id }}" name="ordered_item_id">
                     <input type="hidden" value="App\Models\Topup" name="ordered_table_type">
-                    <input type="hidden" value="{{ $advertisement->acount_level }}" name="value_chosen">
+                    <input type="hidden" value="{{ $advertisement->account_level }}" name="value_chosen">
 
 
                     <div class="text-md text-gray-500 my-4">
@@ -87,18 +87,7 @@
                     </div>
                     <br>
 
-                    <span dir="rtl" class="text-xs mt-6 mb-4">عدد المرات</span>
-                    <br>
-                    
-                    <div class="flex justify-center items-center py-1">
-                        <button type="button" class="py-2 px-4 bg-gray-200 rounded-lg" onclick="decreaseQuantity('chosenQuantity3')">-</button>
-
-                        <input id="chosenQuantity3" type="number" min="1" name="quantity_chosen" class="w-48 text-center py-2 bg-gray-100 outline-none border-transparent focus:border-transparent focus:ring-0" value="1">
-
-                        <button type="button" class="py-2 px-4 bg-gray-200 rounded-lg" onclick="increaseQuantity('chosenQuantity3')">+</button>
-                    </div>
-
-                    <button type="submit" dir="rtl" class="my-6 font-bold text-md w-[90%] mx-auto lg:w-[55%] bg-slate-50 py-3 border border-black rounded-3xl hover:text-white hover:bg-black transition ease-in-out duration-500">أضف الى السلة</button>
+                    <button type="submit" dir="rtl" class="my-6 font-bold text-md w-[90%] mx-auto lg:w-full bg-slate-50 py-3 border border-black rounded-3xl hover:text-white hover:bg-black transition ease-in-out duration-500">أضف الى السلة</button>
                     
                 </form>
                 
@@ -136,32 +125,4 @@
 
 </div>
 
-
-<script>
-    function decreaseQuantity(id) {
-        var quantityInput = document.getElementById(id);
-        var currentValue = parseInt(quantityInput.value);
-        if (currentValue > 1) {
-            quantityInput.value = currentValue - 1;
-            updatePrice();
-        }
-    }
-
-    function increaseQuantity(id) {
-        var quantityInput = document.getElementById(id);
-        var currentValue = parseInt(quantityInput.value);
-        quantityInput.value = currentValue + 1;
-        updatePrice();
-    }
-
-    function updatePrice() {
-        var quantityInput = document.getElementById('chosenQuantity3');
-        var quantity = parseInt(quantityInput.value);
-        var pricePerUnit = {{ $advertisement->price }};
-        var totalPrice = (quantity * pricePerUnit).toFixed(2);
-        document.getElementById('price').textContent = totalPrice + ' درهم';
-        document.getElementById('total_price').value = totalPrice;
-    }
-
-</script>
 @endsection

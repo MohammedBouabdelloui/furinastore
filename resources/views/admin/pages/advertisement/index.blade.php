@@ -76,7 +76,7 @@
             </td>
 
             <td class="w-96 px-6 py-4">
-              {{  $advertisement->user_id  }}
+              {{  $advertisement->user->email  }}
             </td>
 
             <td class="w-96 px-6 py-4">
@@ -123,7 +123,7 @@
 
 
             <td class="px-6 py-4">
-                <a href="#" target="_blank"
+                <a href="{{ route('advertisement' , $advertisement->id) }}" target="_blank"
                 class="text-blue-600 cursor-pointer"
                 >
                 اضغط هنا

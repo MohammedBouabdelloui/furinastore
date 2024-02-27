@@ -22,4 +22,9 @@ class Advertisement extends Model
         'description',
         'is_available',
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+    
 }

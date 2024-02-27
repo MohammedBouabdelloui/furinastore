@@ -28,6 +28,8 @@ use App\Models\ProductOrder;
 Route::get('/' , [NavigationController::class , 'index'])->name('home');
 Route::get('/topup', [NavigationController::class, 'topup'])->name('topup');
 Route::get('/advertisement' , [NavigationController::class , 'advertisement'])->name('advertisement');
+Route::get('/topup/{id}', [TopupController::class, 'topup_details'])->name('topup.details');
+Route::get('/advertisement/{id}', [NavigationController::class, 'advertisement_details'])->name('advertisement.details');
 
 
 
@@ -65,8 +67,6 @@ Route::middleware(['admin'])->group(function(){
 
 // TOPUP:
 
-Route::get('/topup/{id}', [TopupController::class, 'topup_details'])->name('topup.details');
-Route::get('/advertisement/{id}', [AdvertisementController::class, 'advertisement_details'])->name('advertisement.details');
 
 // Cart:
 

@@ -275,29 +275,30 @@
         <div class="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-2 mx-2" dir="rtl">
             
             @foreach($advertisements as $advertisement)
-            
+            <a href="{{ route('advertisement.details' , $advertisement->id) }}" >
                 <div class="group bg-slate-50 rounded-sm relative">
 
                     <div class="relative flex flex-col justify-center items-center">
                     
-                        <img src="{{ asset('img/posters/raiden-shogun.webp') }}" alt="" class="w-full h-[200px] lg:h-[260px] object-cover rounded-md group-hover:blur-sm transition ease-in-out duration-300">
+                        <img src="{{ asset('storage/'. $advertisement->picture) }}"  alt="" class="w-full h-[200px] lg:h-[260px] object-cover rounded-md group-hover:blur-sm transition ease-in-out duration-300">
                 
-                        <div class="absolute mx-auto text-center lg:p-8 w-[85%] h-[70%] bg-black bg-opacity-50 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div class="absolute mx-auto text-center  lg:p-8 w-[85%] h-[70%] bg-black bg-opacity-50 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
                             <h1 class="font-bold text-center text-white text-xl my-2"> {{ $advertisement->title }} </h1>
                             <span class="text-white "> المستوا {{ $advertisement->account_level }} </span>
                             <div class="flex justify-center items-center mt-1">
                                 <span class="mx-1 text-xs lg:text-sm text-white">(تم الشراء {{ $advertisement->number_sales }})</span>
                             </div>
                 
-                            <a href="{{ route('advertisement.details' , $advertisement->id) }}" class="my-2 font-bold text-md w-[75%] lg:w-[85%] bg-slate-100 py-2 rounded-sm text-center block text-white" style="text-decoration: none;">{{ $advertisement->price }} د.م</a>
+                            <button dir="rtl" class="my-2 font-bold text-md w-[75%] lg:w-[85%] bg-slate-100 py-2 rounded-sm">{{ $advertisement->price }} د.م</button>
                         </div>
                 
                     </div>
                 
                 </div>
              
+            </a>
+                @endforeach
             </div>
-            @endforeach
             
         </div>
 
