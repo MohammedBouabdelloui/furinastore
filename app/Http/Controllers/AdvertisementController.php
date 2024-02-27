@@ -95,7 +95,7 @@ class AdvertisementController extends Controller
      */
     public function edit($id)
     {
-          $advertisement = Advertisement::find($id)->first();
+          $advertisement = Advertisement::findOrfail($id);
           return view('admin.pages.advertisement.create' , compact('advertisement'));
     }
 
@@ -117,7 +117,7 @@ class AdvertisementController extends Controller
             $picturePath =  $advertisement->picture;
         }
 
-        
+
         $user = User::where('email', $request->user_email)->first();
         if(!$user){
             notify()->error('لا يوجد مستخدم بهدا لاميل', ' اطلب من المعلن التسجيل');

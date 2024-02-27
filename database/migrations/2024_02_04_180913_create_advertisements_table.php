@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('title', 255);
             $table->decimal('price', 12, 2);
-            $table->string('description', 255);
+            $table->text('description');
             $table->boolean('is_available');
             $table->integer('account_level')->min('1')->max('60');
             $table->string('platform');

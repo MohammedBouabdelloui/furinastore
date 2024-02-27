@@ -72,7 +72,12 @@
           </th>
           
             <td class="w-96 px-6 py-4">
-              {!! $advertisement->description !!}
+              <?php
+                    $description = $advertisement->description;
+                    $words = explode(' ', $description);
+                    $first_10_words = implode(' ', array_slice($words, 0, 10));
+                    echo $first_10_words . ' . . .';
+                ?>
             </td>
 
             <td class="w-96 px-6 py-4">
