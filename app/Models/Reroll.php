@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use App\Models\Order;
+use App\Models\ProductOrder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Topup extends Model
+class Reroll extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -16,17 +15,18 @@ class Topup extends Model
     protected $fillable = [
         'title',
         'price',
-        'topup_value',
         'description',
         'is_available',
+        'account_level',
+        'platform',
+        'source',
+        'server',
+        'number_sales',
         'picture'
     ];
-    
-    protected $dates = ['deleted_at'];
 
-
-    public function productOrder(): MorphMany
+    public function rerollsolds()
     {
-        return $this->morphMany(ProductOrder::class, 'orderedItem', 'ordered_table_type', 'ordered_item_id');
+        return $this->hasMany(RerollSold::class);
     }
 }
