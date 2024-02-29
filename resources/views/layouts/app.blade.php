@@ -36,6 +36,11 @@
 
             <div class="lg:flex justify-between items-center w-[50%]">
                 <img src="{{ asset("img/website_logo.png") }}" alt="logo" class="w-20 h-20 rounded-lg" >
+                
+
+
+                <a href="{{ route('dashboard') }}" alt="logo" class="  rounded-lg">     <svg xmlns="http://www.w3.org/2000/svg" width="60" height="24" viewBox="0 0 24 24" style="fill: rgba(23, 17, 214, 1);transform: rotate(180deg);msFilter:progid:DXImageTransform.Microsoft.BasicImage(rotation=2);"><path d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z"></path></svg>
+                </a> 
 
                 <input
                     dir="rtl"
@@ -73,7 +78,7 @@
 
                 </button>
 
-                <button dir="rtl" class="flex justify-end items-center mx-2 px-6 py-2 rounded-full bg-blue-700 font-cairo hover:bg-blue-500 transition ease-in-out duration-500" ">
+                <button dir="rtl" class="flex justify-end items-center mx-2 px-6 py-2 rounded-full bg-blue-700 font-cairo hover:bg-blue-500 transition ease-in-out duration-500" >
                     
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgb(255, 255, 255);">
                         <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"></path>
@@ -97,6 +102,8 @@
                         <span class=" px-1">دخول</span>
                     </button>
                 @endif
+
+
 
 
 

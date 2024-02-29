@@ -31,7 +31,9 @@ class ProductOrderController extends Controller
      */
     public function store(StoreProductOrderRequest $request)
     {
-        
+        try{
+
+
         $validatedData = $request->validated();
 
         $userID = $validatedData['user_id'];
@@ -57,8 +59,10 @@ class ProductOrderController extends Controller
             $productOrder->ordered_item_id = $validatedData['ordered_item_id'];
             $productOrder->ordered_table_type = $validatedData['ordered_table_type'];
             $productOrder->value_chosen = $validatedData['value_chosen'];
-            $productOrder->server = $validatedData['server'];
-            $productOrder->genshin_account_id = $validatedData['genshinAccountId'];
+            if($request->genshinAccountId){
+                $productOrder->server = $validatedData['server'];
+                $productOrder->genshin_account_id = $validatedData['genshinAccountId'];
+            }
             $productOrder->quantity_chosen = $validatedData['quantity_chosen'];
             $productOrder->price = $validatedData['price'];
 
@@ -77,8 +81,11 @@ class ProductOrderController extends Controller
             $productOrder->ordered_item_id = $validatedData['ordered_item_id'];
             $productOrder->ordered_table_type = $validatedData['ordered_table_type'];
             $productOrder->value_chosen = $validatedData['value_chosen'];
-            $productOrder->server = $validatedData['server'];
-            $productOrder->genshin_account_id = $validatedData['genshinAccountId'];
+
+            if($request->genshinAccountId){
+                $productOrder->server = $validatedData['server'];
+                $productOrder->genshin_account_id = $validatedData['genshinAccountId'];
+            }
             $productOrder->quantity_chosen = $validatedData['quantity_chosen'];
             $productOrder->price = $validatedData['price'];
 
@@ -89,6 +96,10 @@ class ProductOrderController extends Controller
             return redirect()->back()->with('success', 'Order placed successfully!');
 
         }
+        }catch (\Exception $e) {
+            return $e->getMessage();
+        }
+    
 
     }
 
