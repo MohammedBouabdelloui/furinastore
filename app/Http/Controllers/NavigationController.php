@@ -32,7 +32,7 @@ class NavigationController extends Controller
     {
         
         $topups = Topup::orderBy('topup_value')->get();
-        return view('topup.index' , compact('topups', 'orders'));
+        return view('topup.index' , compact('topups'));
     }
 
     public function advertisement(){

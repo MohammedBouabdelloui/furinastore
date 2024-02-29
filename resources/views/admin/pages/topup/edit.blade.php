@@ -78,7 +78,7 @@
     <label for="price" class="block mb-3 text-sm font-medium text-gray-500 ">شرح المنتوج</label>
 
     <div class="w-full mx-auto rounded-xl bg-white shadow-lg p-5 text-black mb-6" x-data="app()" x-init="init($refs.wysiwyg)">
-        <textarea rows="15" id="description" name="description" class="w-full bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none focus:ring-0">{{ $topup->description }}</textarea>
+        <textarea  id="editor" rows="15" id="description" name="description" class="w-full bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 outline-none focus:ring-0">{{ $topup->description }}</textarea>
     </div>
 
     <div class="mb-6">
