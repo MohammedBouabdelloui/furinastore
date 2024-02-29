@@ -1,0 +1,171 @@
+@extends('admin.layout.dash')
+@section('content')
+
+<nav class="ml-12 my-4 flex" aria-label="Breadcrumb">
+    <ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+      <li class="inline-flex items-center">
+        <a href="{{ route('dashboard') }}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-700">
+          <svg class="w-3 h-3 me-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+            <path d="m19.707 9.293-2-2-7-7a1 1 0 0 0-1.414 0l-7 7-2 2a1 1 0 0 0 1.414 1.414L2 10.414V18a2 2 0 0 0 2 2h3a1 1 0 0 0 1-1v-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v4a1 1 0 0 0 1 1h3a2 2 0 0 0 2-2v-7.586l.293.293a1 1 0 0 0 1.414-1.414Z"/>
+          </svg>
+          Dashboard
+        </a>
+      </li>
+      <li>
+        <div class="flex items-center">
+          <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+          </svg>
+          <a href="{{ route('dashboard.advertisement.index') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-blue-700">Advertisement</a>
+        </div>
+      </li>
+      <li>
+        <div class="flex items-center">
+          <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
+          </svg>
+          <a href="{{ route('dashboard.advertisement.soft_delete') }}" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-blue-700">Deleted advertisements</a>
+        </div>
+      </li>
+    </ol>
+</nav>
+
+
+<div class="max-w-[95%] flex justify-between items-enter mx-auto mt-6 mb-4 font-cairo">
+  <input type="search" name="search-advertisement" id="" class="rounded-md w-80 py-3 px-10 outline-none border-transparent focus:border-transparent focus:ring-0 " placeholder="ابحث">
+</div>
+
+  
+<div class="max-w-[95%] overflow-hidden rounded-lg border border-gray-200 shadow-md mx-auto font-cairo">
+    <table class="w-full border-collapse bg-white text-left text-sm text-gray-500">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">اسم العرض</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">الوصف</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">صاحب الحساب</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900"> منصة الحساب</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900"> لاعب</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900"> الخادم</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">الثمن</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">تم شراءه</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">التوفر</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">اعرض المنتوج</th>
+          <th scope="col" class="px-6 py-4 font-medium text-gray-900">العمليات</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+        @foreach ($advertisements as $advertisement)
+        <tr class="hover:bg-gray-50">
+          <th class="flex gap-3 px-6 py-4 font-normal text-gray-900">
+            <div class="relative h-10 w-10">
+              <img
+                class="h-full w-full rounded-sm object-cover object-center"
+                src="{{ asset('storage/' . $advertisement->picture) }}"
+                alt=""
+              />
+            </div>
+            <div dir="rtl" class="text-sm">
+              <div class="font-medium text-gray-700">{{ $advertisement->title }}</div>
+              <div class="text-gray-400">{{ $advertisement->account_level }} </div>
+            </div>
+          </th>
+          
+            <td class="w-96 px-6 py-4">
+              {!! $advertisement->description !!}
+            </td>
+
+            <td class="w-96 px-6 py-4">
+              {{  $advertisement->user_id  }}
+            </td>
+
+            <td class="w-96 px-6 py-4">
+              {{  $advertisement->platform  }}
+            </td>
+
+            <td class="w-96 px-6 py-4">
+              {{  $advertisement->player  }}
+            </td>
+            <td class="w-96 px-6 py-4">
+              {{  $advertisement->server  }}
+            </td>
+
+            <td class="px-6 py-4">
+                <span dir="rtl"
+                class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
+                >
+                {{ $advertisement->price }}د.م
+                </span>
+            </td>
+
+            <td class="px-6 py-4">
+                <span dir="rtl"
+                class="inline-flex items-center gap-1 rounded-full bg-blue-50 px-2 py-1 text-xs font-semibold text-blue-600"
+                >
+                {{ $advertisement->number_sales }}
+                </span>
+            </td>
+
+            <td class="px-6 py-4">
+                <span
+                class="inline-flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 text-xs font-semibold text-green-600"
+                >
+                <span class="h-1.5 w-1.5 rounded-full bg-green-600"></span>
+                @if ($advertisement->is_available)
+                  متوفر للبيع
+                @else
+                  غير متوفر للبيع 
+
+                @endif
+  
+                </span>
+            </td>
+
+
+            <td class="px-6 py-4">
+                <a href="#" target="_blank"
+                class="text-blue-600 cursor-pointer"
+                >
+                اضغط هنا
+                </a>
+            </td>
+
+            <td class="px-6 py-4">
+                <div class="flex justify-end gap-4">
+                  <form action="{{ route('dashboard.advertisement.destroy', $advertisement->id) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button x-data="{ tooltip: 'delete' }" type="submit">
+                        <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="h-6 w-6"
+                        x-tooltip="tooltip"
+                        >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                        />
+                        </svg>
+                    </button>
+                  </form>  
+                  <form action="{{ route('advertisement.restore', $advertisement->id) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit">Restore</button>
+                  </form> 
+                </div>
+            </td>
+        </tr>
+        @endforeach
+      </tbody>
+    </table>
+    <div class="mt-4">
+      {{-- {{ $advertisement->links() }}  --}}
+    </div>
+</div>
+
+@endsection

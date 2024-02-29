@@ -18,12 +18,11 @@ return new class extends Migration
             $table->foreignId('order_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('ordered_item_id')->nullable();
             $table->string('ordered_table_type')->nullable();
-
-            $table->enum('server', ['europe', 'america', 'asia']);
-            $table->unsignedBigInteger('genshin_account_id');
-            $table->integer('quantity_chosen');
+            $table->enum('server', ['europe', 'america', 'asia'])->nullable();
+            $table->unsignedBigInteger('genshin_account_id')->nullable();
+            $table->integer('quantity_chosen')->default(1);
             $table->double('price');
-            $table->integer('value_chosen');
+            $table->integer('value_chosen')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -25,11 +25,11 @@ class StoreProductOrderRequest extends FormRequest
             'user_id' => 'required|numeric',
             'ordered_item_id' => 'required|numeric',
             'ordered_table_type' => 'required|string',
-            'value_chosen' => 'required',
-            'price' => 'required|numeric|min:1',
-            'server' => 'required|in:europe,america,asia',
-            'genshinAccountId' => 'required|numeric',
-            'quantity_chosen' => 'required|numeric|min:1',
+            'value_chosen' => 'numeric|gt:0',
+            'price' => 'required|numeric|gt:0',
+            'server' => 'in:europe,america,asia',
+            'genshinAccountId' => 'numeric',
+            'quantity_chosen' => 'numeric|gt:0',
         ];
         
     }

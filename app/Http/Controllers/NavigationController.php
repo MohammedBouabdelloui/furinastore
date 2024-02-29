@@ -17,13 +17,15 @@ class NavigationController extends Controller
         $topups = Topup::orderBy('topup_value')->take(4)->get();
         //$discounts = Discount::orderBy('topup_value')->take(6)->get();
         //$services = Service::orderBy('topup_value')->take(4)->get();
+        $advertisements = Advertisement::orderBy('number_sales')->take(6)->get();
+        //$orders = Order::all();
         
-
         $ip = $request->ip();
         $position = Location::get('41.87.159.255');
         notify()->success('فورينا ترحب بك في متجرها ⚡️', 'أهلا بك معنا');
 
-        return view('index', compact('position', 'topups' ));
+        return view('index', compact('position', 'topups'  , 'advertisements'));
+
     }
 
     public function topup()
@@ -36,5 +38,9 @@ class NavigationController extends Controller
     public function advertisement(){
         $advertisements = Advertisement::limit(6)->get();
         return  view('advertisement.index' , compact('advertisements'));
+    }
+    public function advertisement_details($id){
+        $advertisement = Advertisement::findOrFail($id);
+        return view('advertisement.show' ,compact('advertisement'));
     }
 }

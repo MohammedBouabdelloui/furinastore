@@ -131,6 +131,9 @@
             </div>
 
             {{-- @dump($topup->productOrder->where('order_id', $orders->id )->count())  --}}
+
+            {{-- @dump($orders->productOrders()) --}}
+
             @endforeach
 
 
@@ -269,133 +272,39 @@
             <img src="{{ asset('img/icons/wish_icon_2.png') }}" alt="" class="w-10 lg:w-16">
         </div>
 
-        <div class="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-2 mx-2">
+        <div class="my-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-2 mx-2" dir="rtl">
             
-            <div class="group bg-slate-50 rounded-sm relative">
+            @foreach($advertisements as $advertisement)
+            <a href="{{ route('advertisement.details' , $advertisement->id) }}" >
+                <div class="group bg-slate-50 rounded-sm relative">
 
-                <div class="relative flex flex-col justify-center items-center">
+                    <div class="relative flex flex-col justify-center items-center">
+                    
+                        <img src="{{ asset('storage/'. $advertisement->picture) }}"  alt="" class="w-full h-[200px] lg:h-[260px] object-cover rounded-md group-hover:blur-sm transition ease-in-out duration-300">
                 
-                    <img src="{{ asset('img/posters/raiden-shogun.webp') }}" alt="" class="w-full h-[200px] lg:h-[260px] object-cover rounded-md group-hover:blur-sm transition ease-in-out duration-300">
-            
-                    <div class="absolute mx-auto text-center lg:p-8 w-[85%] h-[70%] bg-black bg-opacity-50 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <h1 class="font-bold text-center text-white text-xl my-2">فورينا + نوفيليت</h1>
-            
-                        <div class="flex justify-center items-center mt-1">
-                            <span class="mx-1 text-xs lg:text-sm text-white">(تم الشراء 127)</span>
-                        </div>
-            
-                        <button dir="rtl" class="my-2 font-bold text-md w-[75%] lg:w-[85%] bg-slate-100 py-2 rounded-sm">48 د.م</button>
-                    </div>
-            
-                </div>
-            
-            </div>
-            
-            <div class="group bg-slate-50 rounded-sm relative">
-
-                <div class="relative flex flex-col justify-center items-center">
+                        <div class="absolute mx-auto text-center  lg:p-8 w-[85%] h-[70%] bg-black bg-opacity-50 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 ">
+                            <h1 class="font-bold text-center text-white text-xl my-2"> {{ $advertisement->title }} </h1>
+                            <span class="text-white "> المستوا {{ $advertisement->account_level }} </span>
+                            <div class="flex justify-center items-center mt-1">
+                                <span class="mx-1 text-xs lg:text-sm text-white">(تم الشراء {{ $advertisement->number_sales }})</span>
+                            </div>
                 
-                    <img src="{{ asset('img/posters/raiden-shogun.webp') }}" alt="" class="w-full h-[200px] lg:h-[260px] object-cover rounded-md group-hover:blur-sm transition ease-in-out duration-300">
-            
-                    <div class="absolute mx-auto text-center lg:p-8 w-[85%] h-[70%] bg-black bg-opacity-50 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <h1 class="font-bold text-center text-white text-xl my-2">فورينا + نوفيليت</h1>
-            
-                        <div class="flex justify-center items-center mt-1">
-                            <span class="mx-1 text-xs lg:text-sm text-white">(تم الشراء 127)</span>
+                            <button dir="rtl" class="my-2 font-bold text-md w-[75%] lg:w-[85%] bg-slate-100 py-2 rounded-sm">{{ $advertisement->price }} د.م</button>
                         </div>
-            
-                        <button dir="rtl" class="my-2 font-bold text-md w-[75%] lg:w-[85%] bg-slate-100 py-2 rounded-sm">48 د.م</button>
-                    </div>
-            
-                </div>
-            
-            </div>
-            
-            <div class="group bg-slate-50 rounded-sm relative">
-
-                <div class="relative flex flex-col justify-center items-center">
                 
-                    <img src="{{ asset('img/posters/raiden-shogun.webp') }}" alt="" class="w-full h-[200px] lg:h-[260px] object-cover rounded-md group-hover:blur-sm transition ease-in-out duration-300">
-            
-                    <div class="absolute mx-auto text-center lg:p-8 w-[85%] h-[70%] bg-black bg-opacity-50 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <h1 class="font-bold text-center text-white text-xl my-2">فورينا + نوفيليت</h1>
-            
-                        <div class="flex justify-center items-center mt-1">
-                            <span class="mx-1 text-xs lg:text-sm text-white">(تم الشراء 127)</span>
-                        </div>
-            
-                        <button dir="rtl" class="my-2 font-bold text-md w-[75%] lg:w-[85%] bg-slate-100 py-2 rounded-sm">48 د.م</button>
                     </div>
-            
-                </div>
-            
-            </div>
-            
-            <div class="group bg-slate-50 rounded-sm relative">
-
-                <div class="relative flex flex-col justify-center items-center">
                 
-                    <img src="{{ asset('img/posters/raiden-shogun.webp') }}" alt="" class="w-full h-[200px] lg:h-[260px] object-cover rounded-md group-hover:blur-sm transition ease-in-out duration-300">
-            
-                    <div class="absolute mx-auto text-center lg:p-8 w-[85%] h-[70%] bg-black bg-opacity-50 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <h1 class="font-bold text-center text-white text-xl my-2">فورينا + نوفيليت</h1>
-            
-                        <div class="flex justify-center items-center mt-1">
-                            <span class="mx-1 text-xs lg:text-sm text-white">(تم الشراء 127)</span>
-                        </div>
-            
-                        <button dir="rtl" class="my-2 font-bold text-md w-[75%] lg:w-[85%] bg-slate-100 py-2 rounded-sm">48 د.م</button>
-                    </div>
-            
                 </div>
-            
-            </div>
-            
-            <div class="group bg-slate-50 rounded-sm relative">
-
-                <div class="relative flex flex-col justify-center items-center">
-                
-                    <img src="{{ asset('img/posters/raiden-shogun.webp') }}" alt="" class="w-full h-[200px] lg:h-[260px] object-cover rounded-md group-hover:blur-sm transition ease-in-out duration-300">
-            
-                    <div class="absolute mx-auto text-center lg:p-8 w-[85%] h-[70%] bg-black bg-opacity-50 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <h1 class="font-bold text-center text-white text-xl my-2">فورينا + نوفيليت</h1>
-            
-                        <div class="flex justify-center items-center mt-1">
-                            <span class="mx-1 text-xs lg:text-sm text-white">(تم الشراء 127)</span>
-                        </div>
-            
-                        <button dir="rtl" class="my-2 font-bold text-md w-[75%] lg:w-[85%] bg-slate-100 py-2 rounded-sm">48 د.م</button>
-                    </div>
-            
-                </div>
-            
-            </div>
-            
-            <div class="group bg-slate-50 rounded-sm relative">
-
-                <div class="relative flex flex-col justify-center items-center">
-                
-                    <img src="{{ asset('img/posters/raiden-shogun.webp') }}" alt="" class="w-full h-[200px] lg:h-[260px] object-cover rounded-md group-hover:blur-sm transition ease-in-out duration-300">
-            
-                    <div class="absolute mx-auto text-center lg:p-8 w-[85%] h-[70%] bg-black bg-opacity-50 rounded-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <h1 class="font-bold text-center text-white text-xl my-2">فورينا + نوفيليت</h1>
-            
-                        <div class="flex justify-center items-center mt-1">
-                            <span class="mx-1 text-xs lg:text-sm text-white">(تم الشراء 127)</span>
-                        </div>
-            
-                        <button dir="rtl" class="my-2 font-bold text-md w-[75%] lg:w-[85%] bg-slate-100 py-2 rounded-sm">48 د.م</button>
-                    </div>
-            
-                </div>
-            
+             
+            </a>
+                @endforeach
             </div>
             
         </div>
 
         <div class="flex justify-center items-center">
 
-            <button class="mx-auto text-center text-lg py-1 px-10 border border-blue-600 text-blue-600 hover:text-white hover:bg-blue-600 rounded-sm transition ease-in-out duration-500">أظهر المزيد</button>
+            <a href="{{ route('advertisement') }}"  class="mx-auto text-center text-lg py-1 px-10 border border-blue-600 text-blue-600 hover:text-white hover:bg-blue-600 rounded-sm transition ease-in-out duration-500">أظهر المزيد</a>
 
         </div>
 

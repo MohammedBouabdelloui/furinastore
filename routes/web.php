@@ -10,8 +10,12 @@ use Stevebauman\Location\Facades\Location;
 use App\Http\Controllers\NavigationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductOrderController;
+
+use App\Http\Controllers\AdvertisementController;
+
 use App\Http\Controllers\RerollController;
 use App\Http\Controllers\RerollSoldController;
+
 use App\Models\ProductOrder;
 
 /*
@@ -29,6 +33,8 @@ use App\Models\ProductOrder;
 Route::get('/' , [NavigationController::class , 'index'])->name('home');
 Route::get('/topup', [NavigationController::class, 'topup'])->name('topup');
 Route::get('/advertisement' , [NavigationController::class , 'advertisement'])->name('advertisement');
+Route::get('/topup/{id}', [TopupController::class, 'topup_details'])->name('topup.details');
+Route::get('/advertisement/{id}', [NavigationController::class, 'advertisement_details'])->name('advertisement.details');
 
 
 
@@ -54,6 +60,15 @@ Route::middleware(['admin'])->group(function(){
     Route::delete('dashboard/topup/soft-delete/{id}', [TopupController::class, 'softDelete'])->name('topup.soft-delete');
     Route::patch('dashboard/topup/restore/{id}', [TopupController::class, 'restore'])->name('topup.restore');
 
+
+    // advertisemnt dashboard 
+    Route::get('dashboard/advertisement/soft_delete', [AdvertisementController::class , 'soft_delete'])->name('dashboard.advertisement.soft_delete');
+    
+    Route::resource('dashboard/advertisement' , AdvertisementController::class)->names('dashboard.advertisement');
+
+    Route::delete('dashboard/advertisement/delete/{id}' , [AdvertisementController::class , 'delete'])->name('advertisement.delete');
+    Route::patch('dashboard/advertisement/restore/{id}' , [AdvertisementController::class , 'restore'])->name('advertisement.restore');
+
     // reroll dashboard:
     Route::resource('dashboard/reroll', RerollController::class)->names('dashboard.reroll');
     Route::delete('dashboard/reroll/soft-delete/{id}', [RerollController::class, 'softDelete'])->name('reroll.soft-delete');
@@ -63,12 +78,12 @@ Route::middleware(['admin'])->group(function(){
 
     Route::get('dashboard/rerollsold/new/{reroll}', [RerollSoldController::class, 'newSold'])->name('dashboard.rerollsold.new');
 
+
 });
 
 
 // TOPUP:
 
-Route::get('/topup/{id}', [TopupController::class, 'topup_details'])->name('topup.details');
 
 // Cart:
 
@@ -79,5 +94,5 @@ Route::resource('cart', CartController::class)->names('cart');
 Route::resource('product-order', ProductOrderController::class)->names('product.order');
 
 
-Route::resource('order' , 'OrderController::class');
+Route::resource('order' , OrderController::class);
 
