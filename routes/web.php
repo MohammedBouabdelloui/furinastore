@@ -10,7 +10,12 @@ use Stevebauman\Location\Facades\Location;
 use App\Http\Controllers\NavigationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductOrderController;
+
 use App\Http\Controllers\AdvertisementController;
+
+use App\Http\Controllers\RerollController;
+use App\Http\Controllers\RerollSoldController;
+
 use App\Models\ProductOrder;
 
 /*
@@ -55,6 +60,7 @@ Route::middleware(['admin'])->group(function(){
     Route::delete('dashboard/topup/soft-delete/{id}', [TopupController::class, 'softDelete'])->name('topup.soft-delete');
     Route::patch('dashboard/topup/restore/{id}', [TopupController::class, 'restore'])->name('topup.restore');
 
+
     // advertisemnt dashboard 
     Route::get('dashboard/advertisement/soft_delete', [AdvertisementController::class , 'soft_delete'])->name('dashboard.advertisement.soft_delete');
     
@@ -62,6 +68,17 @@ Route::middleware(['admin'])->group(function(){
 
     Route::delete('dashboard/advertisement/delete/{id}' , [AdvertisementController::class , 'delete'])->name('advertisement.delete');
     Route::patch('dashboard/advertisement/restore/{id}' , [AdvertisementController::class , 'restore'])->name('advertisement.restore');
+
+    // reroll dashboard:
+    Route::resource('dashboard/reroll', RerollController::class)->names('dashboard.reroll');
+    Route::delete('dashboard/reroll/soft-delete/{id}', [RerollController::class, 'softDelete'])->name('reroll.soft-delete');
+
+    // reroll dashboard:
+    Route::resource('dashboard/rerollsold', RerollSoldController::class)->names('dashboard.rerollsold');
+
+    Route::get('dashboard/rerollsold/new/{reroll}', [RerollSoldController::class, 'newSold'])->name('dashboard.rerollsold.new');
+
+
 });
 
 
