@@ -79,8 +79,6 @@
                     
                     <input type="hidden" value="{{ $advertisement->id }}" name="ordered_item_id">
                     <input type="hidden" value="App\Models\Advertisement" name="ordered_table_type">
-                    <input type="hidden" value="{{ $advertisement->account_level }}" name="value_chosen">
-
                     <input type="hidden" value="1" name="quantity_chosen">
 
 

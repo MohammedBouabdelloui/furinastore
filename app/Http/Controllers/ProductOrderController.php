@@ -58,8 +58,9 @@ class ProductOrderController extends Controller
             $productOrder->order_id = $newOrder->id;
             $productOrder->ordered_item_id = $validatedData['ordered_item_id'];
             $productOrder->ordered_table_type = $validatedData['ordered_table_type'];
-            $productOrder->value_chosen = $validatedData['value_chosen'];
-            if($request->genshinAccountId){
+
+            if($request->ordered_table_type === 'App\Models\Topup'){
+                $productOrder->value_chosen = $validatedData['value_chosen'];
                 $productOrder->server = $validatedData['server'];
                 $productOrder->genshin_account_id = $validatedData['genshinAccountId'];
             }
@@ -80,9 +81,9 @@ class ProductOrderController extends Controller
             $productOrder->order_id = $lastOpenOrder->id;
             $productOrder->ordered_item_id = $validatedData['ordered_item_id'];
             $productOrder->ordered_table_type = $validatedData['ordered_table_type'];
-            $productOrder->value_chosen = $validatedData['value_chosen'];
-
-            if($request->genshinAccountId){
+            
+            if($request->ordered_table_type === 'App\Models\Topup'){
+                $productOrder->value_chosen = $validatedData['value_chosen'];
                 $productOrder->server = $validatedData['server'];
                 $productOrder->genshin_account_id = $validatedData['genshinAccountId'];
             }
