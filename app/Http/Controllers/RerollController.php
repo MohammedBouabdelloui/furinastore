@@ -109,8 +109,45 @@ class RerollController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Reroll $reroll)
+
+    public function destroy($id)
     {
-        //
+        $reroll = Reroll::withTrashed()->where('id', $id)->first();
+        if(!$reroll){
+            return abort(404);
+        }
+        $reroll->forceDelete() ;
+        notify()->success('تم حذف السجل بشكل دائم بنجاح');
+        return redirect()->route('reroll.soft_delete');
+    }
+
+
+    public function delete($id){
+        $reroll = $advertisment = Reroll::findOrFail($id);
+        if(!$reroll){
+            return abort(404);
+        }
+        $reroll->delete();
+        notify()->success(' تم حذف السجل بشكل  بنجاح');
+        return back();
+    }
+
+    public function restore($id){
+        $reroll = Reroll::onlyTrashed()->where('id', $id)->first();
+
+        if (!$reroll) {
+            return abort(404);
+        }
+
+        $reroll->restore();
+        notify()->success( ' تم اعادة منتوج بنجاح');
+
+        return redirect()->route('dashboard.reroll.index');
+    }
+
+    public function soft_delete(){
+        
+        $rerolls = Reroll::onlyTrashed()->get();
+        return view('admin.pages.reroll.soft_deleted' , compact('rerolls'));
     }
 }

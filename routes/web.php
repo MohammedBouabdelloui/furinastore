@@ -70,11 +70,14 @@ Route::middleware(['admin'])->group(function(){
     Route::patch('dashboard/advertisement/restore/{id}' , [AdvertisementController::class , 'restore'])->name('advertisement.restore');
 
     // reroll dashboard:
+    Route::get('dashboard/reroll/soft-delete', [RerollController::class, 'soft_delete'])->name('reroll.soft_delete');
     Route::resource('dashboard/reroll', RerollController::class)->names('dashboard.reroll');
-    Route::delete('dashboard/reroll/soft-delete/{id}', [RerollController::class, 'softDelete'])->name('reroll.soft-delete');
+    Route::delete('dashboard/reroll/delete/{id}', [RerollController::class, 'delete'])->name('reroll.delete');
+    Route::patch('dashboard/reroll/restore/{id}', [RerollController::class, 'restore'])->name('reroll.restore');
 
     // reroll dashboard:
     Route::resource('dashboard/rerollsold', RerollSoldController::class)->names('dashboard.rerollsold');
+
 
     Route::get('dashboard/rerollsold/new/{reroll}', [RerollSoldController::class, 'newSold'])->name('dashboard.rerollsold.new');
 
