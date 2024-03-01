@@ -9,11 +9,12 @@ use App\Http\Requests\UpdateOrderRequest;
 class OrderController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of  the resource.
      */
     public function index()
     {
-        //
+        $orders = Order::where('order_status' , 'pinned' )->get();
+        return view('admin.pages.orders.index' , compact('orders'));
     }
 
     /**

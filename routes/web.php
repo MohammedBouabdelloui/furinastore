@@ -84,6 +84,10 @@ Route::middleware(['admin'])->group(function(){
     Route::get('dashboard/rerollsold/new/{reroll}', [RerollSoldController::class, 'newSold'])->name('dashboard.rerollsold.new');
 
 
+    // orders dashboard :
+    Route::resource('dashboard/order' , OrderController::class)->names('dashboard.order');
+
+
 });
 
 
