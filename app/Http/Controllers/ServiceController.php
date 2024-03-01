@@ -13,7 +13,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = Service::paginate(10);
+        return view('admin.pages.service.index' , compact('services'));
     }
 
     /**
@@ -21,7 +22,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.service.create');
     }
 
     /**
@@ -29,7 +30,25 @@ class ServiceController extends Controller
      */
     public function store(StoreServiceRequest $request)
     {
-        //
+        $picture = $request->file('picture');
+        $pictureName = time() . '_' . $picture->getClientOriginalName();
+        $picturePath = $picture->storeAs('uploads/service', $pictureName, 'public');
+
+        $service = Service::create([
+            'title' => $request->title,
+            'price' => $request->price,
+            'description' => $request->description,
+            'is_available' => 1,
+            'picture' => $picturePath, 
+        ]);
+
+        if ($service) {
+            notify()->success($request->title, 'تم اضافة منتوج جديد');
+            return redirect()->route('dashboard.service.index');
+        } else {
+            notify()->error('Failed to add product', 'خطأ');
+            return back()->withInput();
+        }
     }
 
     /**
@@ -45,7 +64,7 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        //
+        return view('admin.pages.service.edit', compact('service'));
     }
 
     /**
@@ -53,7 +72,28 @@ class ServiceController extends Controller
      */
     public function update(UpdateServiceRequest $request, Service $service)
     {
-        //
+        if ($request->hasFile('picture')) {
+            $picture = $request->file('picture');
+            $pictureName = time() . '_' . $picture->getClientOriginalName();
+            $picturePath = $picture->storeAs('uploads/service', $pictureName, 'public');
+        } else {
+            $picturePath = $service->picture;
+        }
+
+        $service->update([
+            'title' => $request->title,
+            'price' => $request->price,
+            'description' => $request->description,
+            'picture' => $picturePath,
+        ]);
+
+        if ($service) {
+            notify()->success($request->title, 'تم التعديل المنتوج');
+            return redirect()->route('dashboard.service.index');
+        } else {
+            notify()->error('Failed to add product', 'خطأ');
+            return back()->withInput();
+        }
     }
 
     /**
