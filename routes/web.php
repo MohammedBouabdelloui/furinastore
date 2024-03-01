@@ -15,7 +15,7 @@ use App\Http\Controllers\AdvertisementController;
 
 use App\Http\Controllers\RerollController;
 use App\Http\Controllers\RerollSoldController;
-
+use App\Http\Controllers\ServiceController;
 use App\Models\ProductOrder;
 
 /*
@@ -82,6 +82,13 @@ Route::middleware(['admin'])->group(function(){
 
 
     Route::get('dashboard/rerollsold/new/{reroll}', [RerollSoldController::class, 'newSold'])->name('dashboard.rerollsold.new');
+
+
+    // services dashboard:
+    Route::get('dashboard/service/soft-delete', [ServiceController::class, 'soft_delete'])->name('service.soft_delete');
+    Route::resource('dashboard/service', ServiceController::class)->names('dashboard.service');
+    Route::delete('dashboard/service/delete/{id}', [ServiceController::class, 'delete'])->name('service.delete');
+    Route::patch('dashboard/service/restore/{id}', [ServiceController::class, 'restore'])->name('service.restore');
 
 
 });
