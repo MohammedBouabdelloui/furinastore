@@ -40,6 +40,9 @@ Route::get('/advertisement/{id}', [NavigationController::class, 'advertisement_d
 Route::get('/reroll/{id}', [NavigationController::class, 'reroll_details'])->name('reroll.details');
 Route::get('/reroll' , [NavigationController::class , 'reroll'])->name('reroll');
 
+Route::get('/service/{id}', [NavigationController::class, 'service_details'])->name('service.details');
+Route::get('/service' , [NavigationController::class , 'service'])->name('service');
+
 Route::resource('user', UserController::class);
 
 Route::post('user/confirm', [UserController::class, 'confirmation'])->name('user.confirmation');

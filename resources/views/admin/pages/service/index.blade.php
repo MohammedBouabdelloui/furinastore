@@ -117,7 +117,7 @@
             </td>
 
             <td class="px-6 py-4">
-                <a href="" target="_blank"
+                <a href="{{ route('service.details', $service->id) }}" target="_blank"
                 class="text-blue-600 cursor-pointer"
                 >
                 اضغط هنا
