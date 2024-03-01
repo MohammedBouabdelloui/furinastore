@@ -132,7 +132,7 @@
 
     <div class="mb-6">
         <label for="advertisement_picture" class="block mb-3 text-sm font-medium text-gray-500 ">صورة للحساب</label>
-        <input type="file" value="{{ $advertisement->picture }}" id="advertisement_picture" name="picture" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-none  focus:border-transparent focus:ring-0" placeholder="120" {{ isset($advertisment) ? '': 'required'}}required />
+        <input type="file" id="advertisement_picture" name="picture" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-none  focus:border-transparent focus:ring-0" placeholder="120" {{ isset($advertisment) ? '': 'required'}}required />
     </div> 
 
     <div dir="rtl" class="text-sm rounded-lg border-2 border-red-300 bg-red-50 p-4 my-2">

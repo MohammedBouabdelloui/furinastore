@@ -222,7 +222,7 @@
                 <a href="" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85">عروضنا</a>
                 <a href="" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85">خدمات قنشن</a>
                 <a href="{{ route('advertisement') }}" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85">حسابات المعلنين</a>
-                <a href="" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85">حسابات ريرول</a>
+                <a href="{{ route('reroll') }}" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85">حسابات ريرول</a>
                 <a href="{{ route('topup') }}" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85">شحن قنشن</a>
                 <a href="" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85">التخفيضات</a>
                 <a href="{{ route('home') }}" class="hover:text-blue-500 py-1 lg:py-2 rounded-sm transition ease-in-out duration-500 opacity-85 font-bold">الرئيسية</a>
