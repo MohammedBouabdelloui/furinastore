@@ -55,6 +55,12 @@ Route::get('auth/google/callback' , [UserController::class , 'handleGoogleCallba
 Route::get('auth/google' , [UserController::class , 'redirectToGoogle']);
 
 
+Route::middleware(['auth'])->group(function(){
+    Route::get('/profile' , [UserController::class , 'index'])->name('profile');
+
+});
+
+
 Route::middleware(['admin'])->group(function(){
     Route::get('/dashboard' , [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/users' , [DashboardController::class , 'users'])->name('dashboard/product');
@@ -66,9 +72,9 @@ Route::middleware(['admin'])->group(function(){
     Route::patch('dashboard/topup/restore/{id}', [TopupController::class, 'restore'])->name('topup.restore');
 
 
-    // advertisemnt dashboard 
+    // advertisemnt dashboard
     Route::get('dashboard/advertisement/soft_delete', [AdvertisementController::class , 'soft_delete'])->name('dashboard.advertisement.soft_delete');
-    
+
     Route::resource('dashboard/advertisement' , AdvertisementController::class)->names('dashboard.advertisement');
 
     Route::delete('dashboard/advertisement/delete/{id}' , [AdvertisementController::class , 'delete'])->name('advertisement.delete');
