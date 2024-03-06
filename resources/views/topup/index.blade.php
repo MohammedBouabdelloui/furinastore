@@ -1,5 +1,5 @@
 @extends('layouts.app')
- 
+
 @section('title', 'أفضل متجر عربي للعبة قنشن')
 
 @section('content')
@@ -16,14 +16,14 @@
     </div>
 
     <div class="my-4 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-6 lg:gap-x-4 lg:gap-y-12 mx-2" dir="rtl">
-        
+
         @foreach ($topups as $topup )
-            
-        
+
+
         <div class="bg-slate-50 rounded-md ">
 
             <div class="flex flex-col justify-center items-center">
-            
+
                 <img src="{{ asset('storage/'. $topup->picture) }}" alt="" class="w-full h-[240px] lg:h-[260px] object-cover rounded-xl">
 
                 <h1 class="font-bold text-lg my-2"> {{ $topup->title }}</h1>
@@ -40,16 +40,12 @@
                 <a href="{{ route('topup.details' , $topup->id) }}" dir="rtl" class="my-2 text-center  font-bold text-md w-[95%] bg-slate-200 py-2 rounded-md hover:bg-slate-300"> د.م {{ $topup->price }}</a>
 
             </div>
-            
+
         </div>
         @endforeach
-
-
-
-
     </div>
 
- 
+
 
 </div>
 <div class="bg-gray-100 py-16">
@@ -58,12 +54,12 @@
         <div class="w-1/2 mr-8">
             <img src="{{ asset('img/banners/banner3.webp') }}" alt="Promotion Image" class="w-full h-auto rounded-lg shadow-md">
         </div>
-        
+
         <!-- Text content on the right side -->
         <div class="w-1/2 pr-20" dir="rtl" >
             <h2 class="text-4xl font-bold text-gray-800 mb-4 dir='rtl' ">عرض  خاص</h2>
             <p class="text-lg text-gray-600 mb-6">احتفل بافتتاحنا الخاص واستمتع بعرض حصري! اقضِ وقتاً مميزاً مع خدمات الشحن الخاصة بنا. اقتنص الفرصة الآن واحصل على مكافآت رائعة عند شحن رصيدك. تفضل بزيارتنا اليوم واستفد من هذا العرض الاستثنائي. شكراً لدعمكم!</p>
-            
+
             <!-- Call to action button -->
             <a href="#" class="bg-blue-500 text-white py-2 px-4 rounded-full inline-block hover:bg-blue-600">تسوق الآن</a>
         </div>

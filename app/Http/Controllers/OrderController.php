@@ -13,7 +13,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('order_status' , 'pinned' )->get();
+        $orders = Order::where('order_status', '!=', 'open')->get();
         return view('admin.pages.orders.index' , compact('orders'));
     }
 
@@ -38,7 +38,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('admin.pages.orders.order', compact('order'));
     }
 
     /**
@@ -54,7 +54,9 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
-        //
+        $order->order_status = "confirmed";
+        $order->save();
+        return back();
     }
 
     /**
