@@ -93,11 +93,16 @@ Route::middleware(['admin'])->group(function(){
     Route::get('dashboard/rerollsold/new/{reroll}', [RerollSoldController::class, 'newSold'])->name('dashboard.rerollsold.new');
 
 
+
+    // orders dashboard :
+    Route::resource('dashboard/order' , OrderController::class)->names('dashboard.order');
+
     // services dashboard:
     Route::get('dashboard/service/soft-delete', [ServiceController::class, 'soft_delete'])->name('service.soft_delete');
     Route::resource('dashboard/service', ServiceController::class)->names('dashboard.service');
     Route::delete('dashboard/service/delete/{id}', [ServiceController::class, 'delete'])->name('service.delete');
     Route::patch('dashboard/service/restore/{id}', [ServiceController::class, 'restore'])->name('service.restore');
+
 
 
 });
