@@ -22,7 +22,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return view('user.profile');
     }
 
     /**
@@ -41,7 +41,7 @@ class UserController extends Controller
         $ip = $request->ip();
         $position = Location::get('41.87.159.255');
 
-        $countryCode = $position->countryCode; 
+        $countryCode = $position->countryCode;
 
         $country = Country::where('iso_code', $countryCode)->first();
 
@@ -67,7 +67,7 @@ class UserController extends Controller
         $userEmail = $request->email;
 
         Mail::to($userEmail)->send(new ConfirmationMail($userName, $userEmail, $confirmationCode));
-        
+
         return redirect()->back()->with(['userEmail' => $userEmail, 'success' => 'Utilisateur ajouté avec succès!']);
 
     }
@@ -87,7 +87,7 @@ class UserController extends Controller
 
         if ($user) {
             $user->update(['account_status' => 'active']);
-            
+
             Auth::login($user);
 
             return redirect()->back()->with("confirmationSuccess", "تم تسجيل الدخول بنجاح! 🎉");
@@ -114,10 +114,10 @@ class UserController extends Controller
             $user->update(['confirmation_code' => $confirmationCode]);
 
             $userName = $user->first_name;
-            
+
             try {
                 Mail::to($userEmail)->send(new ConfirmationMail($userName, $userEmail, $confirmationCode));
-                
+
                 return redirect()->back()->with(['userEmail' => $userEmail,"confirmationCodeSent" => "تم ارسال رمز تحقق جديد الى ايميلك الشخصي."]);
 
             } catch (\Exception $e) {
@@ -175,11 +175,11 @@ class UserController extends Controller
             'passwordLogin.required' => 'حقل كلمة المرور مطلوب.',
             'passwordLogin.string' => 'يجب أن تكون كلمة المرور نصًا.',
         ]);
-        
-    
+
+
         $credentials = $request->only('emailLogin', 'passwordLogin');
         $user = User::where('email', $request->emailLogin)->first();
-        
+
         if($user and Hash::check($request->passwordLogin, $user->password)){
 
             if($user->account_status === 'active'){
@@ -187,12 +187,12 @@ class UserController extends Controller
                 $request->session()->regenerate();
                 auth()->login($user);
                 return back()->with("loginSuccess", "تم تسجيل الدخول بنجاح! 🎉");
-                    
+
             }else{
                 if ($user->account_status === 'unconfirmed') {
                     return back()->with(['userEmail' => $request->emailLogin , 'errorLoginConfirmation'=> 'حسابك لم يتم تأكيده بعد. الرجاء تحقق من بريدك الإلكتروني لتأكيد الحساب.']);
                 }
-        
+
                 if ($user->account_status === 'banned' or $user->account_status === 'inactive' ) {
                     return back()->with('errorLogin', 'حسابك غير نشط. الرجاء التواصل مع الدعم الفني.');
                 }
@@ -202,9 +202,9 @@ class UserController extends Controller
             return back()->with(['emailLogin' => $request->emailLogin , 'errorLogin'=>'فشل تسجيل الدخول. الرجاء التحقق من البريد الإلكتروني وكلمة المرور.']);
 
         }
-    
+
     }
-    
+
     public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
@@ -215,9 +215,9 @@ class UserController extends Controller
     {
         try {
             $user = Socialite::driver('google')->user();
-    
+
             $userEmail = User::where('email', $user->email)->first();
-    
+
             if ($userEmail and $userEmail->account_status !== 'banned') {
                 $userEmail->update([
                     'account_status' => 'active',
@@ -228,15 +228,15 @@ class UserController extends Controller
                 return redirect('/')->with('success', 'تم تسجيل الدخول بنجاح');
             } else {
                 $findUser = User::where('socail_id', $user->id)->first();
-    
+
                 if ($findUser and $userEmail->account_status !== 'banned') {
                     Auth::login($findUser);
                 } else {
                     $countryCode = $user->user['locale'];
                     $country = Country::where('iso_code', $countryCode)->first();
-    
+
                     $country_id = $country ? $country->id : 1;
-    
+
                     $newUser = User::create([
                         'country_id' => $country_id,
                         'role_id' => 1,
@@ -249,10 +249,10 @@ class UserController extends Controller
                         'password' => Hash::make($user->id),
                         'profile_picture' => $user->user['picture'],
                     ]);
-    
+
                     Auth::login($newUser);
                 }
-    
+
                 return redirect('/')->with('success', 'تم تسجيل الدخول بنجاح');
             }
         } catch (\Exception $e) {
@@ -263,12 +263,12 @@ class UserController extends Controller
     public function logout(Request $request): RedirectResponse
     {
         Auth::logout();
-     
+
         $request->session()->invalidate();
-     
+
         $request->session()->regenerateToken();
-     
+
         return redirect('/');
     }
-    
-}   
+
+}

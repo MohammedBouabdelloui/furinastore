@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('platform');
             $table->string('source');
             $table->enum('server', ['اوروبا', 'أمريكا', 'أسيا', 'الكل']);
-            $table->string('number_sales')->default(0);
+            $table->integer('number_sales')->default(0);
             $table->string('picture');
             $table->softDeletes();
             $table->timestamps();

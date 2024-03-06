@@ -10,6 +10,7 @@ use App\Models\Reroll;
 //use Illuminate\Support\Facades\Request as FacadesRequest;
 use Illuminate\Http\Request;
 use App\Models\Advertisement;
+use App\Models\Service;
 use Stevebauman\Location\Facades\Location;
 
 class NavigationController extends Controller
@@ -22,12 +23,13 @@ class NavigationController extends Controller
         $advertisements = Advertisement::orderBy('number_sales')->take(6)->get();
         //$orders = Order::all();
         $rerolls = Reroll::orderBy('number_sales')->take(4)->get();
+        $services = Service::orderBy('number_sales')->take(8)->get();
         
         $ip = $request->ip();
         $position = Location::get('41.87.159.255');
         notify()->success('فورينا ترحب بك في متجرها ⚡️', 'أهلا بك معنا');
 
-        return view('index', compact('position', 'topups'  , 'advertisements', 'rerolls'));
+        return view('index', compact('position', 'topups'  , 'advertisements', 'rerolls', 'services'));
 
     }
 
@@ -55,6 +57,16 @@ class NavigationController extends Controller
     public function reroll(){
         $rerolls = Reroll::get();
         return  view('reroll.index' , compact('rerolls'));
+    }
+
+    public function service_details($id){
+        $service = Service::findOrFail($id);
+        return view('service.show' ,compact('service'));
+    }
+
+    public function service(){
+        $services = Service::get();
+        return  view('service.index' , compact('services'));
     }
 
 }

@@ -15,7 +15,7 @@ use App\Http\Controllers\AdvertisementController;
 
 use App\Http\Controllers\RerollController;
 use App\Http\Controllers\RerollSoldController;
-
+use App\Http\Controllers\ServiceController;
 use App\Models\ProductOrder;
 
 /*
@@ -40,6 +40,9 @@ Route::get('/advertisement/{id}', [NavigationController::class, 'advertisement_d
 Route::get('/reroll/{id}', [NavigationController::class, 'reroll_details'])->name('reroll.details');
 Route::get('/reroll' , [NavigationController::class , 'reroll'])->name('reroll');
 
+Route::get('/service/{id}', [NavigationController::class, 'service_details'])->name('service.details');
+Route::get('/service' , [NavigationController::class , 'service'])->name('service');
+
 Route::resource('user', UserController::class);
 
 Route::post('user/confirm', [UserController::class, 'confirmation'])->name('user.confirmation');
@@ -50,6 +53,12 @@ Route::post('user/logout', [UserController::class, 'logout'])->name('user.logout
 
 Route::get('auth/google/callback' , [UserController::class , 'handleGoogleCallback' ] );
 Route::get('auth/google' , [UserController::class , 'redirectToGoogle']);
+
+
+Route::middleware(['auth'])->group(function(){
+    Route::get('/profile' , [UserController::class , 'index'])->name('profile');
+
+});
 
 
 Route::middleware(['admin'])->group(function(){
@@ -63,9 +72,9 @@ Route::middleware(['admin'])->group(function(){
     Route::patch('dashboard/topup/restore/{id}', [TopupController::class, 'restore'])->name('topup.restore');
 
 
-    // advertisemnt dashboard 
+    // advertisemnt dashboard
     Route::get('dashboard/advertisement/soft_delete', [AdvertisementController::class , 'soft_delete'])->name('dashboard.advertisement.soft_delete');
-    
+
     Route::resource('dashboard/advertisement' , AdvertisementController::class)->names('dashboard.advertisement');
 
     Route::delete('dashboard/advertisement/delete/{id}' , [AdvertisementController::class , 'delete'])->name('advertisement.delete');
@@ -84,8 +93,16 @@ Route::middleware(['admin'])->group(function(){
     Route::get('dashboard/rerollsold/new/{reroll}', [RerollSoldController::class, 'newSold'])->name('dashboard.rerollsold.new');
 
 
+
     // orders dashboard :
     Route::resource('dashboard/order' , OrderController::class)->names('dashboard.order');
+
+    // services dashboard:
+    Route::get('dashboard/service/soft-delete', [ServiceController::class, 'soft_delete'])->name('service.soft_delete');
+    Route::resource('dashboard/service', ServiceController::class)->names('dashboard.service');
+    Route::delete('dashboard/service/delete/{id}', [ServiceController::class, 'delete'])->name('service.delete');
+    Route::patch('dashboard/service/restore/{id}', [ServiceController::class, 'restore'])->name('service.restore');
+
 
 
 });

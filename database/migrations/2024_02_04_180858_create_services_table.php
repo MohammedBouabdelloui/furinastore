@@ -15,9 +15,11 @@ return new class extends Migration
             $table->id();
             $table->string('title', 255);
             $table->decimal('price', 12, 2);
-            $table->string('description', 255);
-            $table->boolean('is_available');
+            $table->text('description');
+            $table->boolean('is_available')->default(1);
+            $table->integer('number_sales')->default(0);
             $table->string('picture');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
